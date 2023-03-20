@@ -11,6 +11,9 @@ const Menu = () => {
       <Link style={styles.container} to="/">
         კაცი
       </Link>
+      <Link style={styles.container} to="/shop-all">
+        Shop All
+      </Link>
     </MenuBar>
   );
 };

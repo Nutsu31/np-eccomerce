@@ -67,12 +67,3 @@ const Line2 = styled.div(
     box-shadow: 10px 10px 10px gray;
   `
 );
-
-const styles = {
-  container: {
-    width: "500px",
-    height: "600px",
-    position: "absolute",
-    dropShadow: "5px 5px 5px gray",
-  },
-};

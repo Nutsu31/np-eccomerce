@@ -22,6 +22,7 @@ const router = createBrowserRouter(
       <Route path="/admin-panel" element={<AdminPanel />}>
         <Route path="/admin-panel/:menu" element={<Lists />} />
       </Route>
+      <Route path="/shop-all" element={<Lists />} />
       <Route path="/:object" element={<ProductDetailPage />} />
       <Route path="/tracker" element={<TrackCheckout />} />
       <Route path="/cart" element={<Cart />} />

@@ -4,7 +4,6 @@ import styled, { css } from "styled-components";
 import { DataTypes } from "./functions";
 
 const BestSeller = ({ data }: { data: Array<DataTypes> }) => {
-  console.log(data);
   return (
     <div>
       <h1 style={{ borderBottom: "5px solid #e7e0d4" }}>Best Seller</h1>

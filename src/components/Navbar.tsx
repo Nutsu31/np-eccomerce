@@ -97,10 +97,3 @@ const styles = {
     opacity: 0.7,
   },
 };
-
-const UnderHeaderBar = styled.div(
-  () => css`
-    width: 100%;
-    height: 20px;
-  `
-);

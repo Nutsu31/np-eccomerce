@@ -8,6 +8,8 @@ export interface DataTypes {
     size: string;
     _id:string;
     date: Date;
+    category: string;
+    style: string;
   }
 
 export const getClothingModels = async ({setData}: {setData:React.Dispatch<React.SetStateAction<DataTypes[]>>}) => {
@@ -49,5 +51,4 @@ export function getColor (color: string | undefined) {
         return "white";
     }
 }
-
 
