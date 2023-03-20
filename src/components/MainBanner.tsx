@@ -1,7 +1,7 @@
 import React from "react";
 import styled, { css } from "styled-components";
 import BannerImg1 from "../assets/model2.png";
-import BannerImg2 from "../assets/model1.png";
+import BannerImg2 from "../assets/model5.png";
 
 const MainBanner = () => {
   return (
@@ -11,10 +11,10 @@ const MainBanner = () => {
         alt="banner"
         style={{
           width: "380px",
-          height: "600px",
+          height: "550px",
           position: "absolute",
-          top: -60,
-          left: 80,
+          top: -40,
+          left: 0,
         }}
       />
       <Line1></Line1>
@@ -40,7 +40,8 @@ const Container = styled.div(
   () => css`
     width: 100%;
     height: 500px;
-    margin-bottom: 48px;
+    margin: 48px 0;
+    background: #e7e0d4;
     display: flex;
     align-items: center;
     justify-content: center;

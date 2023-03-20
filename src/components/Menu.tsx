@@ -23,6 +23,7 @@ const MenuBar = styled.div(
     height: 30px;
     display: flex;
     gap: 16px;
+    border-bottom: 5px solid #f9f7f4;
   `
 );
 

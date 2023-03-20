@@ -7,7 +7,9 @@ export interface DataTypes {
     price: number;
     size: string;
     _id:string;
+    date: Date;
   }
+
 export const getClothingModels = async ({setData}: {setData:React.Dispatch<React.SetStateAction<DataTypes[]>>}) => {
     const res = await axios.get("http://localhost:5001/clothing", {
       headers: {
@@ -20,6 +22,21 @@ export const getClothingModels = async ({setData}: {setData:React.Dispatch<React
       setData(res.data.getClothingModel);
     }
   };
+
+
+export const getNewAddedClothes = async ({setNewAdded}: {setNewAdded: React.Dispatch<React.SetStateAction<DataTypes[]>>}) => {
+    const res = await axios.get("http://localhost:5001/clothing", {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (res.data.status === 400) {
+      console.log("error");
+    } else {
+      setNewAdded(res.data.getClothingModel.reverse());
+    }
+  };
+
 export function getColor (color: string | undefined) {
     switch (color) {
         case "Black":
@@ -32,3 +49,5 @@ export function getColor (color: string | undefined) {
         return "white";
     }
 }
+
+

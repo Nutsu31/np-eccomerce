@@ -1,24 +1,33 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
 import { DataTypes } from "./functions";
 
-const NewAdded = ({ data }: { data: Array<DataTypes> }) => {
-  const newAddedItem: Array<DataTypes> = data.reverse();
-  console.log(newAddedItem);
-  //   console.log(data);
+const NewAdded = ({ newAdded }: { newAdded: Array<DataTypes> }) => {
+  let newAddedItem: Array<DataTypes> = newAdded.reverse();
   return (
     <>
-      <h1>New Added</h1>
+      <h1 style={{ borderBottom: "5px solid #e7e0d4" }}>New Added</h1>
       <Container>
         {newAddedItem.map((newItem) => {
           return (
-            <EachModel key={newItem._id}>
-              <New>New</New>
-              <img
-                src={`http://localhost:5001/uploads/${newItem.path}`}
-                alt=""
-              />
-            </EachModel>
+            <>
+              <Link
+                to={newItem._id}
+                key={newItem._id}
+                style={{ textDecoration: "none", color: "black" }}
+              >
+                <EachModel key={newItem._id}>
+                  <New>New</New>
+                  <img
+                    src={`http://localhost:5001/uploads/${newItem.path}`}
+                    alt=""
+                  />
+                  <Details>{newItem.name}</Details>
+                  <Details>₾{newItem.price}.00</Details>
+                </EachModel>
+              </Link>
+            </>
           );
         })}
       </Container>
@@ -32,6 +41,7 @@ const Container = styled.div(
   () => css`
     width: 100%;
     height: 400px;
+    margin-bottom: 86px;
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
@@ -44,7 +54,7 @@ const EachModel = styled.div(
     height: 300px;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 8px;
     position: relative;
   `
 );

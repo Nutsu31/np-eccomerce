@@ -1,31 +1,41 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
-import { DataTypes, getClothingModels } from "./functions";
+import { DataTypes } from "./functions";
 
 const BestSeller = ({ data }: { data: Array<DataTypes> }) => {
+  console.log(data);
   return (
-    <>
-      <h1>Best Seller</h1>
+    <div>
+      <h1 style={{ borderBottom: "5px solid #e7e0d4" }}>Best Seller</h1>
       <Container>
         {data.map((item) => {
           return (
-            <Link to={`/${item._id}`}>
+            <Link
+              to={`/${item._id}`}
+              key={item._id}
+              style={{ textDecoration: "none", color: "black" }}
+            >
               <EachModel>
                 <img
                   src={`http://localhost:5001/uploads/${item.path}`}
                   alt="model"
-                  width="100%"
-                  height="300px"
                 />
                 <Details>{item.name}</Details>
-                <Details>₾{item.price}.00</Details>
+                <Details>
+                  ₾{item.price}.00{" "}
+                  <span
+                    style={{ color: "red", textDecoration: "line-through" }}
+                  >
+                    ₾110.00
+                  </span>
+                </Details>
               </EachModel>
             </Link>
           );
         })}
       </Container>
-    </>
+    </div>
   );
 };
 
@@ -35,6 +45,7 @@ const Container = styled.div(
   () => css`
     width: 100%;
     height: 400px;
+    margin-bottom: 64px;
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
@@ -47,7 +58,7 @@ const EachModel = styled.div(
     height: 300px;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 8px;
   `
 );
 

@@ -6,7 +6,6 @@ const ProductDetailPage = () => {
   const [data, setData] = useState<Array<DataTypes>>([]);
   const { object } = useParams();
   const EachModel = data.find((item) => item._id === object);
-  // console.log(EachModel);
   useEffect(() => {
     getClothingModels({ setData });
   }, []);

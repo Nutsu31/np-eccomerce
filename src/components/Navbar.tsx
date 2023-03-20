@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
 import LogoIcon from "../assets/logo.png";
@@ -6,6 +6,7 @@ import { FaSearch, FaShoppingBasket, FaUser } from "react-icons/fa";
 import Menu from "./Menu";
 
 const Navbar = () => {
+  const [login, setLogin] = useState(false);
   return (
     <>
       <Header>
@@ -29,7 +30,11 @@ const Navbar = () => {
 
           <Link to={"/admin-panel"} style={styles.container}>
             <FaUser />
-            შესვლა
+            {login ? (
+              <p onClick={() => setLogin(true)}>გასვლა</p>
+            ) : (
+              <p onClick={() => setLogin(false)}>შესვლა</p>
+            )}
           </Link>
         </InfoForUser>
       </Header>
@@ -62,11 +67,12 @@ const SearchBar = styled.input(
     font-size: 1^px;
     width: 380px;
     height: 30px;
+    padding-left: 16px;
     outline: none;
     border: none;
-    background: transfarent;
+    background: #e7e0d4;
     &::placeholder {
-      opacity: 0.7;
+      opacity: 0.8;
     }
   `
 );
