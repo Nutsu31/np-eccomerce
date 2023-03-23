@@ -1,14 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import styled, { css } from "styled-components";
 import AdminDashboard from "../components/AdminDashboard";
+import { DataTypes, getClothingModels } from "../components/functions";
 import Lists from "../components/Lists";
+import Storages from "../components/Storages";
 import UploadModel from "../components/UploadModel";
 
 const AdminPanel = () => {
   const [login, setLogin] = useState(true);
   const { menu } = useParams();
-  console.log(menu);
+
+  const [data, setData] = useState<Array<DataTypes>>([]);
+
+  useEffect(() => {
+    getClothingModels({ setData });
+  }, []);
   return (
     <Container>
       {login ? (
@@ -16,6 +23,7 @@ const AdminPanel = () => {
           <AdminDashboard />
           {menu === "selling" ? <Lists /> : null}
           {menu === "add-new-model" ? <UploadModel /> : null}
+          {menu === "storage" ? <Storages data={data} /> : null}
         </>
       ) : (
         <h1>გაიარეთ ავტორიზაცია</h1>

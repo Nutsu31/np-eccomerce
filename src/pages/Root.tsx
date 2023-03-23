@@ -8,7 +8,6 @@ export const SearchContext = createContext("");
 const Root = () => {
   const [search, setSearch] = useState("");
   const [login, setLogin] = useState(false);
-  console.log(login);
   return (
     <>
       <SearchContext.Provider value={search}>

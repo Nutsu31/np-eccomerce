@@ -25,8 +25,19 @@ const Lists = () => {
   let calmeCase = searchFilter.charAt(0).toUpperCase() + searchFilter.slice(1);
 
   const dataFilter = data.filter((item) => {
+    if (pathname === "/shop-men") {
+      if (item.gender === "men" || item.gender === "unisex") {
+        return item;
+      }
+    }
+    if (pathname === "/shop-women") {
+      if (item.gender === "women" || item.gender === "unisex") {
+        return item;
+      }
+    }
     if (pathname === "/sales") {
       if (item.sale) {
+        console.log(item);
         return item;
       }
     } else if (pathname === "/shop-all") {

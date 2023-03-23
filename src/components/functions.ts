@@ -12,6 +12,8 @@ export interface DataTypes {
     style: string;
     sale:number;
     collections:string;
+    storage:number;
+    gender:string;
   }
 
 export const getClothingModels = async ({setData}: {setData:React.Dispatch<React.SetStateAction<DataTypes[]>>}) => {

@@ -5,10 +5,10 @@ import styled, { css } from "styled-components";
 const Menu = () => {
   return (
     <MenuBar>
-      <Link style={styles.container} to="/">
+      <Link style={styles.container} to="/shop-women">
         ქალი
       </Link>
-      <Link style={styles.container} to="/">
+      <Link style={styles.container} to="/shop-men">
         კაცი
       </Link>
       <Link style={styles.container} to="/shop-all">

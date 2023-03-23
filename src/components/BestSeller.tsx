@@ -1,9 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
-import { DataTypes, handleDiscount } from "./functions";
+import { DataTypes } from "./functions";
 import Links from "./Links";
-import { Details, EachModel, New, Sale, SaledPrice } from "./NewAdded";
 
 const BestSeller = ({ data }: { data: Array<DataTypes> }) => {
   return (

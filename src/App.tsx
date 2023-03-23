@@ -23,6 +23,8 @@ const router = createBrowserRouter(
         <Route path="/admin-panel/:menu" element={<Lists />} />
       </Route>
       <Route path="/shop-all" element={<Lists />} />
+      <Route path="/shop-men" element={<Lists />} />
+      <Route path="/shop-women" element={<Lists />} />
       <Route path="/sales" element={<Lists />} />
       <Route path="/:object" element={<ProductDetailPage />} />
       <Route path="/tracker" element={<TrackCheckout />} />

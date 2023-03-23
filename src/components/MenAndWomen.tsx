@@ -1,4 +1,5 @@
 import React from "react";
+import { Link, Navigate } from "react-router-dom";
 import styled, { css } from "styled-components";
 
 const MenAndWomen = ({
@@ -32,7 +33,9 @@ const MenAndWomen = ({
             : `Up to 40% off on all items.`}
         </Detail2>
         <Sale model={model}>{model === "men" ? "SALE'S UP 50%" : null}</Sale>
-        <ShopNowButton model={model}>SHOP NOW</ShopNowButton>
+        <Link to="/shop-all">
+          <ShopNowButton model={model}>SHOP NOW</ShopNowButton>
+        </Link>
       </Div>
     </MenAndWomenSection>
   );
