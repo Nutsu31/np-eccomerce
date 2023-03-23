@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
-import { DataTypes } from "./functions";
+import { DataTypes, handleDiscount } from "./functions";
+import Links from "./Links";
+import { Details, EachModel, New, Sale, SaledPrice } from "./NewAdded";
 
 const BestSeller = ({ data }: { data: Array<DataTypes> }) => {
   return (
@@ -9,29 +11,7 @@ const BestSeller = ({ data }: { data: Array<DataTypes> }) => {
       <h1 style={{ borderBottom: "5px solid #e7e0d4" }}>Best Seller</h1>
       <Container>
         {data.map((item) => {
-          return (
-            <Link
-              to={`/${item._id}`}
-              key={item._id}
-              style={{ textDecoration: "none", color: "black" }}
-            >
-              <EachModel>
-                <img
-                  src={`http://localhost:5001/uploads/${item.path}`}
-                  alt="model"
-                />
-                <Details>{item.name}</Details>
-                <Details>
-                  ₾{item.price}.00{" "}
-                  <span
-                    style={{ color: "red", textDecoration: "line-through" }}
-                  >
-                    ₾110.00
-                  </span>
-                </Details>
-              </EachModel>
-            </Link>
-          );
+          return <Links item={item} key={item._id} />;
         })}
       </Container>
     </div>
@@ -45,24 +25,10 @@ const Container = styled.div(
     width: 100%;
     height: 400px;
     margin-bottom: 64px;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-  `
-);
-
-const EachModel = styled.div(
-  () => css`
-    width: 250px;
-    height: 300px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  `
-);
-
-const Details = styled.span(
-  () => css`
-    font-weight: 600;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    grid-column-gap: 24px;
+    grid-row-gap: 20px;
   `
 );

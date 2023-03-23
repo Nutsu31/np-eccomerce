@@ -14,6 +14,9 @@ const Menu = () => {
       <Link style={styles.container} to="/shop-all">
         Shop All
       </Link>
+      <Link style={styles.container} to="/sales">
+        Sale!!!
+      </Link>
     </MenuBar>
   );
 };

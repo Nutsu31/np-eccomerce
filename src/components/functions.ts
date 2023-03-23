@@ -10,6 +10,8 @@ export interface DataTypes {
     date: Date;
     category: string;
     style: string;
+    sale:number;
+    collections:string;
   }
 
 export const getClothingModels = async ({setData}: {setData:React.Dispatch<React.SetStateAction<DataTypes[]>>}) => {
@@ -39,16 +41,18 @@ export const getNewAddedClothes = async ({setNewAdded}: {setNewAdded: React.Disp
     }
   };
 
-export function getColor (color: string | undefined) {
-    switch (color) {
-        case "Black":
-            return "black";
-        case "purple":
-            return "purple";
-        case "gray": 
-            return "gray";
-        case "white" : 
-        return "white";
-    }
-}
 
+
+export interface NavBarTypes {
+  setSearch: React.Dispatch<React.SetStateAction<string>>;
+  setLogin: React.Dispatch<React.SetStateAction<boolean>>;
+  login:boolean;
+}
+export function handleDiscount(item: DataTypes) {
+  let discount = (item.price * item.sale) / 100;
+  return  item.price - discount;
+}
+export const categoriesArray = ["Suits", "T-Shirt"];
+export const brandArray = ["Classic", "Urban"];
+export const sizeArray = ["S", "M", "L"];
+export const colorArray = ["Black", "White", "Gray", "Pink", "Purple"];

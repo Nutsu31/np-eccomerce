@@ -23,6 +23,7 @@ const UploadModel = () => {
         storage: data.storage,
         gender: data.gender,
         sale: data.sale,
+        collections: data.collections,
       },
     })
       .then((res) => console.log(res.data.finalModel))
@@ -38,6 +39,7 @@ const UploadModel = () => {
       storage: "",
       gender: "",
       sale: "",
+      collections: "",
     });
   });
   return (
@@ -58,6 +60,10 @@ const UploadModel = () => {
           <option value="M">M</option>
           <option value="L">L</option>
           <option value="XL">XL</option>
+        </Select>
+        <Select {...register("collections")}>
+          <option>კოლექცია</option>
+          <option value="new">ახალი კოლექცია</option>
         </Select>
         <Select {...register("category")}>
           <option>კატეგორია</option>

@@ -1,12 +1,18 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import styled, { css } from "styled-components";
 import LogoIcon from "../assets/logo.png";
 import { FaSearch, FaShoppingBasket, FaUser } from "react-icons/fa";
 import Menu from "./Menu";
+import { NavBarTypes } from "./functions";
 
-const Navbar = () => {
-  const [login, setLogin] = useState(false);
+const Navbar = ({ setSearch, setLogin, login }: NavBarTypes) => {
+  const navigate = useNavigate();
+
+  const handleNavigate = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    navigate("/shop-all");
+  };
   return (
     <>
       <Header>
@@ -14,10 +20,15 @@ const Navbar = () => {
           <Image src={LogoIcon} alt="logo" />
         </Link>
 
-        <div style={styles.container}>
-          <FaSearch style={{ opacity: 0.7 }} />
-          <SearchBar placeholder="მოძებნე სასურველი პროდუქტი" />
-        </div>
+        <form style={styles.container} onSubmit={handleNavigate}>
+          <button style={{ background: "none", border: "none" }}>
+            <FaSearch style={{ opacity: 0.7 }} />
+          </button>
+          <SearchBar
+            placeholder="მოძებნე სასურველი პროდუქტი"
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </form>
 
         <InfoForUser>
           <Link to="/tracker" style={styles.container}>
@@ -30,11 +41,9 @@ const Navbar = () => {
 
           <Link to={"/admin-panel"} style={styles.container}>
             <FaUser />
-            {login ? (
-              <p onClick={() => setLogin(true)}>გასვლა</p>
-            ) : (
-              <p onClick={() => setLogin(false)}>შესვლა</p>
-            )}
+            <p onClick={() => setLogin(!login)}>
+              {login ? "გასვლა" : "შესვლა"}
+            </p>
           </Link>
         </InfoForUser>
       </Header>

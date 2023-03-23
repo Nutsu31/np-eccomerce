@@ -1,33 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
-import { DataTypes } from "./functions";
+import { DataTypes, handleDiscount } from "./functions";
+import Links from "./Links";
 
 const NewAdded = ({ newAdded }: { newAdded: Array<DataTypes> }) => {
   let newAddedItem: Array<DataTypes> = newAdded.reverse();
+  console.log(newAddedItem);
+
   return (
     <>
       <h1 style={{ borderBottom: "5px solid #e7e0d4" }}>New Added</h1>
       <Container>
         {newAddedItem.map((newItem) => {
           return (
-            <>
-              <Link
-                to={newItem._id}
-                key={newItem._id}
-                style={{ textDecoration: "none", color: "black" }}
-              >
-                <EachModel key={newItem._id}>
-                  <New>New</New>
-                  <img
-                    src={`http://localhost:5001/uploads/${newItem.path}`}
-                    alt=""
-                  />
-                  <Details>{newItem.name}</Details>
-                  <Details>₾{newItem.price}.00</Details>
-                </EachModel>
-              </Link>
-            </>
+            <div key={newItem._id}>
+              <Links item={newItem} key={newItem._id} />
+            </div>
           );
         })}
       </Container>
@@ -42,13 +31,15 @@ const Container = styled.div(
     width: 100%;
     height: 400px;
     margin-bottom: 86px;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    grid-column-gap: 24px;
+    grid-row-gap: 20px;
   `
 );
 
-const EachModel = styled.div(
+export const EachModel = styled.div(
   () => css`
     width: 250px;
     height: 300px;
@@ -59,14 +50,38 @@ const EachModel = styled.div(
   `
 );
 
-const Details = styled.span(
+export const Details = styled.span(
   () => css`
     font-weight: 600;
   `
 );
-
-const New = styled.div(
+export const SaledPrice = styled.span(
   () => css`
+    font-weight: 600;
+    color: red;
+    text-decoration: line-through;
+  `
+);
+
+export const New = styled.div(
+  () => css`
+    font-size: 14px;
+    font-weight: 600;
+    color: white;
+    width: 38px;
+    height: 20px;
+    background: navy;
+    position: absolute;
+    border-radius: 6px;
+    left: 10px;
+    top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  `
+);
+export const Sale = styled.div(
+  ({ collections }: { collections: string }) => css`
     font-size: 14px;
     font-weight: 600;
     color: white;
@@ -76,7 +91,9 @@ const New = styled.div(
     position: absolute;
     border-radius: 6px;
     left: 10px;
-    top: 10px;
-    text-align: center;
+    top: ${collections ? "40px" : "10px"};
+    display: flex;
+    align-items: center;
+    justify-content: center;
   `
 );
