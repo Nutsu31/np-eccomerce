@@ -68,6 +68,7 @@ const Td = styled.td(
     font-weight: 600;
     text-align: center;
     color: ${item === 0 ? "red" : "black"};
+    border: 1px solid black;
   `
 );
 

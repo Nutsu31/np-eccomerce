@@ -1,7 +1,5 @@
 import React from "react";
 import "./App.css";
-import Navbar from "./components/Navbar";
-import UploadModel from "./components/UploadModel";
 import {
   Route,
   RouterProvider,

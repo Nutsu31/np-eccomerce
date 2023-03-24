@@ -58,3 +58,22 @@ export const categoriesArray = ["Suits", "T-Shirt"];
 export const brandArray = ["Classic", "Urban"];
 export const sizeArray = ["S", "M", "L"];
 export const colorArray = ["Black", "White", "Gray", "Pink", "Purple"];
+
+
+export function getName (color:string | undefined) {
+  switch (color){
+    case "Black":
+      return "შავი";
+    case "White":
+      return "თეთრი";
+    case "Gray":
+      return "ნაცრისფერი";
+    case "Purple":
+      return "იასამნისფერი";
+    case "Blue":
+      return "ლურჯი";
+    case "Green":
+      return "მწვანე";
+  }
+}
+

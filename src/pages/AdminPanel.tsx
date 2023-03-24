@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import styled, { css } from "styled-components";
 import AdminDashboard from "../components/AdminDashboard";
 import { DataTypes, getClothingModels } from "../components/functions";

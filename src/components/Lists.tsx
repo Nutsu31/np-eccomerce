@@ -9,11 +9,9 @@ import {
   colorArray,
   DataTypes,
   getClothingModels,
-  handleDiscount,
   sizeArray,
 } from "./functions";
 import Links from "./Links";
-import { EachModel, New, Sale, SaledPrice } from "./NewAdded";
 
 const Lists = () => {
   const [data, setData] = useState<Array<DataTypes>>([]);
