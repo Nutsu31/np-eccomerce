@@ -15,6 +15,15 @@ export interface DataTypes {
     storage:number;
     gender:string;
   }
+  export interface CartType {
+    img: string;
+    name: string;
+    size:string;
+    quantity: string;
+    price: number;
+    sale: number;
+    id: string
+  }
 
 export const getClothingModels = async ({setData}: {setData:React.Dispatch<React.SetStateAction<DataTypes[]>>}) => {
     const res = await axios.get("http://localhost:5001/clothing", {
@@ -50,9 +59,13 @@ export interface NavBarTypes {
   setLogin: React.Dispatch<React.SetStateAction<boolean>>;
   login:boolean;
 }
-export function handleDiscount(item: DataTypes) {
-  let discount = (item.price * item.sale) / 100;
-  return  item.price - discount;
+export function handleDiscount(item: DataTypes | CartType) {
+  if(item.sale){
+    let discount = (item.price * item.sale) / 100;
+    return  +item.price - discount;
+  }else{
+    return +item.price
+  }
 }
 export const categoriesArray = ["Suits", "T-Shirt"];
 export const brandArray = ["Classic", "Urban"];
@@ -77,3 +90,36 @@ export function getName (color:string | undefined) {
   }
 }
 
+export function getItemsFromLocalStorage ({setCartItem}:{setCartItem: React.Dispatch<React.SetStateAction<CartType[]>>}){
+  const item = JSON.parse(localStorage.getItem("key")!)
+  setCartItem(item)
+} 
+
+interface getTotalPriceType {
+  cartItem: Array<CartType>,
+  setTotalPrice:React.Dispatch<React.SetStateAction<number>>
+}
+
+export function getTotalPrice ({cartItem, setTotalPrice}:getTotalPriceType){
+    const total = 0;
+  const calculatePrice = cartItem.map(
+    (i: CartType) => total + Number(handleDiscount(i)) * Number(i.quantity)
+  );
+  const sum = calculatePrice.reduce(
+    (acc: number, cur: number) => acc + cur,
+    0
+  );
+  setTotalPrice(sum);
+}
+interface HandleDeleteType {
+  id:string,
+  cartItem:Array<CartType>,
+  setCartItem:React.Dispatch<React.SetStateAction<CartType[]>>
+}
+
+export function handleDelete ({id,cartItem,setCartItem}:HandleDeleteType) {
+  const newCartItem = cartItem?.filter((item) => item.id !== id);
+  console.log(newCartItem);
+  localStorage.setItem("key", JSON.stringify(newCartItem));
+  setCartItem(newCartItem);
+}

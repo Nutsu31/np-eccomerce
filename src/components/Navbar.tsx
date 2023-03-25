@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled, { css } from "styled-components";
 import LogoIcon from "../assets/logo.png";
@@ -13,6 +13,7 @@ const Navbar = ({ setSearch, setLogin, login }: NavBarTypes) => {
     e.preventDefault();
     navigate("/shop-all");
   };
+
   return (
     <>
       <Header>
@@ -34,7 +35,31 @@ const Navbar = ({ setSearch, setLogin, login }: NavBarTypes) => {
           <Link to="/tracker" style={styles.container}>
             ადევნე თვალი შეკვეთას
           </Link>
-          <Link to="/cart" style={styles.container}>
+          <Link
+            to="/cart"
+            style={
+              (styles.container,
+              {
+                position: "relative",
+                textDecoration: "none",
+                opacity: 0.7,
+                color: "black",
+              })
+            }
+          >
+            {true ? (
+              <div
+                style={{
+                  background: "red",
+                  width: "16px",
+                  borderRadius: "50%",
+                  color: "white",
+                  textAlign: "center",
+                }}
+              >
+                <span>{1}</span>
+              </div>
+            ) : null}
             <FaShoppingBasket />
             კალათა
           </Link>

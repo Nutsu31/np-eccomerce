@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useFieldArray, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import styled, { css } from "styled-components";
 import {
@@ -12,7 +12,7 @@ import { Details, SaledPrice } from "../components/NewAdded";
 
 const ProductDetailPage = () => {
   const [data, setData] = useState<Array<DataTypes>>([]);
-  const { register, handleSubmit, reset, setValue, getValues } = useForm();
+  const { register, handleSubmit, reset, setValue } = useForm();
   const { object } = useParams();
 
   const EachModel = data.find((item) => item._id === object);
@@ -28,6 +28,9 @@ const ProductDetailPage = () => {
       name: EachModel?.name,
       quantity: data.quantity,
       price: EachModel?.price,
+      sale: EachModel?.sale,
+      size: data.size,
+      id: EachModel?._id,
     };
     const item = JSON.parse(localStorage.getItem("key")!);
 
@@ -157,17 +160,17 @@ const DetailsWrapper = styled.div(
     gap: 16px;
   `
 );
-const CustomLabel = styled.label(
-  ({ color }: { color: string | undefined }) => css`
-    width: 16px;
-    height: 16px;
-    color: white;
-    background: ${color};
-    outline: ${color ? "1px solid white" : null};
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-  `
-);
+// const CustomLabel = styled.label(
+//   ({ color }: { color: string | undefined }) => css`
+//     width: 16px;
+//     height: 16px;
+//     color: white;
+//     background: ${color};
+//     outline: ${color ? "1px solid white" : null};
+//     border-radius: 50%;
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     position: relative;
+//   `
+// );

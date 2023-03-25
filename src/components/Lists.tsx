@@ -55,7 +55,7 @@ const Lists = () => {
 
   useEffect(() => {
     getClothingModels({ setData });
-  }, [setFilterByCategory]);
+  }, [filterByCategory]);
 
   useEffect(() => {
     setFilterByCategory(calmeCase);
