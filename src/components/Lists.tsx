@@ -109,10 +109,8 @@ const Container = styled.div(
     margin-bottom: 64px;
     display: inline-grid;
     grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: repeat(5, 1fr);
     grid-column-gap: 24px;
     grid-row-gap: 180px;
-    flex-wrap: wrap;
   `
 );
 

@@ -111,6 +111,37 @@ export function getTotalPrice ({cartItem, setTotalPrice}:getTotalPriceType){
   );
   setTotalPrice(sum);
 }
+
+interface GetTotalSaleType {
+  cartItem:Array<CartType>,
+  totalPrice:number,
+  setTotalSale:React.Dispatch<React.SetStateAction<number>>
+}
+export function getTotalSale ({cartItem, totalPrice, setTotalSale}:GetTotalSaleType){
+    const calculatePrice = cartItem.map((item:CartType) => {
+      return item.price
+    })  
+  const sum = calculatePrice.reduce(
+    (acc: number, cur: number) => acc + cur,
+    0
+  );
+  console.log(sum)
+  const calculateSale = cartItem.map((item:CartType) => {
+    if(item.sale){
+      return item.price * item.sale / 100
+    }else {
+      return 0
+    }
+  })  
+  const sum2 = calculateSale.reduce(
+    (acc: number, cur: number) => acc + cur,
+    0
+    );
+    console.log(sum2)
+  let result = sum - sum2
+  setTotalSale(sum2)
+
+}
 interface HandleDeleteType {
   id:string,
   cartItem:Array<CartType>,
