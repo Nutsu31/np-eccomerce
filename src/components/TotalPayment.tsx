@@ -1,24 +1,31 @@
 import React from "react";
 import styled, { css } from "styled-components";
+import { Details } from "./NewAdded";
 
 const TotalPayment = ({
   totalPrice,
   totalSale,
+  cartSize,
+  setContinueCheckout,
 }: {
   totalPrice: number;
   totalSale: number;
+  cartSize: number;
+  setContinueCheckout: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   return (
     <>
       {totalPrice > 0 ? (
         <Container>
-          <p>რაოდენობა: 3</p>
-          <p>ფასდაკლება: -{Math.hypot(totalSale)}₾</p>
+          <Details>რაოდენობა: {cartSize}</Details>
+          <Details>ფასდაკლება: -{Math.hypot(totalSale)}₾</Details>
           <div></div>
-          <p>მიწოდება: თბილის 4₾ საქართველო: 7₾</p>
+          <Details>მიწოდება: თბილის 4₾ საქართველო: 7₾</Details>
           <div></div>
-          <p>ჯამი: {Math.hypot(totalPrice)}₾</p>
-          <button>განაგრძე გამოწერა</button>
+          <Details>ჯამი: {Math.hypot(totalPrice)}₾</Details>
+          <button onClick={() => setContinueCheckout((curr) => !curr)}>
+            შეკვეთის გაგრძელება
+          </button>
         </Container>
       ) : null}
     </>

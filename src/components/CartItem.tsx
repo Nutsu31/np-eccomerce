@@ -1,6 +1,7 @@
 import React from "react";
 import styled, { css } from "styled-components";
 import { CartType, handleDelete, handleDiscount } from "./functions";
+import { Details } from "./NewAdded";
 
 const CartItem = ({
   cartItem,
@@ -11,6 +12,7 @@ const CartItem = ({
 }) => {
   return (
     <>
+      {cartItem.length > 0 ? null : <p>კალათა ცარიელია</p>}
       {cartItem?.map((item) => (
         <Container key={item.img}>
           <img
@@ -18,16 +20,16 @@ const CartItem = ({
             alt="model"
             width={100}
           />
-          <p>{item.name}</p>
-          <p>ზომა: {item.size}</p>
-          <p>რაოდენობა: x{item.quantity}</p>
-          <p>
+          <Details>{item.name}</Details>
+          <Details>ზომა: {item.size}</Details>
+          <Details>რაოდენობა: x{item.quantity}</Details>
+          <Details>
             ფასი:{" "}
             {item.sale
               ? handleDiscount(item) * Number(item.quantity)
               : item.price * Number(item.quantity)}
             ₾
-          </p>
+          </Details>
           <Remove
             onClick={() => handleDelete({ id: item.id, cartItem, setCartItem })}
           >

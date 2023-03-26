@@ -18,7 +18,7 @@ const Storages = ({ data }: { data: Array<DataTypes> }) => {
           </Thead>
           <tbody>
             {data.map((item) => (
-              <tr>
+              <tr key={item._id}>
                 <Td item={item.storage}>
                   <img
                     src={`http://localhost:5001/uploads/${item.path}`}

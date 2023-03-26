@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import React from "react";
 import styled, { css } from "styled-components";
-import { DataTypes, handleDiscount } from "./functions";
+import { DataTypes } from "./functions";
 import Links from "./Links";
 
 const NewAdded = ({ newAdded }: { newAdded: Array<DataTypes> }) => {
@@ -26,7 +25,7 @@ const NewAdded = ({ newAdded }: { newAdded: Array<DataTypes> }) => {
 
 export default NewAdded;
 
-const Container = styled.div(
+export const Container = styled.div(
   () => css`
     width: 100%;
     height: 400px;
