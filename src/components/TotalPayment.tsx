@@ -13,11 +13,11 @@ const TotalPayment = ({
       {totalPrice > 0 ? (
         <Container>
           <p>რაოდენობა: 3</p>
-          <p>ფასდაკლება: -{totalSale}₾</p>
+          <p>ფასდაკლება: -{Math.hypot(totalSale)}₾</p>
           <div></div>
           <p>მიწოდება: თბილის 4₾ საქართველო: 7₾</p>
           <div></div>
-          <p>ჯამი: {totalPrice}₾</p>
+          <p>ჯამი: {Math.hypot(totalPrice)}₾</p>
           <button>განაგრძე გამოწერა</button>
         </Container>
       ) : null}
