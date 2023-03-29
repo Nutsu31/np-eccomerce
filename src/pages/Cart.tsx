@@ -17,7 +17,6 @@ const Cart = () => {
   const [cartSize, setCartSize] = useState(0);
   const [continueCheckout, setContinueCheckout] = useState(false);
 
-  console.log(cartItem.length);
   useEffect(() => {
     getTotalPrice({ cartItem, setTotalPrice });
     setCartSize(cartItem.length);

@@ -6,6 +6,7 @@ const AdminDashboard = () => {
     <AdminBar>
       <Link to="add-new-model">მოდელის დამატება</Link>
       <Link to="selling">გაყიდვაშია</Link>
+      <Link to="checkout">შეკვეთა</Link>
       <Link to="sold">გაიყიდა</Link>
       <Link to="storage">მარაგი</Link>
     </AdminBar>

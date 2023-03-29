@@ -5,7 +5,6 @@ import Links from "./Links";
 
 const NewAdded = ({ newAdded }: { newAdded: Array<DataTypes> }) => {
   let newAddedItem: Array<DataTypes> = newAdded.reverse();
-  console.log(newAddedItem);
 
   return (
     <>
@@ -13,7 +12,7 @@ const NewAdded = ({ newAdded }: { newAdded: Array<DataTypes> }) => {
       <Container>
         {newAddedItem.map((newItem) => {
           return (
-            <div key={newItem._id}>
+            <div key={Math.random() * Math.random()}>
               <Links item={newItem} key={newItem._id} />
             </div>
           );

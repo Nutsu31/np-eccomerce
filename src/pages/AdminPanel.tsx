@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled, { css } from "styled-components";
 import AdminDashboard from "../components/AdminDashboard";
+import Checkouts from "../components/Checkouts";
 import { DataTypes, getClothingModels } from "../components/functions";
 import Lists from "../components/Lists";
+import SoldItems from "../components/SoldItems";
 import Storages from "../components/Storages";
 import UploadModel from "../components/UploadModel";
 
@@ -23,6 +25,8 @@ const AdminPanel = () => {
           <AdminDashboard />
           {menu === "selling" ? <Lists /> : null}
           {menu === "add-new-model" ? <UploadModel /> : null}
+          {menu === "checkout" ? <Checkouts /> : null}
+          {menu === "sold" ? <SoldItems /> : null}
           {menu === "storage" ? <Storages data={data} /> : null}
         </>
       ) : (

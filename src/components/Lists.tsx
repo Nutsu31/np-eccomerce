@@ -19,7 +19,6 @@ const Lists = () => {
   const searchFilter = useContext(SearchContext);
   const { pathname } = useLocation();
 
-  console.log(pathname);
   let calmeCase = searchFilter.charAt(0).toUpperCase() + searchFilter.slice(1);
 
   const dataFilter = data.filter((item) => {
@@ -93,7 +92,12 @@ const Lists = () => {
         ) : null}
         <Container>
           {dataFilter.map((item) => {
-            return <Links item={item} key={item._id} />;
+            return (
+              <Links
+                item={item}
+                key={Math.random() * Math.random() * Math.random()}
+              />
+            );
           })}
         </Container>
       </div>

@@ -7,7 +7,6 @@ import { EachModel } from "./NewAdded";
 const WeRecomemdedModels = () => {
   const [data, setData] = useState<Array<DataTypes>>([]);
   const [randomItem, setRandomItem] = useState<DataTypes | undefined>();
-  console.log(randomItem);
   data.length = 5;
 
   useEffect(() => {

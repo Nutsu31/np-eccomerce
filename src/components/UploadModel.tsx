@@ -13,6 +13,7 @@ const UploadModel = () => {
       url: "http://localhost:5001/add-new-model",
       headers: { "Content-Type": "multipart/form-data" },
       data: {
+        _id: Date.now(),
         name: data.name,
         price: data.price,
         size: data.size,

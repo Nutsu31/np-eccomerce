@@ -23,6 +23,7 @@ export interface DataTypes {
     price: number;
     sale: number;
     id: string
+    path:string
   }
 
 export const getClothingModels = async ({setData}: {setData:React.Dispatch<React.SetStateAction<DataTypes[]>>}) => {
@@ -117,15 +118,9 @@ interface GetTotalSaleType {
   totalPrice:number,
   setTotalSale:React.Dispatch<React.SetStateAction<number>>
 }
-export function getTotalSale ({cartItem, totalPrice, setTotalSale}:GetTotalSaleType){
-    const calculatePrice = cartItem.map((item:CartType) => {
-      return item.price
-    })  
-  const sum = calculatePrice.reduce(
-    (acc: number, cur: number) => acc + cur,
-    0
-  );
-  console.log(sum)
+export function getTotalSale ({cartItem,  setTotalSale}:GetTotalSaleType){
+
+
   const calculateSale = cartItem.map((item:CartType) => {
     if(item.sale){
       return item.price * item.sale / 100
@@ -137,8 +132,6 @@ export function getTotalSale ({cartItem, totalPrice, setTotalSale}:GetTotalSaleT
     (acc: number, cur: number) => acc + cur,
     0
     );
-    console.log(sum2)
-  let result = sum - sum2
   setTotalSale(sum2)
 
 }
@@ -150,7 +143,70 @@ interface HandleDeleteType {
 
 export function handleDelete ({id,cartItem,setCartItem}:HandleDeleteType) {
   const newCartItem = cartItem?.filter((item) => item.id !== id);
-  console.log(newCartItem);
   localStorage.setItem("key", JSON.stringify(newCartItem));
   setCartItem(newCartItem);
+}
+
+
+// get checkouts form database
+
+export interface CheckoutsType {
+  firstname: string;
+  lastname: string;
+  _id:string,
+  model: [
+    {
+      img: string;
+      id: string;
+      name: string;
+      price: number;
+      quantity: number;
+      sale: number;
+      size: string;
+      path:string;
+    }
+  ];
+  phone: string;
+  alt_phone: string;
+  city: string;
+  street: string;
+  postalCode: string;
+  status: string;
+  totalPrice: number;
+}
+export async function getCheckouts ({setCheckout}:{setCheckout:React.Dispatch<React.SetStateAction<CheckoutsType[] | undefined>>}) {
+  const res = await axios.get("http://localhost:5001/checkout", {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (res.data.status === 400) {
+      console.log("error");
+    } else {
+      setCheckout(res.data.getCheckoutData);
+    }
+}
+export async function orderTracker ({setOrder,pathname}:{pathname:string,setOrder:React.Dispatch<React.SetStateAction<CheckoutsType[] | undefined>>}) {
+  const res = await axios.get(`http://localhost:5001/tracker`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (res.data.status === 400) {
+      console.log("error");
+    } else {
+      setOrder(res.data.orderData);
+    }
+}
+
+export function getStatusColor(status: string) {
+  if (status === "inProgress") {
+    return "yellow";
+  } else if (status === "shipped") {
+    return "lightgreen";
+  } else if (status === "delivered") {
+    return "green";
+  } else {
+    return "red";
+  }
 }

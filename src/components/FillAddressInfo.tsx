@@ -15,7 +15,9 @@ const FillAddressInfo = ({
   const onSubmit = handleSubmit((data) => {
     data.totalPrice = totalPrice;
     data.model = cartItem;
+    data._id = Date.now().toString();
     data.status = "Order Placed";
+    console.log(data);
     axios({
       method: "POST",
       url: "http://localhost:5001/checkout",
@@ -23,7 +25,8 @@ const FillAddressInfo = ({
       data: {
         firstname: data.firstname,
         lastname: data.lastname,
-        totalprice: data.totalPrice,
+        totalPrice: data.totalPrice,
+        _id: data._id,
         model: data.model,
         city: data.city,
         phone: data.phone,

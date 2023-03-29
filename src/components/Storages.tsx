@@ -34,7 +34,9 @@ const Storages = ({ data }: { data: Array<DataTypes> }) => {
                 <Td item={item.storage}>{item.name}</Td>
                 <Td item={item.storage}>{item.color}</Td>
                 <Td item={item.storage}>{item.size}</Td>
-                <Td item={item.storage}>დარჩენილია: {item.storage}</Td>
+                <Td item={item.storage}>
+                  დარჩენილია: {item.storage} <button>მარაგის განახლება</button>
+                </Td>
               </tr>
             ))}
           </tbody>
