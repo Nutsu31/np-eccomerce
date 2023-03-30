@@ -2,12 +2,19 @@ import axios from "axios";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import styled, { css } from "styled-components";
+
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const UploadModel = () => {
   const { register, handleSubmit, reset } = useForm();
   const [sale, setSale] = useState(false);
 
+  const notify = () => toast.success("მოდელი წარმატებით დაემატა!");
+
   const onSubmit = handleSubmit((data) => {
     console.log(data);
+    notify();
     axios({
       method: "POST",
       url: "http://localhost:5001/add-new-model",
@@ -46,6 +53,18 @@ const UploadModel = () => {
   return (
     <>
       <Form onSubmit={onSubmit}>
+        <ToastContainer
+          position="top-center"
+          autoClose={4000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark"
+        />
         <Input
           type="file"
           {...register("image")}

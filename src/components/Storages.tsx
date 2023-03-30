@@ -2,8 +2,12 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import styled, { css } from "styled-components";
 import { DataTypes } from "./functions";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Storages = ({ data }: { data: Array<DataTypes> }) => {
+  const nofitySucces = () => toast.success("წარმატებით განახლდა დაარეფრეშე!");
+  const nofityErr = () => toast.error("განახლება უარყოფილია!");
   const [updateStorage, setUpdateStorage] = useState<
     UpdateStorageType | undefined
   >(undefined);
@@ -30,8 +34,8 @@ const Storages = ({ data }: { data: Array<DataTypes> }) => {
           storage: updateStorage?.storage,
         },
       })
-        .then((res) => console.log(res))
-        .catch((err) => console.log(err));
+        .then((res) => nofitySucces())
+        .catch((err) => nofityErr());
     }
   }
 
@@ -42,6 +46,18 @@ const Storages = ({ data }: { data: Array<DataTypes> }) => {
     <div style={{ width: "100%" }}>
       <div>
         <TableGenerator>
+          <ToastContainer
+            position="top-center"
+            autoClose={3000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="dark"
+          />
           <Thead>
             <tr>
               <th>სურათი</th>

@@ -8,7 +8,9 @@ const NewAdded = ({ newAdded }: { newAdded: Array<DataTypes> }) => {
 
   return (
     <>
-      <h1 style={{ borderBottom: "5px solid #e7e0d4" }}>New Added</h1>
+      <h1 style={{ borderBottom: "5px solid #e7e0d4", height: 50 }}>
+        New Added
+      </h1>
       <Container>
         {newAddedItem.map((newItem) => {
           return (
@@ -27,11 +29,10 @@ export default NewAdded;
 export const Container = styled.div(
   () => css`
     width: 100%;
-    height: 400px;
-    margin-bottom: 86px;
+    height: 560px;
+    padding: 48px 0;
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: repeat(5, 1fr);
     grid-column-gap: 24px;
     grid-row-gap: 20px;
   `

@@ -12,6 +12,7 @@ const Root = () => {
     <>
       <SearchContext.Provider value={search}>
         <Navbar setSearch={setSearch} setLogin={setLogin} login={login} />
+
         <Outlet />
         <Footer />
       </SearchContext.Provider>

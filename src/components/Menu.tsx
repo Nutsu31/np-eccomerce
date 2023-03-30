@@ -26,7 +26,7 @@ export default Menu;
 const MenuBar = styled.div(
   () => css`
     width: 100%;
-    height: 30px;
+    height: 40px;
     display: flex;
     gap: 16px;
     border-bottom: 5px solid #f9f7f4;

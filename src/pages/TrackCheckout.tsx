@@ -4,20 +4,26 @@ import { useNavigate, useLocation } from "react-router-dom";
 import styled, { css } from "styled-components";
 import { CheckoutsType, orderTracker } from "../components/functions";
 import { FaSearch } from "react-icons/fa";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const TrackCheckout = () => {
   const [order, setOrder] = useState<CheckoutsType[] | undefined>(undefined);
   const [findWithNumber, setFindWithNumber] = useState("");
   const { register, handleSubmit, reset } = useForm();
   const { pathname } = useLocation();
-  // console.log(order);
-  // console.log(pathname);
+  const notify = () => toast.info("შეკვეთა იძებნება გთხოვთ მოიცადოთ!");
+
   useEffect(() => {
     orderTracker({ setOrder, pathname });
   }, []);
 
   const onSubmit = handleSubmit((data) => {
-    setFindWithNumber(data.phone);
+    notify();
+    setTimeout(() => {
+      setFindWithNumber(data.phone);
+    }, 3500);
+    reset({ phone: "" });
   });
   const findOrder = order?.find(
     (item) => item.phone.toString() === findWithNumber
@@ -25,6 +31,18 @@ const TrackCheckout = () => {
   return (
     <Container>
       <div>
+        <ToastContainer
+          position="top-center"
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark"
+        />
         {findOrder ? (
           <>
             <div>

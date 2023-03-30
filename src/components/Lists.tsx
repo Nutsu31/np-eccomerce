@@ -114,7 +114,8 @@ export default Lists;
 const Container = styled.div(
   () => css`
     width: 85%;
-    margin-bottom: 64px;
+    padding: 24px 0;
+    margin-bottom: 120px;
     display: inline-grid;
     grid-template-columns: repeat(5, 1fr);
     grid-column-gap: 24px;
