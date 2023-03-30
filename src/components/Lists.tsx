@@ -6,6 +6,7 @@ import Categories from "./Categories";
 import {
   brandArray,
   categoriesArray,
+  CheckoutsType,
   colorArray,
   DataTypes,
   getClothingModels,
@@ -34,7 +35,6 @@ const Lists = () => {
     }
     if (pathname === "/sales") {
       if (item.sale) {
-        console.log(item);
         return item;
       }
     } else if (pathname === "/shop-all") {
@@ -49,6 +49,8 @@ const Lists = () => {
       } else if (item.size.includes(filterByCategory)) {
         return item;
       }
+    } else if (pathname === "/admin-panel/selling") {
+      return item;
     }
   });
 
@@ -61,47 +63,49 @@ const Lists = () => {
   }, [calmeCase]);
 
   return (
-    <div style={{ width: "100%", minHeight: "100vh", display: "flex" }}>
-      <div style={{ display: "inline-block", marginRight: 24 }}>
-        <Categories
-          name="Categories"
-          option={categoriesArray}
-          setFilterByCategory={setFilterByCategory}
-        />
-        <Categories
-          name="Brand"
-          option={brandArray}
-          setFilterByCategory={setFilterByCategory}
-        />
-        <Categories
-          name="Size"
-          option={sizeArray}
-          setFilterByCategory={setFilterByCategory}
-        />
-        <Categories
-          name="Color"
-          option={colorArray}
-          setFilterByCategory={setFilterByCategory}
-        />
+    <>
+      <div style={{ width: "100%", minHeight: "100vh", display: "flex" }}>
+        <div style={{ display: "inline-block", marginRight: 24 }}>
+          <Categories
+            name="Categories"
+            option={categoriesArray}
+            setFilterByCategory={setFilterByCategory}
+          />
+          <Categories
+            name="Brand"
+            option={brandArray}
+            setFilterByCategory={setFilterByCategory}
+          />
+          <Categories
+            name="Size"
+            option={sizeArray}
+            setFilterByCategory={setFilterByCategory}
+          />
+          <Categories
+            name="Color"
+            option={colorArray}
+            setFilterByCategory={setFilterByCategory}
+          />
+        </div>
+        <div>
+          {searchFilter ? (
+            <div>
+              <h3>Search result for: "{searchFilter}"</h3>
+            </div>
+          ) : null}
+          <Container>
+            {dataFilter.map((item) =>
+              item.storage <= 0 ? null : (
+                <Links
+                  item={item}
+                  key={Math.random() * Math.random() * Math.random()}
+                />
+              )
+            )}
+          </Container>
+        </div>
       </div>
-      <div>
-        {searchFilter ? (
-          <div>
-            <h3>Search result for: "{searchFilter}"</h3>
-          </div>
-        ) : null}
-        <Container>
-          {dataFilter.map((item) => {
-            return (
-              <Links
-                item={item}
-                key={Math.random() * Math.random() * Math.random()}
-              />
-            );
-          })}
-        </Container>
-      </div>
-    </div>
+    </>
   );
 };
 

@@ -22,7 +22,6 @@ const TrackCheckout = () => {
   const findOrder = order?.find(
     (item) => item.phone.toString() === findWithNumber
   );
-  console.log(findOrder);
   return (
     <Container>
       <div>

@@ -3,7 +3,11 @@ import { useParams } from "react-router-dom";
 import styled, { css } from "styled-components";
 import AdminDashboard from "../components/AdminDashboard";
 import Checkouts from "../components/Checkouts";
-import { DataTypes, getClothingModels } from "../components/functions";
+import {
+  CheckoutsType,
+  DataTypes,
+  getClothingModels,
+} from "../components/functions";
 import Lists from "../components/Lists";
 import SoldItems from "../components/SoldItems";
 import Storages from "../components/Storages";
@@ -14,6 +18,7 @@ const AdminPanel = () => {
   const { menu } = useParams();
 
   const [data, setData] = useState<Array<DataTypes>>([]);
+  const [checkout, setCheckout] = useState<Array<CheckoutsType>>();
 
   useEffect(() => {
     getClothingModels({ setData });
@@ -25,8 +30,10 @@ const AdminPanel = () => {
           <AdminDashboard />
           {menu === "selling" ? <Lists /> : null}
           {menu === "add-new-model" ? <UploadModel /> : null}
-          {menu === "checkout" ? <Checkouts /> : null}
-          {menu === "sold" ? <SoldItems /> : null}
+          {menu === "checkout" ? (
+            <Checkouts checkout={checkout} setCheckout={setCheckout} />
+          ) : null}
+          {menu === "sold" ? <SoldItems checkout={checkout} /> : null}
           {menu === "storage" ? <Storages data={data} /> : null}
         </>
       ) : (

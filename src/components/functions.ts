@@ -93,7 +93,12 @@ export function getName (color:string | undefined) {
 
 export function getItemsFromLocalStorage ({setCartItem}:{setCartItem: React.Dispatch<React.SetStateAction<CartType[]>>}){
   const item = JSON.parse(localStorage.getItem("key")!)
-  setCartItem(item)
+  if(item == null){
+    return
+  }else{
+
+    setCartItem(item)
+  }
 } 
 
 interface getTotalPriceType {
@@ -208,5 +213,49 @@ export function getStatusColor(status: string) {
     return "green";
   } else {
     return "red";
+  }
+}
+
+export interface OrderStatusType {
+  id?: string;
+  status?: string;
+  models?: [
+    {
+      img: string;
+      id: string;
+      name: string;
+      price: number;
+      quantity: number;
+      sale: number;
+      size: string;
+      path: string;
+    }
+  ];
+}
+export async function updateCheckoutStatus({
+    orderStatus,
+    setShouldUpdate
+}:{
+  orderStatus: OrderStatusType | undefined,
+  setShouldUpdate:React.Dispatch<React.SetStateAction<boolean>>
+}
+) {
+  if(orderStatus === undefined){
+    return
+  }else{
+    axios({
+      method: "PUT",
+      url: "http://localhost:5001/checkout",
+      headers: { "Content-Type": "application/json" },
+      data: {
+        id: orderStatus?.id,
+        status: orderStatus?.status,
+        models: orderStatus?.models,
+      },
+    })
+      .then((res) => {
+        console.log(res.data)
+      })
+      .catch((err) => console.log(err));
   }
 }

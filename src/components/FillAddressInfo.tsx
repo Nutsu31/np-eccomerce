@@ -47,6 +47,7 @@ const FillAddressInfo = ({
       alt_phone: "",
       postalCode: "",
     });
+    localStorage.clear();
   });
   return (
     <div>

@@ -1,8 +1,43 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import styled, { css } from "styled-components";
 import { DataTypes } from "./functions";
 
 const Storages = ({ data }: { data: Array<DataTypes> }) => {
+  const [updateStorage, setUpdateStorage] = useState<
+    UpdateStorageType | undefined
+  >(undefined);
+
+  interface UpdateStorageType {
+    id?: string;
+    storage?: number;
+  }
+
+  async function storageUpdate({
+    updateStorage,
+  }: {
+    updateStorage: UpdateStorageType | undefined;
+  }) {
+    if (updateStorage === undefined) {
+      return;
+    } else {
+      axios({
+        method: "PUT",
+        url: "http://localhost:5001/storages",
+        headers: { "Content-Type": "application/json" },
+        data: {
+          id: updateStorage?.id,
+          storage: updateStorage?.storage,
+        },
+      })
+        .then((res) => console.log(res))
+        .catch((err) => console.log(err));
+    }
+  }
+
+  useEffect(() => {
+    storageUpdate({ updateStorage });
+  }, [updateStorage, storageUpdate]);
   return (
     <div style={{ width: "100%" }}>
       <div>
@@ -18,7 +53,7 @@ const Storages = ({ data }: { data: Array<DataTypes> }) => {
           </Thead>
           <tbody>
             {data.map((item) => (
-              <tr key={item._id}>
+              <tr key={Math.random() * Math.random() * Math.random()}>
                 <Td item={item.storage}>
                   <img
                     src={`http://localhost:5001/uploads/${item.path}`}
@@ -35,7 +70,28 @@ const Storages = ({ data }: { data: Array<DataTypes> }) => {
                 <Td item={item.storage}>{item.color}</Td>
                 <Td item={item.storage}>{item.size}</Td>
                 <Td item={item.storage}>
-                  დარჩენილია: {item.storage} <button>მარაგის განახლება</button>
+                  დარჩენილია: {item.storage}{" "}
+                  <button
+                    onClick={() =>
+                      setUpdateStorage({ id: item._id, storage: 1 })
+                    }
+                  >
+                    +1
+                  </button>
+                  <button
+                    onClick={() =>
+                      setUpdateStorage({ id: item._id, storage: 3 })
+                    }
+                  >
+                    +3
+                  </button>
+                  <button
+                    onClick={() =>
+                      setUpdateStorage({ id: item._id, storage: 5 })
+                    }
+                  >
+                    +5
+                  </button>
                 </Td>
               </tr>
             ))}
