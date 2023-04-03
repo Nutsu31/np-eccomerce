@@ -1,15 +1,20 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { DataTypes, handleDiscount } from "./functions";
 import { Details, EachModel, New, Sale, SaledPrice } from "./NewAdded";
+import { DarkModeContext } from "../pages/Root";
 
 const Links = ({ item }: { item: DataTypes }) => {
+  const Dark = useContext(DarkModeContext);
   return (
     <div>
       <Link
         to={`/${item._id}`}
         key={item._id}
-        style={{ textDecoration: "none", color: "black" }}
+        style={{
+          textDecoration: "none",
+          color: Dark ? "rgba(255, 255, 255, 0.7)" : " black",
+        }}
       >
         <EachModel>
           {item.collections === "new" ? <New>New</New> : null}

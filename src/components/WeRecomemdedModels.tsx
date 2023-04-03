@@ -24,7 +24,7 @@ const WeRecomemdedModels = () => {
       <h1
         style={{
           height: 60,
-          borderBottom: "1px solid black",
+          borderBottom: "1px solid lightgray",
           margin: "24px 0",
         }}
       >

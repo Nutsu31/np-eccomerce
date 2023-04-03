@@ -35,7 +35,7 @@ const Cart = () => {
         style={{
           height: 60,
           margin: "24px 0",
-          borderBottom: "1px solid black",
+          borderBottom: "1px solid lightgray",
         }}
       >
         კალათა:{" "}
@@ -49,6 +49,7 @@ const Cart = () => {
           totalPrice={totalPrice}
           totalSale={totalSale}
           cartSize={cartSize}
+          continueCheckout={continueCheckout}
           setContinueCheckout={setContinueCheckout}
         />
       </div>

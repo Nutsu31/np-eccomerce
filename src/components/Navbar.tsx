@@ -1,18 +1,31 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled, { css } from "styled-components";
 import LogoIcon from "../assets/logo.png";
-import { FaSearch, FaShoppingBasket, FaUser } from "react-icons/fa";
 import Menu from "./Menu";
 import { NavBarTypes } from "./functions";
+import { getItemsFromLocalStorage, CartType } from "./functions";
+import {
+  PersonOutlineRounded,
+  ShoppingBagOutlined,
+  LightMode,
+  DarkMode,
+  Search,
+} from "@mui/icons-material";
+import { Button, TextField } from "@mui/material";
 
-const Navbar = ({ setSearch, setLogin, login }: NavBarTypes) => {
+const Navbar = ({ setSearch, setLogin, login, setDark, dark }: NavBarTypes) => {
+  const [cartItem, setCartItem] = useState<CartType[]>([]);
   const navigate = useNavigate();
 
   const handleNavigate = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     navigate("/shop-all");
   };
+
+  useEffect(() => {
+    getItemsFromLocalStorage({ setCartItem });
+  }, []);
 
   return (
     <>
@@ -21,19 +34,31 @@ const Navbar = ({ setSearch, setLogin, login }: NavBarTypes) => {
           <Image src={LogoIcon} alt="logo" />
         </Link>
 
-        <form style={styles.container} onSubmit={handleNavigate}>
-          <button style={{ background: "none", border: "none" }}>
-            <FaSearch style={{ opacity: 0.7 }} />
-          </button>
-          <SearchBar
+        <form
+          style={{ width: 400, display: "flex", alignItems: "center" }}
+          onSubmit={handleNavigate}
+        >
+          <Button endIcon={<Search color="disabled" />} type="submit"></Button>
+          <TextField
+            fullWidth
             placeholder="მოძებნე სასურველი პროდუქტი"
             onChange={(e) => setSearch(e.target.value)}
           />
         </form>
-
-        <InfoForUser>
+        <HeaderRight>
           <Link to="/tracker" style={styles.container}>
-            ადევნე თვალი შეკვეთას
+            <p
+              style={{
+                width: "fit-content",
+                display: "flex",
+                alignItems: "center",
+                gap: 4,
+                textDecoration: "none",
+                color: dark ? "white" : "black",
+              }}
+            >
+              ადევნე თვალი შეკვეთას
+            </p>
           </Link>
           <Link
             to="/cart"
@@ -43,36 +68,47 @@ const Navbar = ({ setSearch, setLogin, login }: NavBarTypes) => {
                 position: "relative",
                 textDecoration: "none",
                 opacity: 0.7,
-                color: "black",
               })
             }
           >
-            {true ? (
-              <div
-                style={{
-                  background: "red",
-                  width: "16px",
-                  borderRadius: "50%",
-                  color: "white",
-                  textAlign: "center",
-                }}
-              >
-                <span>{1}</span>
-              </div>
-            ) : null}
-            <FaShoppingBasket />
-            კალათა
+            <p
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 4,
+                textDecoration: "none",
+                color: dark ? "white" : "black",
+              }}
+            >
+              <ShoppingBagOutlined />
+              კალათა
+            </p>
           </Link>
 
           <Link to={"/admin-panel"} style={styles.container}>
-            <FaUser />
-            <p onClick={() => setLogin(!login)}>
+            <p
+              onClick={() => setLogin(!login)}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: 4,
+                textDecoration: "none",
+                color: dark ? "white" : "black",
+              }}
+            >
+              <PersonOutlineRounded />
+
               {login ? "გასვლა" : "შესვლა"}
             </p>
           </Link>
-        </InfoForUser>
+          <Button
+            endIcon={
+              dark ? <DarkMode color="warning" /> : <LightMode color="action" />
+            }
+            onClick={() => setDark(!dark)}
+          ></Button>
+        </HeaderRight>
       </Header>
-      <Menu />
     </>
   );
 };
@@ -89,6 +125,15 @@ const Header = styled.header(
   `
 );
 
+const HeaderRight = styled.div(
+  () => css`
+    width: 480px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  `
+);
+
 const Image = styled.img(
   () => css`
     width: 130px;
@@ -96,33 +141,9 @@ const Image = styled.img(
   `
 );
 
-const SearchBar = styled.input(
-  () => css`
-    font-size: 1^px;
-    width: 380px;
-    height: 30px;
-    padding-left: 16px;
-    outline: none;
-    border: none;
-    background: #e7e0d4;
-    &::placeholder {
-      opacity: 0.8;
-    }
-  `
-);
-
-const InfoForUser = styled.div(
-  () => css`
-    width: 420px;
-    display: flex;
-    justify-content: space-between;
-  `
-);
-
 const styles = {
   container: {
     fontSize: 16,
-    color: "black",
     textDecoration: "none",
     display: "flex",
     alignItems: "center",

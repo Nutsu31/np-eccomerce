@@ -22,13 +22,15 @@ const Checkouts = ({
   const [orderStatus, setOrderStatus] = useState<OrderStatusType | undefined>(
     undefined
   );
+  console.log(orderStatus);
+
   useEffect(() => {
     getCheckouts({ setCheckout });
-  }, [shouldUpdate, checkout]);
+  }, [orderStatus, shouldUpdate]);
 
   useEffect(() => {
     updateCheckoutStatus({ orderStatus, setShouldUpdate });
-  }, [shouldUpdate, orderStatus]);
+  }, [orderStatus, checkout]);
 
   return (
     <Container>
@@ -76,7 +78,7 @@ const Checkouts = ({
                     background: getStatusColor(item.status),
                   }}
                 >
-                  სტატუსი: {item.status}
+                  სტატუსი: {item.status}{" "}
                 </p>
               ) : null}
               {item.status !== "delivered" ? (
@@ -124,9 +126,6 @@ export default Checkouts;
 const Container = styled.div(
   () => css`
     width: 100%;
-    // min-height: 400px;
-    display: flex;
-    flex-direction: column;
   `
 );
 

@@ -58,6 +58,9 @@ export const getNewAddedClothes = async ({setNewAdded}: {setNewAdded: React.Disp
 export interface NavBarTypes {
   setSearch: React.Dispatch<React.SetStateAction<string>>;
   setLogin: React.Dispatch<React.SetStateAction<boolean>>;
+  setDark: React.Dispatch<React.SetStateAction<boolean>>;
+
+  dark:boolean;
   login:boolean;
 }
 export function handleDiscount(item: DataTypes | CartType) {

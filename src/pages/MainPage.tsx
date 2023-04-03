@@ -27,11 +27,11 @@ const MainPage = () => {
 
   useEffect(() => {
     getClothingModels({ setData });
-  }, [getClothingModels]);
+  }, []);
 
   useEffect(() => {
     getNewAddedClothes({ setNewAdded });
-  }, [getNewAddedClothes]);
+  }, []);
 
   return (
     <>

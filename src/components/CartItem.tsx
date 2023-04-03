@@ -48,7 +48,7 @@ const Container = styled.div(
     width: 800px;
     height: 186px;
     padding: 16px;
-    border-bottom: 2px solid #faf1e9;
+    border-bottom: 1px solid lightgray;
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
@@ -57,6 +57,9 @@ const Container = styled.div(
 
 const Remove = styled.button(
   () => css`
+    width: 12px;
+    height: 12px;
+    font-size: 16px;
     border: none;
     outline: none;
     cursor: pointer;

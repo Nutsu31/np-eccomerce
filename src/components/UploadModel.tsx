@@ -25,7 +25,7 @@ const UploadModel = () => {
         price: data.price,
         size: data.size,
         color: data.color,
-        image: data.image[0],
+        image: data.image,
         category: data.category,
         style: data.style,
         storage: data.storage,
@@ -67,6 +67,7 @@ const UploadModel = () => {
         />
         <Input
           type="file"
+          multiple
           {...register("image")}
           placeholder="ატვირთე სასურველი მოდელი"
         />

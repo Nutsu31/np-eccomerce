@@ -2,6 +2,11 @@ import React from "react";
 import { CheckoutsType } from "./functions";
 
 const SoldItems = ({ checkout }: { checkout: CheckoutsType[] | undefined }) => {
+  const totalSoldPrice = checkout?.map((item) => item.totalPrice);
+  const countSoldPrice = totalSoldPrice?.reduce((x, y) => x + y);
+  const soldItems = checkout?.map((item) => item.model.length.valueOf());
+  const totalSoldItems = soldItems?.reduce((pre, curr) => pre + curr);
+
   return (
     <div
       style={{
@@ -12,8 +17,16 @@ const SoldItems = ({ checkout }: { checkout: CheckoutsType[] | undefined }) => {
         gap: 64,
       }}
     >
+      <p
+        style={{ width: "100%", textAlign: "center", background: "lightgray" }}
+      >
+        სულ გაიყიდა: {totalSoldItems}ც ჯამი: {countSoldPrice}₾
+      </p>
       {checkout?.map((item) => (
-        <div key={Math.random() * Math.random() * Math.random()}>
+        <div
+          key={Math.random() * Math.random() * Math.random()}
+          style={{ border: "1px solid lightgray" }}
+        >
           {item.status === "delivered" ? (
             <div>
               <p>

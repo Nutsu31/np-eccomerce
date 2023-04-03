@@ -2,6 +2,8 @@ import axios from "axios";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { CartType } from "./functions";
+import styled, { css } from "styled-components";
+import { Button } from "./TotalPayment";
 
 const FillAddressInfo = ({
   totalPrice,
@@ -50,32 +52,61 @@ const FillAddressInfo = ({
     localStorage.clear();
   });
   return (
-    <div>
+    <FormWrapper>
       <h1>ადრესატის ინფორმაცია:</h1>
-      <form onSubmit={onSubmit}>
-        <input type="text" {...register("firstname")} placeholder="სახელი" />
-        <input type="text" {...register("lastname")} placeholder="გვარი" />
-        <input type="text" {...register("city")} placeholder="ქალაქი" />
-        <input type="text" {...register("street")} placeholder="ქუჩა" />
-        <input
+      <Form onSubmit={onSubmit}>
+        <Input type="text" {...register("firstname")} placeholder="სახელი" />
+        <Input type="text" {...register("lastname")} placeholder="გვარი" />
+        <Input type="text" {...register("city")} placeholder="ქალაქი" />
+        <Input type="text" {...register("street")} placeholder="ქუჩა" />
+        <Input
           type="number"
           {...register("phone")}
           placeholder="საკონტაქტო ნომერი"
         />
-        <input
+        <Input
           type="number"
           {...register("alt_phone")}
           placeholder="სხვა საკონტაქტო პირის ნომერი"
         />
-        <input
+        <Input
           type="text"
           {...register("postalCode")}
           placeholder="საფოსტო კოდი მაგ:(თბილისი: 0162)"
         />
-        <button>გაგრძელება</button>
-      </form>
-    </div>
+        <Button>გაგრძელება</Button>
+      </Form>
+    </FormWrapper>
   );
 };
 
 export default FillAddressInfo;
+const FormWrapper = styled.div(
+  () => css`
+    width: 100%;
+    height: 520px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 16px;
+  `
+);
+const Form = styled.form(
+  () => css`
+    width: 500px;
+    display: flex;
+    gap: 4px;
+    flex-direction: column;
+  `
+);
+const Input = styled.input(
+  () => css`
+    width: 100%;
+    height: 50px;
+    padding: 0 16px;
+    outline: none;
+    border-radius: 10px;
+    border: 3px solid lightgray;
+  `
+);

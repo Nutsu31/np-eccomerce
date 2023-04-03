@@ -43,78 +43,66 @@ const Storages = ({ data }: { data: Array<DataTypes> }) => {
     storageUpdate({ updateStorage });
   }, [updateStorage, storageUpdate]);
   return (
-    <div style={{ width: "100%" }}>
-      <div>
-        <TableGenerator>
-          <ToastContainer
-            position="top-center"
-            autoClose={3000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="dark"
-          />
-          <Thead>
-            <tr>
-              <th>სურათი</th>
-              <th>სახელი</th>
-              <th>ფერი</th>
-              <th>ზომა</th>
-              <th>დარჩენილი რაოდენობა</th>
-            </tr>
-          </Thead>
-          <tbody>
-            {data.map((item) => (
-              <tr key={Math.random() * Math.random() * Math.random()}>
-                <Td item={item.storage}>
-                  <img
-                    src={`http://localhost:5001/uploads/${item.path}`}
-                    alt="item"
-                    style={
-                      item.storage === 0
-                        ? { border: "10px solid red" }
-                        : undefined
-                    }
-                    width={86}
-                  />
-                </Td>
-                <Td item={item.storage}>{item.name}</Td>
-                <Td item={item.storage}>{item.color}</Td>
-                <Td item={item.storage}>{item.size}</Td>
-                <Td item={item.storage}>
-                  დარჩენილია: {item.storage}{" "}
-                  <button
-                    onClick={() =>
-                      setUpdateStorage({ id: item._id, storage: 1 })
-                    }
-                  >
-                    +1
-                  </button>
-                  <button
-                    onClick={() =>
-                      setUpdateStorage({ id: item._id, storage: 3 })
-                    }
-                  >
-                    +3
-                  </button>
-                  <button
-                    onClick={() =>
-                      setUpdateStorage({ id: item._id, storage: 5 })
-                    }
-                  >
-                    +5
-                  </button>
-                </Td>
-              </tr>
-            ))}
-          </tbody>
-        </TableGenerator>
-      </div>
-    </div>
+    <TableGenerator>
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
+      <Thead>
+        <tr>
+          <th>სურათი</th>
+          <th>სახელი</th>
+          <th>ფერი</th>
+          <th>ზომა</th>
+          <th>დარჩენილი რაოდენობა</th>
+        </tr>
+      </Thead>
+      <tbody>
+        {data.map((item) => (
+          <tr key={Math.random() * Math.random() * Math.random()}>
+            <Td item={item.storage}>
+              <img
+                src={`http://localhost:5001/uploads/${item.path}`}
+                alt="item"
+                style={
+                  item.storage === 0 ? { border: "10px solid red" } : undefined
+                }
+                width={86}
+              />
+            </Td>
+            <Td item={item.storage}>{item.name}</Td>
+            <Td item={item.storage}>{item.color}</Td>
+            <Td item={item.storage}>{item.size}</Td>
+            <Td item={item.storage}>
+              დარჩენილია: {item.storage}{" "}
+              <button
+                onClick={() => setUpdateStorage({ id: item._id, storage: 1 })}
+              >
+                +1
+              </button>
+              <button
+                onClick={() => setUpdateStorage({ id: item._id, storage: 3 })}
+              >
+                +3
+              </button>
+              <button
+                onClick={() => setUpdateStorage({ id: item._id, storage: 5 })}
+              >
+                +5
+              </button>
+            </Td>
+          </tr>
+        ))}
+      </tbody>
+    </TableGenerator>
   );
 };
 

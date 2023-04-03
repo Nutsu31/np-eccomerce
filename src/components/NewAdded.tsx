@@ -1,14 +1,24 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled, { css } from "styled-components";
 import { DataTypes } from "./functions";
 import Links from "./Links";
+import { DarkModeContext } from "../pages/Root";
 
 const NewAdded = ({ newAdded }: { newAdded: Array<DataTypes> }) => {
   let newAddedItem: Array<DataTypes> = newAdded.reverse();
+  const Dark = useContext(DarkModeContext);
 
   return (
     <>
-      <h1 style={{ borderBottom: "5px solid #e7e0d4", height: 50 }}>
+      <h1
+        style={{
+          color: `${Dark ? "rgba(255, 255, 255, 0.3)" : "black"} `,
+          borderBottom: `5px solid ${
+            Dark ? "rgba(255, 255, 255, 0.3)" : "#e7e0d4"
+          } `,
+          height: 50,
+        }}
+      >
         New Added
       </h1>
       <Container>
@@ -51,7 +61,7 @@ export const EachModel = styled.div(
 
 export const Details = styled.span(
   () => css`
-    font-weight: 600;
+    font-weight: 500;
   `
 );
 export const SaledPrice = styled.span(
