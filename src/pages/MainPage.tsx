@@ -12,6 +12,7 @@ import {
 import NewAdded from "../components/NewAdded";
 import FollowUs from "../components/FollowUs";
 import styled, { css } from "styled-components";
+import { useMediaQuery } from "@mui/material";
 
 const menColor =
   "radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(205,183,162,1) 100%);";
@@ -23,8 +24,18 @@ const MainPage = () => {
   const [newAdded, setNewAdded] = useState<Array<DataTypes>>([]);
 
   // short array for get 5 items to main page
-  data.length = 4;
-  newAdded.length = 4;
+  const handleShow = useMediaQuery("(max-width:1600px)");
+
+  useEffect(() => {
+    console.log(handleShow);
+    if (!handleShow) {
+      data.length = 5;
+      newAdded.length = 5;
+    } else {
+      newAdded.length = 4;
+      data.length = 4;
+    }
+  }, [handleShow]);
 
   useEffect(() => {
     getClothingModels({ setData });

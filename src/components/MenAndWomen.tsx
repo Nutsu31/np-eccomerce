@@ -13,16 +13,7 @@ const MenAndWomen = ({
 }) => {
   return (
     <MenAndWomenSection color={color} model={model}>
-      <img
-        src={img}
-        alt="model"
-        width={250}
-        style={
-          model === "men"
-            ? { width: 250, position: "absolute", left: 20 }
-            : { width: 250, position: "absolute", right: 20 }
-        }
-      />
+      <ModelImg src={img} alt="model" model={model} />
       <Div>
         <Detail1 model={model}>
           {model === "men" ? "MEN'S CLOTHING" : "WOMEN'S CLOTHING"}
@@ -66,17 +57,45 @@ const MenAndWomenSection = styled.div(
     justify-content: ${model === "men" ? "flex-end" : "flex-start"};
     background: ${color};
     position: relative;
+    @media (max-width: 780px) {
+      padding: 0 32px;
+    }
+    @media (max-width: 650px) {
+      padding: 0 100px;
+    }
+  `
+);
+
+const ModelImg = styled.img(
+  ({ model }: { model: string }) => css`
+    width: 250px;
+    position: absolute;
+    ${model === "men" ? "left:20px" : "right:20px"};
+    @media (max-width: 650px) {
+      ${model === "men" ? "left:56px" : "right:56px"}
+    }
+    @media (max-width: 555px) {
+      ${model === "men" ? "left:72px" : "right:72px"}
+    } ;
   `
 );
 
 const Div = styled.div(
   () => css`
-  width:560px;
+  width:400px;
     display:flex;
     flex-direction:column;
     align-items center;
     justify-content:center;
     gap:16px;
+    @media(max-width:1450px){
+      width:340px
+    }
+    
+    @media(max-width:1400px){
+      width:360px;
+    }
+    
   `
 );
 
@@ -85,6 +104,9 @@ const Detail1 = styled.span(
     font-size: 18px;
     font-weight: 600;
     color: ${model === "men" ? "red" : "white"};
+    @media (max-width: 1400px) {
+      font-size: 18x;
+    }
   `
 );
 const Detail2 = styled.span(
@@ -92,6 +114,19 @@ const Detail2 = styled.span(
     font-size: 36px;
     font-weight: 600;
     color: ${model === "men" ? "#070f52" : "white"};
+
+    @media (max-width: 1600px) {
+      font-size: 30px;
+    }
+    @media (max-width: 1450px) {
+      font-size: 28px;
+    }
+    @media (max-width: 1400px) {
+      font-size: 32px;
+    }
+    @media (max-width: 650px) {
+      font-size: 26px;
+    }
   `
 );
 
