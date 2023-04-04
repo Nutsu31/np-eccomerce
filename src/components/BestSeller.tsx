@@ -3,6 +3,7 @@ import { DataTypes } from "./functions";
 import Links from "./Links";
 import { useContext } from "react";
 import { DarkModeContext } from "../pages/Root";
+import { Grid } from "@mui/material";
 
 const BestSeller = ({ data }: { data: Array<DataTypes> }) => {
   const Dark = useContext(DarkModeContext);

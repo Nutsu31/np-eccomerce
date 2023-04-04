@@ -1,15 +1,22 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled, { css } from "styled-components";
+import { DarkModeContext } from "../pages/Root";
 
 const FollowUs = () => {
+  const Dark = useContext(DarkModeContext);
   return (
     <Container>
       <h3 style={{ color: "gray" }}>გამოგვყევით</h3>
       <div>
-        <Social href="https://www.facebook.com/profile.php?id=100089102174444">
+        <Social
+          Dark={Dark}
+          href="https://www.facebook.com/profile.php?id=100089102174444"
+        >
           Facebook
         </Social>
-        <Social href="https://www.instagram.com/np_wpc/">Instagram</Social>
+        <Social Dark={Dark} href="https://www.instagram.com/np_wpc/">
+          Instagram
+        </Social>
       </div>
     </Container>
   );
@@ -30,8 +37,8 @@ const Container = styled.div(
 );
 
 const Social = styled.a(
-  () => css`
-    color: black;
+  ({ Dark }: { Dark: boolean }) => css`
+    color: ${Dark ? "rgba(255, 255, 255, 0.5) " : "black"};
     font-size: 48px;
     font-weight: 700;
     text-decoration: none;

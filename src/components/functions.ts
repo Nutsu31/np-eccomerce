@@ -59,9 +59,9 @@ export interface NavBarTypes {
   setSearch: React.Dispatch<React.SetStateAction<string>>;
   setLogin: React.Dispatch<React.SetStateAction<boolean>>;
   setDark: React.Dispatch<React.SetStateAction<boolean>>;
-
   dark:boolean;
   login:boolean;
+  showMenu?:boolean
 }
 export function handleDiscount(item: DataTypes | CartType) {
   if(item.sale){

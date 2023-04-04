@@ -4,6 +4,7 @@ import styled, { css } from "styled-components";
 import LogoIcon from "../assets/logo.png";
 import Menu from "./Menu";
 import { NavBarTypes } from "./functions";
+import NavbarMobile from "./NavbarMobile";
 import { getItemsFromLocalStorage, CartType } from "./functions";
 import {
   PersonOutlineRounded,
@@ -11,12 +12,18 @@ import {
   LightMode,
   DarkMode,
   Search,
+  CloseOutlined,
 } from "@mui/icons-material";
-import { Button, TextField } from "@mui/material";
+import { Button, Stack, TextField } from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 const Navbar = ({ setSearch, setLogin, login, setDark, dark }: NavBarTypes) => {
   const [cartItem, setCartItem] = useState<CartType[]>([]);
+  const [showMenu, setShowMenu] = useState(false);
   const navigate = useNavigate();
+
+  const showMenuButton = useMediaQuery("(max-width:1400px)");
 
   const handleNavigate = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -31,7 +38,11 @@ const Navbar = ({ setSearch, setLogin, login, setDark, dark }: NavBarTypes) => {
     <>
       <Header>
         <Link to="/">
-          <Image src={LogoIcon} alt="logo" />
+          <Image
+            src={LogoIcon}
+            alt="logo"
+            style={{ filter: dark ? "contrast(0)" : "" }}
+          />
         </Link>
 
         <form
@@ -40,11 +51,22 @@ const Navbar = ({ setSearch, setLogin, login, setDark, dark }: NavBarTypes) => {
         >
           <Button endIcon={<Search color="disabled" />} type="submit"></Button>
           <TextField
-            fullWidth
+            sx={{ width: { sm: 200, md: 380, xl: "100%" } }}
+            // fullWidth
             placeholder="მოძებნე სასურველი პროდუქტი"
             onChange={(e) => setSearch(e.target.value)}
+            variant="standard"
+            style={window.screenX === 600 ? { display: "none" } : undefined}
           />
         </form>
+        <NavbarMobile
+          setSearch={setSearch}
+          login={login}
+          setLogin={setLogin}
+          dark={dark}
+          setDark={setDark}
+          showMenu={showMenu}
+        />
         <HeaderRight>
           <Link to="/tracker" style={styles.container}>
             <p
@@ -108,6 +130,24 @@ const Navbar = ({ setSearch, setLogin, login, setDark, dark }: NavBarTypes) => {
             onClick={() => setDark(!dark)}
           ></Button>
         </HeaderRight>
+        {showMenuButton ? (
+          <Button
+            style={{
+              position: "absolute",
+              top: showMenu ? 10 : 20,
+              right: showMenu ? "40px" : "0",
+              transition: "0.3s ease",
+              zIndex: 4,
+            }}
+            onClick={() => setShowMenu(!showMenu)}
+          >
+            {showMenu ? (
+              <CloseOutlined color="warning" />
+            ) : (
+              <MenuIcon color="disabled" />
+            )}
+          </Button>
+        ) : null}
       </Header>
     </>
   );
@@ -122,6 +162,13 @@ const Header = styled.header(
     display: flex;
     align-items: center;
     justify-content: space-between;
+    position: relative;
+    @media (max-width: 1400px) {
+      padding: 20px 0;
+      height: 200px;
+      flex-direction: column;
+      justify-content: center;
+    }
   `
 );
 
@@ -131,6 +178,9 @@ const HeaderRight = styled.div(
     display: flex;
     justify-content: space-between;
     align-items: center;
+    @media (max-width: 1400px) {
+      display: none;
+    }
   `
 );
 
@@ -138,10 +188,16 @@ const Image = styled.img(
   () => css`
     width: 130px;
     height: 130px;
+    @media (max-width: 1400px) {
+      margin-left: 80px;
+    }
+    @media (max-width: 900px) {
+      margin: 0;
+    }
   `
 );
 
-const styles = {
+export const styles = {
   container: {
     fontSize: 16,
     textDecoration: "none",
@@ -150,5 +206,10 @@ const styles = {
     justifyContent: "center",
     gap: "6px",
     opacity: 0.7,
+  },
+  menu: {
+    position: "absolute",
+    top: "24px",
+    transition: "0.3s ease",
   },
 };

@@ -20,7 +20,8 @@ const Lists = () => {
   const searchFilter = useContext(SearchContext);
   const { pathname } = useLocation();
 
-  let calmeCase = searchFilter.charAt(0).toUpperCase() + searchFilter.slice(1);
+  let capitalLetter =
+    searchFilter.charAt(0).toUpperCase() + searchFilter.slice(1);
 
   const dataFilter = data.filter((item) => {
     if (pathname === "/shop-men") {
@@ -59,8 +60,8 @@ const Lists = () => {
   }, [filterByCategory]);
 
   useEffect(() => {
-    setFilterByCategory(calmeCase);
-  }, [calmeCase]);
+    setFilterByCategory(capitalLetter);
+  }, [capitalLetter]);
 
   return (
     <>
