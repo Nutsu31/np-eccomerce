@@ -46,7 +46,12 @@ const Navbar = ({ setSearch, setLogin, login, setDark, dark }: NavBarTypes) => {
         </Link>
 
         <form
-          style={{ width: 400, display: "flex", alignItems: "center" }}
+          style={{
+            width: 400,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
           onSubmit={handleNavigate}
         >
           <Button endIcon={<Search color="disabled" />} type="submit"></Button>
@@ -149,6 +154,7 @@ const Navbar = ({ setSearch, setLogin, login, setDark, dark }: NavBarTypes) => {
           </Button>
         ) : null}
       </Header>
+      <Menu dark={dark} />
     </>
   );
 };
@@ -186,8 +192,7 @@ const HeaderRight = styled.div(
 
 const Image = styled.img(
   () => css`
-    width: 130px;
-    height: 130px;
+    width: 60px;
     @media (max-width: 1400px) {
       margin-left: 80px;
     }

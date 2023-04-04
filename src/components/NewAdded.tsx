@@ -9,7 +9,7 @@ const NewAdded = ({ newAdded }: { newAdded: Array<DataTypes> }) => {
   const Dark = useContext(DarkModeContext);
 
   return (
-    <>
+    <Container>
       <h1
         style={{
           color: `${Dark ? "rgba(255, 255, 255, 0.3)" : "black"} `,
@@ -21,7 +21,7 @@ const NewAdded = ({ newAdded }: { newAdded: Array<DataTypes> }) => {
       >
         New Added
       </h1>
-      <Container>
+      <GridWrapper>
         {newAddedItem.map((newItem) => {
           return (
             <div key={Math.random() * Math.random()}>
@@ -29,8 +29,8 @@ const NewAdded = ({ newAdded }: { newAdded: Array<DataTypes> }) => {
             </div>
           );
         })}
-      </Container>
-    </>
+      </GridWrapper>
+    </Container>
   );
 };
 
@@ -39,12 +39,36 @@ export default NewAdded;
 export const Container = styled.div(
   () => css`
     width: 100%;
-    height: 560px;
+    height: fit-content;
+    @media (max-width: 1325px) {
+      height: 1000px;
+    }
+    @media (max-width: 610px) {
+      height: 2200px;
+    }
+  `
+);
+export const GridWrapper = styled.div(
+  () => css`
+    width: 100%;
+    height: 540px;
     padding: 48px 0;
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    grid-column-gap: 24px;
-    grid-row-gap: 20px;
+    grid-template-columns: repeat(4, 1fr);
+    grid-column-gap: 10px;
+    grid-row-gap: 10px;
+    justify-items: center;
+    @media (max-width: 1325px) {
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-row: repeat(2, 1fr);
+      grid-column-gap: 10px;
+      grid-row-gap: 10px;
+    }
+    @media (max-width: 610px) {
+      grid-template-columns: repeat(1, 1fr);
+      grid-template-row: repeat(4, 1fr);
+      grid-column-gap: 0px;
+    } ;
   `
 );
 

@@ -70,7 +70,7 @@ const ProductDetailPage = () => {
           src={`http://localhost:5001/uploads/${EachModel?.path}`}
           alt="model"
           width={500}
-          height={624}
+          // height={624}
         />
       </div>
       <DetailsWrapper>
@@ -137,6 +137,7 @@ const Container = styled.div(
   () => css`
     width: 100%;
     min-height: 100vh;
+    padding: 24px;
     display: flex;
     gap: 24px;
   `
@@ -145,7 +146,7 @@ const Container = styled.div(
 const ImgBorder = styled.img(
   () => css`
     width: 184px;
-    height: 184px;
+    height: 200px;
     padding: 8px;
     outline: 1px solid gray;
   `

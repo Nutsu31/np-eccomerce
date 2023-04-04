@@ -46,11 +46,21 @@ export default MenAndWomen;
 interface ModelType {
   model: string;
 }
+
+const Container = styled.div(
+  () => css`
+    width: 100%;
+    dipslay: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+  `
+);
 const MenAndWomenSection = styled.div(
   ({ color, model }: { model?: string; color: string }) => css`
     width: 780px;
     height: 340px;
-    margin: 86px 0;
+    margin: 66px 0 24px 0;
     display: flex;
     align-items: center;
     justify-content: ${model === "men" ? "flex-end" : "flex-start"};

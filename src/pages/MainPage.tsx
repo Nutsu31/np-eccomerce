@@ -11,6 +11,7 @@ import {
 } from "../components/functions";
 import NewAdded from "../components/NewAdded";
 import FollowUs from "../components/FollowUs";
+import styled, { css } from "styled-components";
 
 const menColor =
   "radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(205,183,162,1) 100%);";
@@ -22,8 +23,8 @@ const MainPage = () => {
   const [newAdded, setNewAdded] = useState<Array<DataTypes>>([]);
 
   // short array for get 5 items to main page
-  data.length = 5;
-  newAdded.length = 5;
+  data.length = 4;
+  newAdded.length = 4;
 
   useEffect(() => {
     getClothingModels({ setData });
@@ -37,10 +38,10 @@ const MainPage = () => {
     <>
       <MainBanner />
       <BestSeller data={data} />
-      <div style={{ display: "flex", justifyContent: "space-between" }}>
+      <BannerWrapper>
         <MenAndWomen color={menColor} img={MenPhoto} model="men" />
         <MenAndWomen color={womenColor} img={WomenPhoto} model="women" />
-      </div>
+      </BannerWrapper>
       <NewAdded newAdded={newAdded} />
       <FollowUs />
     </>
@@ -48,3 +49,16 @@ const MainPage = () => {
 };
 
 export default MainPage;
+const BannerWrapper = styled.div(
+  () => css`
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    @media (max-width: 1325px) {
+      flex-direction: column;
+      gap: 0;
+    }
+  `
+);

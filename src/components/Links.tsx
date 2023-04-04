@@ -7,7 +7,7 @@ import { DarkModeContext } from "../pages/Root";
 const Links = ({ item }: { item: DataTypes }) => {
   const Dark = useContext(DarkModeContext);
   return (
-    <div>
+    <div style={{ maxWidth: 250, height: 500 }}>
       <Link
         to={`/${item._id}`}
         key={item._id}

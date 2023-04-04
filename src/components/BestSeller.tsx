@@ -4,11 +4,12 @@ import Links from "./Links";
 import { useContext } from "react";
 import { DarkModeContext } from "../pages/Root";
 import { Grid } from "@mui/material";
+import { Container, GridWrapper } from "./NewAdded";
 
 const BestSeller = ({ data }: { data: Array<DataTypes> }) => {
   const Dark = useContext(DarkModeContext);
   return (
-    <div>
+    <Container>
       <h1
         style={{
           color: `${Dark === true ? "rgba(255, 255, 255, 0.3)" : "black"} `,
@@ -20,25 +21,13 @@ const BestSeller = ({ data }: { data: Array<DataTypes> }) => {
       >
         Best Seller
       </h1>
-      <Container>
+      <GridWrapper>
         {data.map((item) => {
           return <Links item={item} key={item._id} />;
         })}
-      </Container>
-    </div>
+      </GridWrapper>
+    </Container>
   );
 };
 
 export default BestSeller;
-
-const Container = styled.div(
-  () => css`
-    width: 100%;
-    height: 540px;
-    padding: 48px 0;
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    grid-column-gap: 24px;
-    grid-row-gap: 20px;
-  `
-);

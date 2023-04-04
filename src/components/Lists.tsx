@@ -13,12 +13,14 @@ import {
   sizeArray,
 } from "./functions";
 import Links from "./Links";
+import CategoriesMobile from "./CategoriesMobile";
 
 const Lists = () => {
   const [data, setData] = useState<Array<DataTypes>>([]);
   const [filterByCategory, setFilterByCategory] = useState("");
   const searchFilter = useContext(SearchContext);
   const { pathname } = useLocation();
+  const [showCategories, setShowCategories] = useState(false);
 
   let capitalLetter =
     searchFilter.charAt(0).toUpperCase() + searchFilter.slice(1);
@@ -65,8 +67,13 @@ const Lists = () => {
 
   return (
     <>
-      <div style={{ width: "100%", minHeight: "100vh", display: "flex" }}>
-        <div style={{ display: "inline-block", marginRight: 24 }}>
+      <CategoriesMobile
+        setFilterByCategory={setFilterByCategory}
+        showCategories={showCategories}
+        setShowCategories={setShowCategories}
+      />
+      <Container>
+        <CategoriesWrapper>
           <Categories
             name="Categories"
             option={categoriesArray}
@@ -87,14 +94,14 @@ const Lists = () => {
             option={colorArray}
             setFilterByCategory={setFilterByCategory}
           />
-        </div>
-        <div>
+        </CategoriesWrapper>
+        <div style={{ width: "100%" }}>
           {searchFilter ? (
             <div>
               <h3>Search result for: "{searchFilter}"</h3>
             </div>
           ) : null}
-          <Container>
+          <LinkWrapper>
             {dataFilter.map((item) =>
               item.storage <= 0 ? null : (
                 <Links
@@ -103,9 +110,9 @@ const Lists = () => {
                 />
               )
             )}
-          </Container>
+          </LinkWrapper>
         </div>
-      </div>
+      </Container>
     </>
   );
 };
@@ -114,13 +121,58 @@ export default Lists;
 
 const Container = styled.div(
   () => css`
-    width: 85%;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    alignitems: flex-start;
+    justifycontent: flex-start;
+    flexwrap: nowrap;
+  `
+);
+const CategoriesWrapper = styled.div(
+  () => css`
+    min-width: 224px;
+    display: inline-block;
+    @media (max-width: 1400px) {
+      display: none;
+    } ;
+  `
+);
+
+const LinkWrapper = styled.div(
+  () => css`
+    width: 100%;
     padding: 24px 0;
     margin-bottom: 120px;
     display: inline-grid;
     grid-template-columns: repeat(5, 1fr);
     grid-column-gap: 24px;
-    grid-row-gap: 180px;
+    grid-row-gap: 10px;
+    align-self: center;
+    @media (max-width: 1800px) {
+      justify-items: center;
+      grid-template-columns: repeat(4, 1fr);
+    }
+    @media (max-width: 1570px) {
+      justify-items: center;
+      grid-template-columns: repeat(3, 1fr);
+    }
+    @media (max-width: 1400px) {
+      justify-content: center;
+      grid-template-columns: repeat(4, 1fr);
+    }
+    @media (max-width: 1370px) {
+      justify-content: center;
+      grid-template-columns: repeat(3, 1fr);
+    }
+    @media (max-width: 1100px) {
+      justify-content: center;
+      grid-template-columns: repeat(2, 1fr);
+    }
+    @media (max-width: 620px) {
+      justify-content: center;
+      grid-template-columns: repeat(1, 1fr);
+    }
   `
 );
 

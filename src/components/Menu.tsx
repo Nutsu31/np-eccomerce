@@ -2,19 +2,47 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
 
-const Menu = () => {
+const Menu = ({ dark }: { dark: boolean }) => {
   return (
-    <MenuBar>
-      <Link style={styles.container} to="/shop-women">
+    <MenuBar dark={dark}>
+      <Link
+        style={{
+          textDecoration: "none",
+          color: dark ? "rgba(255, 255, 255, 0.3)" : "black",
+          fontWeight: 600,
+        }}
+        to="/shop-women"
+      >
         ქალი
       </Link>
-      <Link style={styles.container} to="/shop-men">
+      <Link
+        style={{
+          textDecoration: "none",
+          color: dark ? "rgba(255, 255, 255, 0.3)" : "black",
+          fontWeight: 600,
+        }}
+        to="/shop-men"
+      >
         კაცი
       </Link>
-      <Link style={styles.container} to="/shop-all">
+      <Link
+        style={{
+          textDecoration: "none",
+          color: dark ? "rgba(255, 255, 255, 0.3)" : "black",
+          fontWeight: 600,
+        }}
+        to="/shop-all"
+      >
         Shop All
       </Link>
-      <Link style={styles.container} to="/sales">
+      <Link
+        style={{
+          textDecoration: "none",
+          color: dark ? "rgba(255, 255, 255, 0.3)" : "black",
+          fontWeight: 600,
+        }}
+        to="/sales"
+      >
         Sale!!!
       </Link>
     </MenuBar>
@@ -24,18 +52,18 @@ const Menu = () => {
 export default Menu;
 
 const MenuBar = styled.div(
-  () => css`
+  ({ dark }: { dark: boolean }) => css`
     width: 100%;
     height: 40px;
     display: flex;
+    align-items: center;
     gap: 16px;
-    border-bottom: 5px solid #f9f7f4;
+    border-bottom: 5px solid ${dark ? "rgba(255, 255, 255, 0.3)" : "lightgray"};
   `
 );
 
 const styles = {
   container: {
-    color: "black",
     fontWeight: 600,
     textDecoration: "none",
   },

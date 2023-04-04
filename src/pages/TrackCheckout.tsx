@@ -8,6 +8,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Details } from "../components/NewAdded";
 import StatusBar from "../components/StatusBar";
+import { TextField } from "@mui/material";
 
 function getStatus({ status }: { status: string }) {
   switch (status) {
@@ -47,7 +48,7 @@ const TrackCheckout = () => {
     <Container>
       <div>
         <form onSubmit={onSubmit}>
-          <input
+          <TextField
             type="text"
             {...register("phone")}
             style={{ width: 380, height: 40 }}
@@ -130,7 +131,7 @@ export default TrackCheckout;
 const Container = styled.div(
   () => css`
     width: 100%;
-    height: 800px;
+    height: 600px;
     display: flex;
     align-items: center;
     justify-content: center;

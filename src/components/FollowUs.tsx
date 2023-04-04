@@ -7,7 +7,7 @@ const FollowUs = () => {
   return (
     <Container>
       <h3 style={{ color: "gray" }}>გამოგვყევით</h3>
-      <div>
+      <SocialWrapper>
         <Social
           Dark={Dark}
           href="https://www.facebook.com/profile.php?id=100089102174444"
@@ -17,7 +17,7 @@ const FollowUs = () => {
         <Social Dark={Dark} href="https://www.instagram.com/np_wpc/">
           Instagram
         </Social>
-      </div>
+      </SocialWrapper>
     </Container>
   );
 };
@@ -27,7 +27,7 @@ export default FollowUs;
 const Container = styled.div(
   () => css`
     width: 100%;
-    height: 100px;
+    height: 300px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -44,5 +44,17 @@ const Social = styled.a(
     text-decoration: none;
     opacity: 0.6;
     margin-left: 36px;
+  `
+);
+
+const SocialWrapper = styled.div(
+  () => css`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    @media (max-width: 560px) {
+      flex-direction: column;
+    }
   `
 );
