@@ -61,7 +61,8 @@ export interface NavBarTypes {
   setDark: React.Dispatch<React.SetStateAction<boolean>>;
   dark:boolean;
   login:boolean;
-  showMenu?:boolean
+  showMenu?:boolean;
+  cartSize?:number
 }
 export function handleDiscount(item: DataTypes | CartType) {
   if(item.sale){
@@ -131,7 +132,7 @@ export function getTotalSale ({cartItem,  setTotalSale}:GetTotalSaleType){
 
   const calculateSale = cartItem.map((item:CartType) => {
     if(item.sale){
-      return item.price * item.sale / 100
+      return (item.price * item.sale / 100) * Number(item.quantity)
     }else {
       return 0
     }

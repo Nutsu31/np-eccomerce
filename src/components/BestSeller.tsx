@@ -3,7 +3,6 @@ import { DataTypes } from "./functions";
 import Links from "./Links";
 import { useContext } from "react";
 import { DarkModeContext } from "../pages/Root";
-import { Grid } from "@mui/material";
 import { Container, GridWrapper } from "./NewAdded";
 
 const BestSeller = ({ data }: { data: Array<DataTypes> }) => {
@@ -23,7 +22,12 @@ const BestSeller = ({ data }: { data: Array<DataTypes> }) => {
       </h1>
       <GridWrapper>
         {data.map((item) => {
-          return <Links item={item} key={item._id} />;
+          return (
+            <Links
+              item={item}
+              key={Math.random() * Math.random() * Math.random()}
+            />
+          );
         })}
       </GridWrapper>
     </Container>

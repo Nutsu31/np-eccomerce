@@ -1,9 +1,14 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
+import {
+  CartType,
+  getItemsFromLocalStorage,
+  getTotalPrice,
+} from "../components/functions";
 
 const darkTheme = createTheme({
   palette: {
@@ -22,6 +27,12 @@ const Root = () => {
   const [search, setSearch] = useState("");
   const [login, setLogin] = useState(false);
   const [dark, setDark] = useState(false);
+  const [cartItem, setCartItem] = useState<Array<CartType>>([]);
+
+  useEffect(() => {
+    getItemsFromLocalStorage({ setCartItem });
+  }, []);
+
   return (
     <>
       <ThemeProvider theme={dark ? darkTheme : lightTheme}>

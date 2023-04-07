@@ -75,14 +75,15 @@ const ModelImg = styled.img(
       ${model === "men" ? "left:56px" : "right:56px"}
     }
     @media (max-width: 555px) {
-      ${model === "men" ? "left:72px" : "right:72px"}
+      width: 220px;
+      ${model === "men" ? "left:120px" : "right:120px"};
     } ;
   `
 );
 
 const Div = styled.div(
   () => css`
-  width:400px;
+  width:420px;
     display:flex;
     flex-direction:column;
     align-items center;
@@ -96,6 +97,7 @@ const Div = styled.div(
       width:360px;
     }
     
+    
   `
 );
 
@@ -106,6 +108,9 @@ const Detail1 = styled.span(
     color: ${model === "men" ? "red" : "white"};
     @media (max-width: 1400px) {
       font-size: 18x;
+    }
+    @media (max-width: 522px) {
+      font-size: 16px;
     }
   `
 );
@@ -122,10 +127,13 @@ const Detail2 = styled.span(
       font-size: 28px;
     }
     @media (max-width: 1400px) {
-      font-size: 32px;
+      font-size: 26px;
     }
     @media (max-width: 650px) {
       font-size: 26px;
+    }
+    @media (max-width: 522px) {
+      font-size: 22px;
     }
   `
 );

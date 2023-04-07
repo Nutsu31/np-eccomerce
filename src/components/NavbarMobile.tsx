@@ -10,6 +10,7 @@ import styled, { css } from "styled-components";
 import { styles } from "./Navbar";
 import { NavBarTypes } from "./functions";
 import { Button } from "@mui/material";
+import CartBadge from "./CartBadge";
 
 const NavbarMobile = ({
   dark,
@@ -17,6 +18,7 @@ const NavbarMobile = ({
   login,
   setDark,
   showMenu,
+  cartSize,
 }: NavBarTypes) => {
   return (
     <Container dark={dark} showMenu={showMenu}>
@@ -54,8 +56,7 @@ const NavbarMobile = ({
             color: dark ? "white" : "black",
           }}
         >
-          <ShoppingBagOutlined />
-          კალათა
+          <CartBadge cartSize={cartSize} />
         </p>
       </Link>
 

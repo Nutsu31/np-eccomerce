@@ -24,18 +24,8 @@ const MainPage = () => {
   const [newAdded, setNewAdded] = useState<Array<DataTypes>>([]);
 
   // short array for get 5 items to main page
-  const handleShow = useMediaQuery("(max-width:1600px)");
-
-  useEffect(() => {
-    console.log(handleShow);
-    if (!handleShow) {
-      data.length = 5;
-      newAdded.length = 5;
-    } else {
-      newAdded.length = 4;
-      data.length = 4;
-    }
-  }, [handleShow]);
+  newAdded.length = 4;
+  data.length = 4;
 
   useEffect(() => {
     getClothingModels({ setData });

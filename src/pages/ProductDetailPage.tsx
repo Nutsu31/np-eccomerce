@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import styled, { css } from "styled-components";
@@ -9,6 +9,18 @@ import {
   handleDiscount,
 } from "../components/functions";
 import { Details, SaledPrice } from "../components/NewAdded";
+import { DarkModeContext } from "./Root";
+import { dark } from "@mui/material/styles/createPalette";
+import {
+  Button,
+  FormControl,
+  FormLabel,
+  Input,
+  InputLabel,
+  MenuItem,
+  OutlinedInput,
+  Select,
+} from "@mui/material";
 
 const ProductDetailPage = () => {
   const [data, setData] = useState<Array<DataTypes>>([]);
@@ -16,10 +28,16 @@ const ProductDetailPage = () => {
   const { object } = useParams();
 
   const EachModel = data.find((item) => item._id === object);
+  let EachModelStorage = [];
+  for (let i = 1; i < EachModel!?.storage; i++) {
+    EachModelStorage.push(i);
+  }
 
   useEffect(() => {
     getClothingModels({ setData });
   }, []);
+
+  const Dark = useContext(DarkModeContext);
 
   const onSubimit = handleSubmit((data) => {
     const itemsArr = [];
@@ -91,41 +109,59 @@ const ProductDetailPage = () => {
         ) : (
           <Details>{"₾" + EachModel?.price + ".00"}</Details>
         )}
-        <form onSubmit={onSubimit}>
-          <p>ფერი:</p>
-          <select {...register("color")}>
-            <option>აირჩიე ფერი</option>
-            <option
-              defaultValue={EachModel?.size}
-              value={EachModel?.color}
-              style={{
-                background: EachModel?.color,
-                color: EachModel?.color === "White" ? "black" : "white",
+        <form
+          onSubmit={onSubimit}
+          style={{ display: "flex", flexDirection: "column", gap: 16 }}
+        >
+          <FormControl>
+            <InputLabel>ზომა</InputLabel>
+            <Select
+              label="ზომა"
+              value={EachModel?.size}
+              MenuProps={{
+                PaperProps: { sx: { maxHeight: 200 } },
               }}
+              {...register("size")}
             >
-              {getName(EachModel?.color)}
-            </option>
-          </select>
-          <p>ზომა:</p>
-          <select {...register("size", { required: true })}>
-            <option>აირჩიე ზომა</option>
-            <option value={EachModel?.size}>
-              {EachModel?.size.toLocaleUpperCase()}
-            </option>
-          </select>
-          <p>რაოდენობა:</p>
-
-          <input
-            type="number"
-            {...register("quantity")}
-            min={1}
-            defaultValue={1}
-            max={EachModel?.storage}
-            onChange={(e) => setValue("quantity", e.target.value)}
-          />
-          <button>კალათაში დამატება</button>
-          <button type="submit">ყიდვა</button>
+              <MenuItem value={EachModel?.size}>{EachModel?.size}</MenuItem>
+            </Select>
+          </FormControl>
+          <FormControl>
+            <InputLabel>ფერი</InputLabel>
+            <Select
+              label="ფერი"
+              value={EachModel?.color}
+              MenuProps={{
+                PaperProps: { sx: { maxHeight: 200 } },
+              }}
+              {...register("color")}
+            >
+              <MenuItem value={EachModel?.color}>
+                {getName(EachModel?.color)}
+              </MenuItem>
+            </Select>
+          </FormControl>
+          <FormControl>
+            {/* <InputLabel>რაოდენობა</InputLabel>
+            <OutlinedInput
+              type="number"
+              label="რაოდენობა"
+              {...register("quantity")}
+            /> */}
+            <InputLabel>რაოდენობა</InputLabel>
+            <Select label="რაოდენობა" {...register("quantity")}>
+              {EachModelStorage.map((count) => (
+                <MenuItem value={count}>{count}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <Button type="submit" variant="contained">
+            Add To Cart
+          </Button>
         </form>
+        <span>უფასო მიწოდება პარასკვეი, 11 აპრილის ჩათვლით</span>
+        <span>მიწოდების საფასური თბილისი - 5ლ</span>
+        <span>მიწოდების საფასური საქართველო - 8ლ</span>
       </DetailsWrapper>
     </Container>
   );
@@ -139,6 +175,7 @@ const Container = styled.div(
     min-height: 100vh;
     padding: 24px;
     display: flex;
+    justify-content: center;
     gap: 24px;
   `
 );
@@ -161,17 +198,3 @@ const DetailsWrapper = styled.div(
     gap: 16px;
   `
 );
-// const CustomLabel = styled.label(
-//   ({ color }: { color: string | undefined }) => css`
-//     width: 16px;
-//     height: 16px;
-//     color: white;
-//     background: ${color};
-//     outline: ${color ? "1px solid white" : null};
-//     border-radius: 50%;
-//     display: flex;
-//     align-items: center;
-//     justify-content: center;
-//     position: relative;
-//   `
-// );

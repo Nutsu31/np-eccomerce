@@ -1,7 +1,7 @@
 import React from "react";
 import styled, { css } from "styled-components";
 import { Details } from "./NewAdded";
-import * as Scroll from "react-scroll";
+import { CartType } from "./functions";
 import {
   Link,
   // Button,
@@ -15,9 +15,11 @@ const TotalPayment = ({
   totalPrice,
   totalSale,
   cartSize,
+  cartItem,
   continueCheckout,
   setContinueCheckout,
 }: {
+  cartItem: CartType[];
   continueCheckout: boolean;
   totalPrice: number;
   totalSale: number;

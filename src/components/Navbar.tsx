@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled, { css } from "styled-components";
 import LogoIcon from "../assets/logo.png";
@@ -14,26 +14,32 @@ import {
   Search,
   CloseOutlined,
 } from "@mui/icons-material";
-import { Button, Stack, TextField } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import CartBadge from "./CartBadge";
 
 const Navbar = ({ setSearch, setLogin, login, setDark, dark }: NavBarTypes) => {
-  const [cartItem, setCartItem] = useState<CartType[]>([]);
   const [showMenu, setShowMenu] = useState(false);
   const navigate = useNavigate();
 
   const showMenuButton = useMediaQuery("(max-width:1400px)");
-
   const handleNavigate = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     navigate("/shop-all");
   };
-
+  const [cartSize, setCartSize] = useState(0);
   useEffect(() => {
-    getItemsFromLocalStorage({ setCartItem });
-  }, []);
-
+    const item = JSON.parse(localStorage.getItem("key")!);
+    if (item != null) {
+      setCartSize(item.length);
+    } else {
+      return;
+    }
+  });
+  // useEffect(() => {
+  //   setCartSize(cartItem.length);
+  // });
   return (
     <>
       <Header>
@@ -71,6 +77,7 @@ const Navbar = ({ setSearch, setLogin, login, setDark, dark }: NavBarTypes) => {
           dark={dark}
           setDark={setDark}
           showMenu={showMenu}
+          cartSize={cartSize}
         />
         <HeaderRight>
           <Link to="/tracker" style={styles.container}>
@@ -107,8 +114,7 @@ const Navbar = ({ setSearch, setLogin, login, setDark, dark }: NavBarTypes) => {
                 color: dark ? "white" : "black",
               }}
             >
-              <ShoppingBagOutlined />
-              კალათა
+              <CartBadge cartSize={cartSize} />
             </p>
           </Link>
 

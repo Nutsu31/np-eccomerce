@@ -14,17 +14,13 @@ const Cart = () => {
   const [cartItem, setCartItem] = useState<Array<CartType>>([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const [totalSale, setTotalSale] = useState(0);
-  const [cartSize, setCartSize] = useState(0);
   const [continueCheckout, setContinueCheckout] = useState(false);
-
   useEffect(() => {
     getTotalPrice({ cartItem, setTotalPrice });
-    setCartSize(cartItem.length);
   }, [cartItem]);
   useEffect(() => {
     getTotalSale({ cartItem, totalPrice, setTotalSale });
-  }, [cartItem]);
-
+  }, [cartItem, totalPrice]);
   useEffect(() => {
     getItemsFromLocalStorage({ setCartItem });
   }, []);
@@ -46,9 +42,10 @@ const Cart = () => {
         </div>
 
         <TotalPayment
+          cartItem={cartItem}
           totalPrice={totalPrice}
           totalSale={totalSale}
-          cartSize={cartSize}
+          cartSize={cartItem.length}
           continueCheckout={continueCheckout}
           setContinueCheckout={setContinueCheckout}
         />
