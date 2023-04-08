@@ -43,7 +43,6 @@ const Root = () => {
               dark={dark}
             />
             <Outlet />
-            <Footer />
           </DarkModeContext.Provider>
         </SearchContext.Provider>
       </ThemeProvider>

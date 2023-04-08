@@ -5,10 +5,15 @@ import { DataTypes } from "./functions";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Button } from "@mui/material";
+import { Delete } from "@mui/icons-material";
+import { useLocation } from "react-router-dom";
 
 const Storages = ({ data }: { data: Array<DataTypes> }) => {
   const nofitySucces = () => toast.success("წარმატებით განახლდა დაარეფრეშე!");
   const nofityErr = () => toast.error("განახლება უარყოფილია!");
+  const nofitySuccesDeleted = () =>
+    toast.success("წარმატებით წაიშალა დაარეფრეშე!");
+  const nofityRemoveErr = () => toast.error("წაშლა უარყოფილია!");
   const [updateStorage, setUpdateStorage] = useState<
     UpdateStorageType | undefined
   >(undefined);
@@ -39,6 +44,21 @@ const Storages = ({ data }: { data: Array<DataTypes> }) => {
         .catch((err) => nofityErr());
     }
   }
+  const href = window.location.href;
+  async function deleteItem(id: string) {
+    console.log(id);
+    console.log("გამოიძახა");
+    axios({
+      method: "DELETE",
+      url: "http://localhost:5001/remove-item",
+      headers: { "Content-Type": "application/json" },
+      data: {
+        id: id,
+      },
+    })
+      .then(() => nofitySuccesDeleted())
+      .catch(() => nofityRemoveErr());
+  }
 
   useEffect(() => {
     storageUpdate({ updateStorage });
@@ -64,6 +84,7 @@ const Storages = ({ data }: { data: Array<DataTypes> }) => {
           <th>ფერი</th>
           <th>ზომა</th>
           <th>დარჩენილი რაოდენობა</th>
+          <th>წაშლა</th>
         </tr>
       </Thead>
       <tbody>
@@ -119,6 +140,11 @@ const Storages = ({ data }: { data: Array<DataTypes> }) => {
                 onClick={() => setUpdateStorage({ id: item._id, storage: 5 })}
               >
                 +5
+              </Button>
+            </Td>
+            <Td item={item.storage}>
+              <Button color="error" onClick={() => deleteItem(item._id)}>
+                <Delete />
               </Button>
             </Td>
           </tr>

@@ -13,6 +13,8 @@ import {
   DeliveryDining,
   DeliveryDiningTwoTone,
   DeliveryDiningOutlined,
+  Description,
+  AddShoppingCart,
 } from "@mui/icons-material";
 import {
   Button,
@@ -139,19 +141,28 @@ const ProductDetailPage = () => {
           </FormControl>
           <FormControl>
             <InputLabel>რაოდენობა</InputLabel>
-            <Select label="რაოდენობა" {...register("quantity")}>
+            <Select
+              value={"quantity"}
+              label="რაოდენობა"
+              {...register("quantity")}
+            >
               {EachModelStorage.map((count) => (
                 <MenuItem value={count}>{count}</MenuItem>
               ))}
             </Select>
           </FormControl>
           <Button type="submit" variant="contained">
-            Add To Cart
+            <AddShoppingCart />
+            კალათაში დამატება
           </Button>
         </form>
         <div>
-          <p>{EachModel?.desc}</p>
+          <h3>პროდუქტის აღწერა</h3>
+          <p>
+            <Description /> {EachModel?.desc}
+          </p>
         </div>
+
         <span style={{ display: "flex", gap: 8 }}>
           <DeliveryDining />
           უფასო მიწოდება პარასკვეი, 11 აპრილის ჩათვლით
