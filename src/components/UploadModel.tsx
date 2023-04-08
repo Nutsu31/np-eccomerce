@@ -5,9 +5,36 @@ import styled, { css } from "styled-components";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import {
+  Button,
+  Checkbox,
+  FormControlLabel,
+  FormGroup,
+  Input,
+  MenuItem,
+  Select,
+  TextField,
+} from "@mui/material";
+import { Send, Upload } from "@mui/icons-material";
 
 const UploadModel = () => {
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit, reset } = useForm({
+    defaultValues: {
+      id: Date.now(),
+      name: "",
+      price: "",
+      size: "",
+      color: "",
+      image: [],
+      category: "",
+      style: "",
+      storage: 0,
+      gender: "",
+      sale: 0,
+      collections: "",
+      desc: "",
+    },
+  });
   const [sale, setSale] = useState(false);
 
   const notify = () => toast.success("მოდელი წარმატებით დაემატა!");
@@ -15,38 +42,60 @@ const UploadModel = () => {
   const onSubmit = handleSubmit((data) => {
     console.log(data);
     notify();
-    axios({
-      method: "POST",
-      url: "http://localhost:5001/add-new-model",
-      headers: { "Content-Type": "multipart/form-data" },
-      data: {
-        _id: Date.now(),
-        name: data.name,
-        price: data.price,
-        size: data.size,
-        color: data.color,
-        image: data.image,
-        category: data.category,
-        style: data.style,
-        storage: data.storage,
-        gender: data.gender,
-        sale: data.sale,
-        collections: data.collections,
+    const formData = new FormData();
+    for (let i = 0; i < data.image.length; i++) {
+      formData.append("image", data.image[i]);
+    }
+    formData.append("name", data.name);
+    formData.append("price", data.price);
+    formData.append("color", data.color);
+    formData.append("category", data.category);
+    formData.append("style", data.style);
+    formData.append("storage", data.storage.toString());
+    formData.append("gender", data.gender);
+    formData.append("size", data.size);
+    formData.append("sale", data.sale.toString());
+    formData.append("collections", data.collections);
+    formData.append("desc", data.desc);
+
+    const res = axios.post("http://localhost:5001/add-new-model", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
       },
-    })
-      .then((res) => console.log(res.data.finalModel))
-      .catch((err) => console.log(err));
+    });
+    console.log(res);
+    // axios({
+    //   method: "POST",
+    //   url: "http://localhost:5001/add-new-model",
+    //   headers: { "Content-Type": "multipart/form-data" },
+    //   data: {
+    //     _id: Date.now(),
+    //     name: data.name,
+    //     price: data.price,
+    //     size: data.size,
+    //     color: data.color,
+    //     image: formData,
+    //     category: data.category,
+    //     style: data.style,
+    //     storage: data.storage,
+    //     gender: data.gender,
+    //     sale: data.sale,
+    //     collections: data.collections,
+    //   },
+    // })
+    //   .then((res) => console.log(res.data.finalModel))
+    //   .catch((err) => console.log(err));
     reset({
       name: "",
       price: "",
       size: "",
       color: "",
-      image: "",
       category: "",
       style: "",
-      storage: "",
+      image: [],
+      storage: 0,
       gender: "",
-      sale: "",
+      sale: 0,
       collections: "",
     });
   });
@@ -65,58 +114,97 @@ const UploadModel = () => {
           pauseOnHover
           theme="dark"
         />
-        <Input
-          type="file"
-          multiple
-          {...register("image")}
-          placeholder="ატვირთე სასურველი მოდელი"
-        />
-        <Input type="text" {...register("name")} placeholder="სახელი" />
-        <Input type="number" {...register("price")} placeholder="ფასი" />
-        <Input type="text" {...register("color")} placeholder="ფერი" />
-        <Input type="number" {...register("storage")} placeholder="მარაგი" />
-        <Select {...register("size")}>
-          <option>აირჩიე ზომა</option>
-          <option value="S">S</option>
-          <option value="M">M</option>
-          <option value="L">L</option>
-          <option value="XL">XL</option>
-        </Select>
-        <Select {...register("collections")}>
-          <option>კოლექცია</option>
-          <option value="new">ახალი კოლექცია</option>
-        </Select>
-        <Select {...register("category")}>
-          <option>კატეგორია</option>
-          <option value="Suits">პიჯაკი</option>
-          <option value="T-Shirts">მაისური</option>
-        </Select>
-        <Select {...register("style")}>
-          <option>სტილი</option>
-          <option value="Classic">კლასიკური</option>
-          <option value="Urban">ყოველდღიური</option>
-        </Select>
-        <Select {...register("gender")}>
-          <option>აირჩიე სქესი</option>
-          <option value="women">ქალი</option>
-          <option value="men">კაცი</option>
-          <option value="unisex">Unisex</option>
-        </Select>
-
-        <div>
-          <input type="checkbox" id="sale" />
-          <label htmlFor="sale" onClick={() => setSale(!sale)}>
-            ფასდაკლება
-          </label>
-        </div>
-        {sale ? (
-          <Input
-            type="text"
-            {...register("sale")}
-            placeholder="ფასდაკლების პროცენტი"
+        <Button fullWidth sx={{ height: 40 }} variant="contained">
+          <Upload />
+          <input
+            type="file"
+            multiple
+            {...register("image")}
+            placeholder="ატვირთე სასურველი მოდელი"
           />
-        ) : null}
-        <Button>Submit</Button>
+        </Button>
+        <TextField
+          fullWidth
+          type="text"
+          {...register("name")}
+          placeholder="სახელი"
+        />
+        <TextField
+          fullWidth
+          type="number"
+          {...register("price")}
+          placeholder="ფასი"
+        />
+        <TextField
+          fullWidth
+          type="text"
+          {...register("color")}
+          placeholder="ფერი"
+        />
+        <TextField
+          fullWidth
+          type="number"
+          {...register("storage")}
+          placeholder="მარაგი"
+        />
+        <Select fullWidth {...register("size")}>
+          <MenuItem>აირჩიე ზომა</MenuItem>
+          <MenuItem value="S">S</MenuItem>
+          <MenuItem value="M">M</MenuItem>
+          <MenuItem value="L">L</MenuItem>
+          <MenuItem value="XL">XL</MenuItem>
+        </Select>
+        <Select fullWidth {...register("collections")}>
+          <MenuItem>კოლექცია</MenuItem>
+          <MenuItem value="new">ახალი კოლექცია</MenuItem>
+        </Select>
+        <Select fullWidth {...register("category")}>
+          <MenuItem>კატეგორია</MenuItem>
+          <MenuItem value="Suits">პიჯაკი</MenuItem>
+          <MenuItem value="T-Shirts">მაისური</MenuItem>
+        </Select>
+        <Select fullWidth {...register("style")}>
+          <MenuItem>სტილი</MenuItem>
+          <MenuItem value="Classic">კლასიკური</MenuItem>
+          <MenuItem value="Urban">ყოველდღიური</MenuItem>
+        </Select>
+        <Select fullWidth {...register("gender")}>
+          <MenuItem>აირჩიე სქესი</MenuItem>
+          <MenuItem value="women">ქალი</MenuItem>
+          <MenuItem value="men">კაცი</MenuItem>
+          <MenuItem value="unisex">Unisex</MenuItem>
+        </Select>
+        <TextField
+          fullWidth
+          placeholder="აღწერა პროდუქტის"
+          {...register("desc")}
+        />
+        <div>
+          <FormGroup>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  onChange={(e) =>
+                    e.target.checked ? setSale(true) : setSale(false)
+                  }
+                />
+              }
+              label="ფასდაკლება"
+            />
+          </FormGroup>
+          {sale ? (
+            <TextField
+              fullWidth
+              type="text"
+              {...register("sale")}
+              placeholder="ფასდაკლების პროცენტი"
+            />
+          ) : null}
+        </div>
+        <Button variant="contained" fullWidth type="submit">
+          Submit
+          <Send />
+        </Button>
       </Form>
     </>
   );
@@ -127,36 +215,11 @@ export default UploadModel;
 const Form = styled.form(
   () => css`
     width: 500px;
-    height: 600px;
+    height: 900px;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     gap: 12px;
-  `
-);
-
-const Input = styled.input(
-  () => css`
-    width: 300px;
-    height: 40px;
-    padding: 0 16px;
-  `
-);
-
-const Button = styled.button(
-  () => css`
-    width: 300px;
-    height: 60px;
-    border: none;
-    background-color: gray;
-  `
-);
-
-const Select = styled.select(
-  () => css`
-    width: 336px;
-    height: 50px;
-    padding: 0 16px;
   `
 );

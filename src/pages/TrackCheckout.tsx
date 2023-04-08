@@ -2,13 +2,24 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate, useLocation } from "react-router-dom";
 import styled, { css } from "styled-components";
-import { CheckoutsType, orderTracker } from "../components/functions";
+import {
+  CheckoutsType,
+  getStatusColor,
+  orderTracker,
+} from "../components/functions";
 import { FaSearch } from "react-icons/fa";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Details } from "../components/NewAdded";
 import StatusBar from "../components/StatusBar";
-import { TextField } from "@mui/material";
+import {
+  Box,
+  Button,
+  TextField,
+  Typography,
+  useMediaQuery,
+} from "@mui/material";
+import { Search } from "@mui/icons-material";
 
 function getStatus({ status }: { status: string }) {
   switch (status) {
@@ -29,7 +40,8 @@ const TrackCheckout = () => {
   const { register, handleSubmit, reset } = useForm();
   const { pathname } = useLocation();
   const notify = () => toast.info("შეკვეთა იძებნება გთხოვთ მოიცადოთ!");
-
+  const showStatusBar = useMediaQuery("(max-width:820px)");
+  const checkoutDetailsDirection = useMediaQuery("(max-width:670px)");
   useEffect(() => {
     orderTracker({ setOrder, pathname });
   }, []);
@@ -46,25 +58,25 @@ const TrackCheckout = () => {
   );
   return (
     <Container>
-      <div>
-        <form onSubmit={onSubmit}>
+      <div style={{ width: "100%" }}>
+        <form
+          onSubmit={onSubmit}
+          style={{
+            height: 60,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
           <TextField
             type="text"
             {...register("phone")}
             style={{ width: 380, height: 40 }}
             placeholder="შეკვეთის ძებნა (ტელ)"
           />
-          <button
-            style={{
-              width: 40,
-              height: 40,
-              fontSize: 18,
-              border: "none",
-              background: "none",
-            }}
-          >
-            <FaSearch />
-          </button>
+          <Button type="submit">
+            <Search />
+          </Button>
         </form>
         <ToastContainer
           position="top-center"
@@ -82,43 +94,62 @@ const TrackCheckout = () => {
           <>
             <DetailsWrapper>
               <HeaderText> შეკვეთის დეტალები:</HeaderText>
-              <OrderNomDiv>
-                <Details>შეკვეთის ნომერი: #{findOrder._id}</Details>
-                <Details>ჯამი: {findOrder.totalPrice}₾</Details>
-              </OrderNomDiv>
+              <Box sx={{ width: "100%", backgroundColor: "text.disabled" }}>
+                <OrderNomDiv>
+                  <Details>შეკვეთის ნომერი: #{findOrder._id}</Details>
+                  <Details>ჯამი: {findOrder.totalPrice}₾</Details>
+                </OrderNomDiv>
+              </Box>
               {/* status bar */}
-              <StatusBar status={findOrder.status} />
+              {showStatusBar ? null : <StatusBar status={findOrder.status} />}
               {/* status bar */}
-              <IsStatusOk>
-                <Details>სტატუსი: {getStatus(findOrder)}</Details>
-              </IsStatusOk>
+              <Box sx={{ width: "100%", backgroundColor: "text.disabled" }}>
+                <IsStatusOk>
+                  <Details>
+                    სტატუსი:{" "}
+                    <Typography color={getStatusColor(findOrder.status)}>
+                      {getStatus(findOrder)}
+                    </Typography>
+                  </Details>
+                </IsStatusOk>
+              </Box>
             </DetailsWrapper>
-            <div>
+            <Box
+              sx={{
+                width: "100%",
+              }}
+            >
               {findOrder?.model.map((item) => (
                 <CheckoutDetailsWrapper key={item.id}>
                   <img
                     src={`http://localhost:5001/uploads/${item.img}`}
-                    width={100}
+                    width={120}
                     alt=""
                   />
-                  <div>
-                    <h4>პროდუქტის შესახებ:</h4>
+                  <Box
+                    sx={{
+                      height: 200,
+                      textAlign: "left",
+                      width: "16rem",
+                    }}
+                  >
+                    <Typography variant="h5">პროდუქტის შესახებ:</Typography>
                     <p>სახელი: {item.name}</p>
                     <p>ზომა: {item.size}</p>
                     <p>რაოდენობა: x{item.quantity}</p>
-                  </div>
-                  <div>
-                    <h4>გაიგზავნა მისამართზე:</h4>
+                  </Box>
+                  <Box sx={{ textAlign: "left" }}>
+                    <Typography variant="h5">გაიგზავნა მისამართზე:</Typography>
                     <p>
                       {findOrder.firstname} {findOrder.lastname}
                     </p>
                     <p>{findOrder.city}</p>
                     <p>{findOrder.street}</p>
                     <p>{findOrder.phone}</p>
-                  </div>
+                  </Box>
                 </CheckoutDetailsWrapper>
               ))}
-            </div>
+            </Box>
           </>
         ) : null}
       </div>
@@ -131,11 +162,12 @@ export default TrackCheckout;
 const Container = styled.div(
   () => css`
     width: 100%;
-    height: 600px;
+    min-height: 400px;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 48px;
+    margin: 24px 0;
   `
 );
 const DetailsWrapper = styled.div(
@@ -147,14 +179,23 @@ const DetailsWrapper = styled.div(
     align-items: center;
     justify-content: center;
     gap: 48px;
+    @media (max-width: 744px) {
+      height: 300px;
+    }
   `
 );
 
 const CheckoutDetailsWrapper = styled.div(
   () => css`
     width: 100%;
+    padding: 16px;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
+    @media (max-width: 744px) {
+      flex-direction: column;
+      text-aling: left;
+      gap: 24px;
+    }
   `
 );
 const HeaderText = styled.h2(
@@ -169,7 +210,6 @@ const OrderNomDiv = styled.div(
     width: 100%;
     min-height: 50px;
     padding: 0 16px;
-    background: lightgray;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -178,10 +218,9 @@ const OrderNomDiv = styled.div(
 
 const IsStatusOk = styled.div(
   () => css`
-    width: 90%;
+    width: 100%;
     min-height: 40px;
     padding: 0 16px;
-    background: lightgray;
     display: flex;
     align-items: center;
     gap: 16px;

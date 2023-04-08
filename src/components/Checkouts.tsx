@@ -57,11 +57,7 @@ const Checkouts = ({
                   <div style={{ display: "flex", gap: 24, flexWrap: "wrap" }}>
                     {item.model.map((model) => (
                       <div key={item._id + Math.random()}>
-                        <img
-                          src={`http://localhost:5001/uploads/${model.img}`}
-                          alt="each model"
-                          width={100}
-                        />
+                        <img src={model.img[0]} alt="each model" width={100} />
                         <div>
                           <p>{model.name}</p>
                           <p>x{model.quantity}</p>

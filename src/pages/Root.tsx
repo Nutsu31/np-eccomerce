@@ -4,11 +4,7 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-import {
-  CartType,
-  getItemsFromLocalStorage,
-  getTotalPrice,
-} from "../components/functions";
+import { CartType, getItemsFromLocalStorage } from "../components/functions";
 
 const darkTheme = createTheme({
   palette: {

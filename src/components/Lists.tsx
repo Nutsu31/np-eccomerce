@@ -6,7 +6,6 @@ import Categories from "./Categories";
 import {
   brandArray,
   categoriesArray,
-  CheckoutsType,
   colorArray,
   DataTypes,
   getClothingModels,

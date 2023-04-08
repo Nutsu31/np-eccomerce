@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import styled, { css } from "styled-components";
@@ -9,22 +9,22 @@ import {
   handleDiscount,
 } from "../components/functions";
 import { Details, SaledPrice } from "../components/NewAdded";
-import { DarkModeContext } from "./Root";
-import { dark } from "@mui/material/styles/createPalette";
+import {
+  DeliveryDining,
+  DeliveryDiningTwoTone,
+  DeliveryDiningOutlined,
+} from "@mui/icons-material";
 import {
   Button,
   FormControl,
-  FormLabel,
-  Input,
   InputLabel,
   MenuItem,
-  OutlinedInput,
   Select,
 } from "@mui/material";
 
 const ProductDetailPage = () => {
   const [data, setData] = useState<Array<DataTypes>>([]);
-  const { register, handleSubmit, reset, setValue } = useForm();
+  const { register, handleSubmit } = useForm();
   const { object } = useParams();
 
   const EachModel = data.find((item) => item._id === object);
@@ -37,7 +37,7 @@ const ProductDetailPage = () => {
     getClothingModels({ setData });
   }, []);
 
-  const Dark = useContext(DarkModeContext);
+  const [mainImg, setMainImg] = useState(EachModel?.path[0]);
 
   const onSubimit = handleSubmit((data) => {
     const itemsArr = [];
@@ -66,29 +66,25 @@ const ProductDetailPage = () => {
       <div
         style={{
           display: "flex",
-          flexDirection: "column",
-          gap: "12px",
+          gap: 32,
         }}
       >
-        <ImgBorder
-          src={`http://localhost:5001/uploads/${EachModel?.path}`}
-          alt="model"
-        />
-        <ImgBorder
-          src={`http://localhost:5001/uploads/${EachModel?.path}`}
-          alt="model"
-        />
-        <ImgBorder
-          src={`http://localhost:5001/uploads/${EachModel?.path}`}
-          alt="model"
-        />
-      </div>
-      <div>
+        <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+          {EachModel?.path.map((img) => (
+            <ImgBorder
+              mainImg={mainImg}
+              image={img}
+              src={img}
+              alt="model"
+              onClick={() => setMainImg(img)}
+            />
+          ))}
+        </div>
         <img
-          src={`http://localhost:5001/uploads/${EachModel?.path}`}
+          src={mainImg ? mainImg : EachModel?.path[0]}
           alt="model"
-          width={500}
-          // height={624}
+          width={600}
+          // height={ 624}
         />
       </div>
       <DetailsWrapper>
@@ -142,12 +138,6 @@ const ProductDetailPage = () => {
             </Select>
           </FormControl>
           <FormControl>
-            {/* <InputLabel>რაოდენობა</InputLabel>
-            <OutlinedInput
-              type="number"
-              label="რაოდენობა"
-              {...register("quantity")}
-            /> */}
             <InputLabel>რაოდენობა</InputLabel>
             <Select label="რაოდენობა" {...register("quantity")}>
               {EachModelStorage.map((count) => (
@@ -159,9 +149,19 @@ const ProductDetailPage = () => {
             Add To Cart
           </Button>
         </form>
-        <span>უფასო მიწოდება პარასკვეი, 11 აპრილის ჩათვლით</span>
-        <span>მიწოდების საფასური თბილისი - 5ლ</span>
-        <span>მიწოდების საფასური საქართველო - 8ლ</span>
+        <span style={{ display: "flex", gap: 8 }}>
+          <DeliveryDining />
+          უფასო მიწოდება პარასკვეი, 11 აპრილის ჩათვლით
+        </span>
+        <span>
+          <DeliveryDiningOutlined />
+          მიწოდების საფასური თბილისი - 5ლ
+        </span>
+        <span>
+          {" "}
+          <DeliveryDiningTwoTone />
+          მიწოდების საფასური საქართველო - 8ლ
+        </span>
       </DetailsWrapper>
     </Container>
   );
@@ -181,11 +181,11 @@ const Container = styled.div(
 );
 
 const ImgBorder = styled.img(
-  () => css`
-    width: 184px;
-    height: 200px;
+  ({ image, mainImg }: { image: string; mainImg?: string }) => css`
+    width: 204px;
+    height: 240px;
     padding: 8px;
-    outline: 1px solid gray;
+    outline: ${image === mainImg ? "1px solid gray" : ""};
   `
 );
 

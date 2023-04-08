@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { DataTypes, handleDiscount } from "./functions";
 import { Details, EachModel, New, Sale, SaledPrice } from "./NewAdded";
 import { DarkModeContext } from "../pages/Root";
-
 const Links = ({ item }: { item: DataTypes }) => {
   const Dark = useContext(DarkModeContext);
   return (
@@ -21,7 +20,8 @@ const Links = ({ item }: { item: DataTypes }) => {
           {item.sale ? (
             <Sale collections={item.collections}>-{item.sale}%</Sale>
           ) : null}
-          <img src={`http://localhost:5001/uploads/${item.path}`} alt="model" />
+          <img src={`${item.path[1]}`} alt="model" />
+
           <Details>{item.name}</Details>
           {item.sale ? (
             <Details>

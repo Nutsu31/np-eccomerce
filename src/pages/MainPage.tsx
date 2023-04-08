@@ -12,7 +12,6 @@ import {
 import NewAdded from "../components/NewAdded";
 import FollowUs from "../components/FollowUs";
 import styled, { css } from "styled-components";
-import { useMediaQuery } from "@mui/material";
 
 const menColor =
   "radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(205,183,162,1) 100%);";

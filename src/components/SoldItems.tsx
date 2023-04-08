@@ -50,11 +50,7 @@ const SoldItems = ({ checkout }: { checkout: CheckoutsType[] | undefined }) => {
               <div>
                 {item.model.map((model) => (
                   <div key={Math.random() * Math.random() * Math.random()}>
-                    <img
-                      src={`http://localhost:5001/uploads/${model.img}`}
-                      alt="model"
-                      width={100}
-                    />
+                    <img src={model.img[0]} alt="model" width={100} />
                     <p>
                       {model.name} {model.price}
                     </p>

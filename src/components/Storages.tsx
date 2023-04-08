@@ -4,6 +4,7 @@ import styled, { css } from "styled-components";
 import { DataTypes } from "./functions";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Button } from "@mui/material";
 
 const Storages = ({ data }: { data: Array<DataTypes> }) => {
   const nofitySucces = () => toast.success("წარმატებით განახლდა დაარეფრეშე!");
@@ -70,7 +71,7 @@ const Storages = ({ data }: { data: Array<DataTypes> }) => {
           <tr key={Math.random() * Math.random() * Math.random()}>
             <Td item={item.storage}>
               <img
-                src={`http://localhost:5001/uploads/${item.path}`}
+                src={item.path[0]}
                 alt="item"
                 style={
                   item.storage === 0 ? { border: "10px solid red" } : undefined
@@ -82,22 +83,43 @@ const Storages = ({ data }: { data: Array<DataTypes> }) => {
             <Td item={item.storage}>{item.color}</Td>
             <Td item={item.storage}>{item.size}</Td>
             <Td item={item.storage}>
+              <Button
+                variant="contained"
+                onClick={() => setUpdateStorage({ id: item._id, storage: -1 })}
+              >
+                -1
+              </Button>
+              <Button
+                variant="contained"
+                onClick={() => setUpdateStorage({ id: item._id, storage: -3 })}
+              >
+                -3
+              </Button>
+              <Button
+                variant="contained"
+                onClick={() => setUpdateStorage({ id: item._id, storage: -5 })}
+              >
+                -5
+              </Button>
               დარჩენილია: {item.storage}{" "}
-              <button
+              <Button
+                variant="contained"
                 onClick={() => setUpdateStorage({ id: item._id, storage: 1 })}
               >
                 +1
-              </button>
-              <button
+              </Button>
+              <Button
+                variant="contained"
                 onClick={() => setUpdateStorage({ id: item._id, storage: 3 })}
               >
                 +3
-              </button>
-              <button
+              </Button>
+              <Button
+                variant="contained"
                 onClick={() => setUpdateStorage({ id: item._id, storage: 5 })}
               >
                 +5
-              </button>
+              </Button>
             </Td>
           </tr>
         ))}

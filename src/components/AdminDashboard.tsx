@@ -1,32 +1,42 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
-import { FaPlus, FaCheck, FaAlignJustify, FaUserMinus } from "react-icons/fa";
+import {
+  AddAPhoto,
+  Sell,
+  ShoppingCartCheckout,
+  ShopOutlined,
+  Storage,
+} from "@mui/icons-material";
 const AdminDashboard = () => {
   return (
     <AdminBar>
       <AddNew>
-        <FaPlus style={{ fontSize: 40, color: "lightgray" }} />
+        <AddAPhoto style={{ fontSize: 40, color: "lightgray" }} />
         <Link style={Styles.text} to="add-new-model">
           მოდელის დამატება
         </Link>
       </AddNew>
       <AddNew>
+        <ShopOutlined style={{ fontSize: 40, color: "lightgray" }} />
         <Link style={Styles.text} to="selling">
           გაყიდვაშია
         </Link>
       </AddNew>
       <AddNew>
+        <ShoppingCartCheckout style={{ fontSize: 40, color: "lightgray" }} />
         <Link style={Styles.text} to="checkout">
           შეკვეთა
         </Link>
       </AddNew>
       <AddNew>
+        <Sell style={{ fontSize: 40, color: "lightgray" }} />
         <Link style={Styles.text} to="sold">
           გაიყიდა
         </Link>
       </AddNew>
       <AddNew>
+        <Storage style={{ fontSize: 40, color: "lightgray" }} />
         <Link style={Styles.text} to="storage">
           მარაგი
         </Link>

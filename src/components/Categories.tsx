@@ -7,8 +7,6 @@ interface CategoriesTypes {
 }
 
 const Categories = ({ name, option, setFilterByCategory }: CategoriesTypes) => {
-  //   const [activeCategory, setActiveCategory] = useState(0);
-
   return (
     <Container>
       <span

@@ -19,7 +19,7 @@ export default Footer;
 const FooterContainer = styled.div(
   ({ Dark }: { Dark: boolean }) => css`
     width: 100%;
-    height: 400px;
+    height: 300px;
     border-top: 5px solid ${Dark ? "rgba(255, 255, 255, 0.3)" : "#f9f7f4"};
     display: flex;
     align-items: center;

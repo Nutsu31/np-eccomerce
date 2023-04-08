@@ -3,7 +3,7 @@ import axios from "axios";
 export interface DataTypes {
     color: string;
     name: string;
-    path: string;
+    path: string[];
     price: number;
     size: string;
     _id:string;

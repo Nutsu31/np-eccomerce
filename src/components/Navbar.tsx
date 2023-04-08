@@ -5,7 +5,6 @@ import LogoIcon from "../assets/logo.png";
 import Menu from "./Menu";
 import { NavBarTypes } from "./functions";
 import NavbarMobile from "./NavbarMobile";
-import { getItemsFromLocalStorage, CartType } from "./functions";
 import {
   PersonOutlineRounded,
   ShoppingBagOutlined,
