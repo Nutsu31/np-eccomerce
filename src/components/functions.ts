@@ -14,6 +14,7 @@ export interface DataTypes {
     collections:string;
     storage:number;
     gender:string;
+    desc:string
   }
   export interface CartType {
     img: string;

@@ -149,6 +149,9 @@ const ProductDetailPage = () => {
             Add To Cart
           </Button>
         </form>
+        <div>
+          <p>{EachModel?.desc}</p>
+        </div>
         <span style={{ display: "flex", gap: 8 }}>
           <DeliveryDining />
           უფასო მიწოდება პარასკვეი, 11 აპრილის ჩათვლით

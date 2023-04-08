@@ -14,6 +14,7 @@ import {
   MenuItem,
   Select,
   TextField,
+  TextareaAutosize,
 } from "@mui/material";
 import { Send, Upload } from "@mui/icons-material";
 
@@ -36,12 +37,10 @@ const UploadModel = () => {
     },
   });
   const [sale, setSale] = useState(false);
-
-  const notify = () => toast.success("მოდელი წარმატებით დაემატა!");
+  const notifySucc = () => toast.success("წარმატებით აიტვირთა");
+  const notifyErr = () => toast.error("დამატება უარყოფილია შეავსეთ ყველა ველი");
 
   const onSubmit = handleSubmit((data) => {
-    console.log(data);
-    notify();
     const formData = new FormData();
     for (let i = 0; i < data.image.length; i++) {
       formData.append("image", data.image[i]);
@@ -58,12 +57,14 @@ const UploadModel = () => {
     formData.append("collections", data.collections);
     formData.append("desc", data.desc);
 
-    const res = axios.post("http://localhost:5001/add-new-model", formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
-    console.log(res);
+    const res = axios
+      .post("http://localhost:5001/add-new-model", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((res) => notifySucc())
+      .catch(() => notifyErr());
     // axios({
     //   method: "POST",
     //   url: "http://localhost:5001/add-new-model",
@@ -97,6 +98,7 @@ const UploadModel = () => {
       gender: "",
       sale: 0,
       collections: "",
+      desc: "",
     });
   });
   return (
@@ -119,65 +121,64 @@ const UploadModel = () => {
           <input
             type="file"
             multiple
-            {...register("image")}
+            {...register("image", { required: true })}
             placeholder="ატვირთე სასურველი მოდელი"
           />
         </Button>
         <TextField
           fullWidth
           type="text"
-          {...register("name")}
+          {...register("name", { required: true })}
           placeholder="სახელი"
         />
         <TextField
           fullWidth
           type="number"
-          {...register("price")}
+          {...register("price", { required: true })}
           placeholder="ფასი"
         />
         <TextField
           fullWidth
           type="text"
-          {...register("color")}
+          {...register("color", { required: true })}
           placeholder="ფერი"
         />
         <TextField
           fullWidth
           type="number"
-          {...register("storage")}
+          {...register("storage", { required: true })}
           placeholder="მარაგი"
         />
-        <Select fullWidth {...register("size")}>
+        <Select fullWidth {...register("size", { required: true })}>
           <MenuItem>აირჩიე ზომა</MenuItem>
           <MenuItem value="S">S</MenuItem>
           <MenuItem value="M">M</MenuItem>
           <MenuItem value="L">L</MenuItem>
           <MenuItem value="XL">XL</MenuItem>
         </Select>
-        <Select fullWidth {...register("collections")}>
+        <Select fullWidth {...register("collections", { required: true })}>
           <MenuItem>კოლექცია</MenuItem>
           <MenuItem value="new">ახალი კოლექცია</MenuItem>
         </Select>
-        <Select fullWidth {...register("category")}>
+        <Select fullWidth {...register("category", { required: true })}>
           <MenuItem>კატეგორია</MenuItem>
           <MenuItem value="Suits">პიჯაკი</MenuItem>
           <MenuItem value="T-Shirts">მაისური</MenuItem>
         </Select>
-        <Select fullWidth {...register("style")}>
+        <Select fullWidth {...register("style", { required: true })}>
           <MenuItem>სტილი</MenuItem>
           <MenuItem value="Classic">კლასიკური</MenuItem>
           <MenuItem value="Urban">ყოველდღიური</MenuItem>
         </Select>
-        <Select fullWidth {...register("gender")}>
+        <Select fullWidth {...register("gender", { required: true })}>
           <MenuItem>აირჩიე სქესი</MenuItem>
           <MenuItem value="women">ქალი</MenuItem>
           <MenuItem value="men">კაცი</MenuItem>
           <MenuItem value="unisex">Unisex</MenuItem>
         </Select>
         <TextField
-          fullWidth
           placeholder="აღწერა პროდუქტის"
-          {...register("desc")}
+          {...register("desc", { required: true })}
         />
         <div>
           <FormGroup>
