@@ -19,9 +19,10 @@ export default ProductDesc;
 
 const Container = styled.section(
   () => css`
-    width: 70%;
+    width: 100%;
     display: flex;
     flex-direction: column;
+    gap: 20px;
     align-items: center;
   `
 );
@@ -31,7 +32,6 @@ const StyledHeaderText = styled.h1(
     width: 300px;
     height: 60px;
     border-bottom: 2px solid;
-    margin: 20px 0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -40,5 +40,9 @@ const StyledHeaderText = styled.h1(
 const Description = styled.p(
   () => css`
     width: 500px;
+    @media (max-width: 550px) {
+      width: 100%;
+      padding: 0 48px;
+    }
   `
 );
