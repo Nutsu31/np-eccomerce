@@ -19,23 +19,7 @@ import {
 import { Send, Upload } from "@mui/icons-material";
 
 const UploadModel = () => {
-  const { register, handleSubmit, reset } = useForm({
-    defaultValues: {
-      id: Date.now(),
-      name: "",
-      price: "",
-      size: "",
-      color: "",
-      image: [],
-      category: "",
-      style: "",
-      storage: 0,
-      gender: "",
-      sale: 0,
-      collections: "",
-      desc: "",
-    },
-  });
+  const { register, handleSubmit, reset } = useForm();
   const [sale, setSale] = useState(false);
   const notifySucc = () => toast.success("წარმატებით აიტვირთა");
   const notifyErr = () => toast.error("დამატება უარყოფილია შეავსეთ ყველა ველი");

@@ -2,6 +2,7 @@ import React from "react";
 import styled, { css } from "styled-components";
 import { CartType, handleDelete, handleDiscount } from "./functions";
 import { Details } from "./NewAdded";
+import { Close } from "@mui/icons-material";
 
 const CartItem = ({
   cartItem,
@@ -15,11 +16,7 @@ const CartItem = ({
       {cartItem.length > 0 ? null : <p>კალათა ცარიელია</p>}
       {cartItem?.map((item) => (
         <Container key={item.img}>
-          <img
-            src={`http://localhost:5001/uploads/${item.img}`}
-            alt="model"
-            width={100}
-          />
+          <img src={item.img[0]} alt="model" width={100} />
           <Details>{item.name}</Details>
           <Details>ზომა: {item.size}</Details>
           <Details>რაოდენობა: x{item.quantity}</Details>
@@ -30,11 +27,9 @@ const CartItem = ({
               : item.price * Number(item.quantity)}
             ₾
           </Details>
-          <Remove
+          <Close
             onClick={() => handleDelete({ id: item.id, cartItem, setCartItem })}
-          >
-            X
-          </Remove>
+          ></Close>
         </Container>
       ))}
     </>
@@ -52,16 +47,5 @@ const Container = styled.div(
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
-  `
-);
-
-const Remove = styled.button(
-  () => css`
-    width: 12px;
-    height: 12px;
-    font-size: 16px;
-    border: none;
-    outline: none;
-    cursor: pointer;
   `
 );

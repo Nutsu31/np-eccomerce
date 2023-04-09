@@ -4,7 +4,7 @@ import {
   PersonOutlineRounded,
   ShoppingBagOutlined,
 } from "@mui/icons-material";
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
 import { styles } from "./Navbar";

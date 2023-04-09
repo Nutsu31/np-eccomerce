@@ -107,7 +107,7 @@ export const Button = styled.button(
     justify-content: center;
     color: white;
     font-weight: 600;
-    background: rgb(1, 1, 54);
+    background: #039be5;
     border: none;
   `
 );

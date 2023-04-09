@@ -9,13 +9,7 @@ import {
   handleDiscount,
 } from "../components/functions";
 import { Details, SaledPrice } from "../components/NewAdded";
-import {
-  DeliveryDining,
-  DeliveryDiningTwoTone,
-  DeliveryDiningOutlined,
-  Description,
-  AddShoppingCart,
-} from "@mui/icons-material";
+import { DeliveryDining, AddShoppingCart } from "@mui/icons-material";
 import {
   Button,
   FormControl,
@@ -24,6 +18,7 @@ import {
   Select,
 } from "@mui/material";
 import ProductDesc from "../components/ProductDesc";
+import { lightBlue } from "@mui/material/colors";
 
 const ProductDetailPage = () => {
   const [data, setData] = useState<Array<DataTypes>>([]);
@@ -143,11 +138,7 @@ const ProductDetailPage = () => {
             </FormControl>
             <FormControl>
               <InputLabel>რაოდენობა</InputLabel>
-              <Select
-                value={"quantity"}
-                label="რაოდენობა"
-                {...register("quantity")}
-              >
+              <Select label="რაოდენობა" {...register("quantity")}>
                 {EachModelStorage.map((count) => (
                   <MenuItem value={count}>{count}</MenuItem>
                 ))}
@@ -159,10 +150,22 @@ const ProductDetailPage = () => {
             </Button>
           </form>
 
-          <h3 style={{ display: "flex", gap: 8 }}>
+          <h3
+            style={{
+              display: "flex",
+              gap: 8,
+              borderBottom: "1px solid lightgray",
+            }}
+          >
             <DeliveryDining /> მიწოდება
           </h3>
-          <h4>საკურიერო მომსახურებაზე მუშაობს საქართველოს ფოსტა</h4>
+          <h4>
+            საკურიერო მომსახურებაზე მუშაობს{" "}
+            <span style={{ color: "#039be5", fontSize: 20 }}>
+              {" "}
+              საქართველოს ფოსტა
+            </span>
+          </h4>
           <h4>მიწოდების საფასური თბილისი - 5ლ</h4>
           <h4>მიწოდების საფასური საქართველო - 8ლ</h4>
         </DetailsWrapper>
@@ -177,10 +180,9 @@ export default ProductDetailPage;
 const Container = styled.div(
   () => css`
     width: 100%;
-    min-height: 100vh;
     padding: 24px;
+    border-bottom: 1px solid lightgray;
     display: flex;
-    // justify-content: space-between;
     gap: 24px;
   `
 );

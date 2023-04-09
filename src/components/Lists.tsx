@@ -48,8 +48,8 @@ const Lists = () => {
         return item;
       } else if (item.color.includes(filterByCategory)) {
         return item;
-      } else if (item.size.includes(filterByCategory)) {
-        return item;
+        // } else if (item.size.includes(filterByCategory)) {
+        //   return item;
       }
     } else if (pathname === "/admin-panel/selling") {
       return item;

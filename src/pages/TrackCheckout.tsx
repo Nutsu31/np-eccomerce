@@ -121,11 +121,7 @@ const TrackCheckout = () => {
             >
               {findOrder?.model.map((item) => (
                 <CheckoutDetailsWrapper key={item.id}>
-                  <img
-                    src={`http://localhost:5001/uploads/${item.img}`}
-                    width={120}
-                    alt=""
-                  />
+                  <img src={item.img[0]} width={120} alt="" />
                   <Box
                     sx={{
                       height: 200,

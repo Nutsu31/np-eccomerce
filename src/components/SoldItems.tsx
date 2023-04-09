@@ -13,12 +13,20 @@ const SoldItems = ({ checkout }: { checkout: CheckoutsType[] | undefined }) => {
         width: "100%",
         minHeight: "100vh",
         display: "flex",
-        flexWrap: "wrap",
+        flexDirection: "column",
+        alignItems: "flex-start",
+        justifyContent: "flex-start",
+        // flexWrap: "wrap",
         gap: 64,
       }}
     >
       <p
-        style={{ width: "100%", textAlign: "center", background: "lightgray" }}
+        style={{
+          width: "100%",
+          height: 30,
+          textAlign: "center",
+          // background: "lightgray",
+        }}
       >
         სულ გაიყიდა: {totalSoldItems}ც ჯამი: {countSoldPrice}₾
       </p>

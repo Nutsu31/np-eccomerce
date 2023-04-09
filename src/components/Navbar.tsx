@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import styled, { css } from "styled-components";
 import LogoIcon from "../assets/logo.png";
 import Menu from "./Menu";
@@ -36,6 +36,10 @@ const Navbar = ({ setSearch, setLogin, login, setDark, dark }: NavBarTypes) => {
       return;
     }
   });
+  const location = useLocation();
+  useEffect(() => {
+    setShowMenu(false);
+  }, [location]);
   // useEffect(() => {
   //   setCartSize(cartItem.length);
   // });
