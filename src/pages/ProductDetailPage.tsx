@@ -62,15 +62,10 @@ const ProductDetailPage = () => {
   return (
     <>
       <Container>
-        <div
-          style={{
-            display: "flex",
-            gap: 32,
-          }}
-        >
-          <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+        <AllImgWrapper>
+          <SmallImgWrapper>
             {EachModel?.path.map((img) => (
-              <ImgBorder
+              <SmallImg
                 mainImg={mainImg}
                 image={img}
                 src={img}
@@ -78,14 +73,14 @@ const ProductDetailPage = () => {
                 onClick={() => setMainImg(img)}
               />
             ))}
-          </div>
-          <img
+          </SmallImgWrapper>
+          <MainImg
             src={mainImg ? mainImg : EachModel?.path[0]}
             alt="model"
             width={440}
             height={600}
           />
-        </div>
+        </AllImgWrapper>
         <DetailsWrapper>
           <h2 style={{ display: "contents" }}>{EachModel?.name}</h2>
           <span
@@ -157,17 +152,18 @@ const ProductDetailPage = () => {
               borderBottom: "1px solid lightgray",
             }}
           >
-            <DeliveryDining /> მიწოდება
+            <DeliveryDining /> მიწოდება !
           </h3>
-          <h4>
+          <H4>
             საკურიერო მომსახურებაზე მუშაობს{" "}
-            <span style={{ color: "#039be5", fontSize: 20 }}>
-              {" "}
-              საქართველოს ფოსტა
-            </span>
-          </h4>
-          <h4>მიწოდების საფასური თბილისი - 5ლ</h4>
-          <h4>მიწოდების საფასური საქართველო - 8ლ</h4>
+            <Highlighted>საქართველოს ფოსტა</Highlighted>
+          </H4>
+          <H4>
+            მიწოდების საფასური თბილისი -<Highlighted>5ლ</Highlighted>
+          </H4>
+          <H4>
+            მიწოდების საფასური საქ. - <Highlighted>8ლ</Highlighted>
+          </H4>
         </DetailsWrapper>
       </Container>
       <ProductDesc desc={EachModel?.desc} />
@@ -184,15 +180,10 @@ const Container = styled.div(
     border-bottom: 1px solid lightgray;
     display: flex;
     gap: 24px;
-  `
-);
-
-const ImgBorder = styled.img(
-  ({ image, mainImg }: { image: string; mainImg?: string }) => css`
-    width: 104px;
-    height: 140px;
-    padding: 8px;
-    outline: ${image === mainImg ? "1px solid gray" : ""};
+    @media (max-width: 1050px) {
+      flex-direction: column;
+      align-items: center;
+    }
   `
 );
 
@@ -203,5 +194,91 @@ const DetailsWrapper = styled.div(
     display: flex;
     flex-direction: column;
     gap: 16px;
+    @media (max-width: 550px) {
+      padding: 24px 48px;
+    }
+    @media (max-width: 430px) {
+      padding: 24px 84px;
+    }
+    @media (max-width: 350px) {
+      padding: 24px 124px;
+    } ;
+  `
+);
+const Highlighted = styled.span(
+  () => css`
+    font-size: 20;
+    color: #039be5;
+    @media (max-width: 1210px) {
+      font-size: 18;
+    }
+  `
+);
+
+const H4 = styled.h4(
+  () => css`
+    @media (max-width: 1210px) {
+      font-size: 15px;
+    }
+  `
+);
+
+const AllImgWrapper = styled.div(
+  () => css`
+    width: 568px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    @media (max-width: 1180px) {
+      flex-direction: column-reverse;
+      justify-content: center;
+    }
+  `
+);
+const SmallImgWrapper = styled.div(
+  () => css`
+    width: 104px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    @media (max-width: 1180px) {
+      width: 440px;
+      flex-direction: row;
+    }
+    @media (max-width: 550px) {
+      width: 350px;
+    }
+    @media (max-width: 350px) {
+      width: 350px;
+      padding: 0 16px;
+      justify-content: center;
+    }
+  `
+);
+
+const SmallImg = styled.img(
+  ({ image, mainImg }: { image: string; mainImg?: string }) => css`
+    width: 104px;
+    height: 140px;
+    padding: ${image === mainImg ? "8px" : ""};
+    outline: ${image === mainImg ? "1px solid gray" : ""};
+    @media (max-width: 550px) {
+      width: 84px;
+      height: 100px;
+    }
+  `
+);
+
+const MainImg = styled.img(
+  () => css`
+    width: 400px;
+    height: 600px;
+    @media (max-width: 550px) {
+      width: 300px;
+      height: 500px;
+    }
+    @media (max-width: 350px) {
+      width: 350px;
+    }
   `
 );
