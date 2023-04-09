@@ -23,6 +23,7 @@ import {
   MenuItem,
   Select,
 } from "@mui/material";
+import ProductDesc from "../components/ProductDesc";
 
 const ProductDetailPage = () => {
   const [data, setData] = useState<Array<DataTypes>>([]);
@@ -64,120 +65,110 @@ const ProductDetailPage = () => {
   });
 
   return (
-    <Container>
-      <div
-        style={{
-          display: "flex",
-          gap: 32,
-        }}
-      >
-        <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-          {EachModel?.path.map((img) => (
-            <ImgBorder
-              mainImg={mainImg}
-              image={img}
-              src={img}
-              alt="model"
-              onClick={() => setMainImg(img)}
-            />
-          ))}
-        </div>
-        <img
-          src={mainImg ? mainImg : EachModel?.path[0]}
-          alt="model"
-          width={600}
-          // height={ 624}
-        />
-      </div>
-      <DetailsWrapper>
-        <h2 style={{ display: "contents" }}>{EachModel?.name}</h2>
-        <span
+    <>
+      <Container>
+        <div
           style={{
-            color: EachModel?.storage === 0 ? "red" : "green",
-            fontWeight: 600,
+            display: "flex",
+            gap: 32,
           }}
         >
-          {EachModel?.storage === 0 ? "არ არის მარაგში" : "მარაგშია"}
-        </span>
-        {EachModel?.sale ? (
-          <Details>
-            {"₾" + handleDiscount(EachModel)}{" "}
-            <SaledPrice>{"₾" + EachModel?.price + ".00"}</SaledPrice>
-          </Details>
-        ) : (
-          <Details>{"₾" + EachModel?.price + ".00"}</Details>
-        )}
-        <form
-          onSubmit={onSubimit}
-          style={{ display: "flex", flexDirection: "column", gap: 16 }}
-        >
-          <FormControl>
-            <InputLabel>ზომა</InputLabel>
-            <Select
-              label="ზომა"
-              value={EachModel?.size}
-              MenuProps={{
-                PaperProps: { sx: { maxHeight: 200 } },
-              }}
-              {...register("size")}
-            >
-              <MenuItem value={EachModel?.size}>{EachModel?.size}</MenuItem>
-            </Select>
-          </FormControl>
-          <FormControl>
-            <InputLabel>ფერი</InputLabel>
-            <Select
-              label="ფერი"
-              value={EachModel?.color}
-              MenuProps={{
-                PaperProps: { sx: { maxHeight: 200 } },
-              }}
-              {...register("color")}
-            >
-              <MenuItem value={EachModel?.color}>
-                {getName(EachModel?.color)}
-              </MenuItem>
-            </Select>
-          </FormControl>
-          <FormControl>
-            <InputLabel>რაოდენობა</InputLabel>
-            <Select
-              value={"quantity"}
-              label="რაოდენობა"
-              {...register("quantity")}
-            >
-              {EachModelStorage.map((count) => (
-                <MenuItem value={count}>{count}</MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          <Button type="submit" variant="contained">
-            <AddShoppingCart />
-            კალათაში დამატება
-          </Button>
-        </form>
-        <div>
-          <h3>პროდუქტის აღწერა</h3>
-          <p>
-            <Description /> {EachModel?.desc}
-          </p>
+          <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+            {EachModel?.path.map((img) => (
+              <ImgBorder
+                mainImg={mainImg}
+                image={img}
+                src={img}
+                alt="model"
+                onClick={() => setMainImg(img)}
+              />
+            ))}
+          </div>
+          <img
+            src={mainImg ? mainImg : EachModel?.path[0]}
+            alt="model"
+            width={440}
+            height={600}
+          />
         </div>
+        <DetailsWrapper>
+          <h2 style={{ display: "contents" }}>{EachModel?.name}</h2>
+          <span
+            style={{
+              color: EachModel?.storage === 0 ? "red" : "green",
+              fontWeight: 600,
+            }}
+          >
+            {EachModel?.storage === 0 ? "არ არის მარაგში" : "მარაგშია"}
+          </span>
+          {EachModel?.sale ? (
+            <Details>
+              {"₾" + handleDiscount(EachModel)}{" "}
+              <SaledPrice>{"₾" + EachModel?.price + ".00"}</SaledPrice>
+            </Details>
+          ) : (
+            <Details>{"₾" + EachModel?.price + ".00"}</Details>
+          )}
+          <form
+            onSubmit={onSubimit}
+            style={{ display: "flex", flexDirection: "column", gap: 16 }}
+          >
+            <FormControl>
+              <InputLabel>ზომა</InputLabel>
+              <Select
+                label="ზომა"
+                value={EachModel?.size}
+                MenuProps={{
+                  PaperProps: { sx: { maxHeight: 200 } },
+                }}
+                {...register("size")}
+              >
+                <MenuItem value={EachModel?.size}>{EachModel?.size}</MenuItem>
+              </Select>
+            </FormControl>
+            <FormControl>
+              <InputLabel>ფერი</InputLabel>
+              <Select
+                label="ფერი"
+                value={EachModel?.color}
+                MenuProps={{
+                  PaperProps: { sx: { maxHeight: 200 } },
+                }}
+                {...register("color")}
+              >
+                <MenuItem value={EachModel?.color}>
+                  {getName(EachModel?.color)}
+                </MenuItem>
+              </Select>
+            </FormControl>
+            <FormControl>
+              <InputLabel>რაოდენობა</InputLabel>
+              <Select
+                value={"quantity"}
+                label="რაოდენობა"
+                {...register("quantity")}
+              >
+                {EachModelStorage.map((count) => (
+                  <MenuItem value={count}>{count}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <Button type="submit" variant="contained">
+              <AddShoppingCart />
+              კალათაში დამატება
+            </Button>
+          </form>
 
-        <span style={{ display: "flex", gap: 8 }}>
-          <DeliveryDining />
-          უფასო მიწოდება პარასკვეი, 11 აპრილის ჩათვლით
-        </span>
-        <span>
-          <DeliveryDiningOutlined />
-          მიწოდების საფასური თბილისი - 5ლ
-        </span>
-        <span>
-          {" "}
-          <DeliveryDiningTwoTone />
-          მიწოდების საფასური საქართველო - 8ლ
-        </span>
-      </DetailsWrapper>
-    </Container>
+          <h3 style={{ display: "flex", gap: 8 }}>
+            <DeliveryDining /> მიწოდება
+          </h3>
+          <h4>საკურიერო მომსახურებაზე მუშაობს საქართველოს ფოსტა</h4>
+          <h4>მიწოდების საფასური თბილისი - 5ლ</h4>
+          <h4>მიწოდების საფასური საქართველო - 8ლ</h4>
+        </DetailsWrapper>
+      </Container>
+      <ProductDesc desc={EachModel?.desc} />
+    </>
   );
 };
 
@@ -189,15 +180,15 @@ const Container = styled.div(
     min-height: 100vh;
     padding: 24px;
     display: flex;
-    justify-content: center;
+    // justify-content: space-between;
     gap: 24px;
   `
 );
 
 const ImgBorder = styled.img(
   ({ image, mainImg }: { image: string; mainImg?: string }) => css`
-    width: 204px;
-    height: 240px;
+    width: 104px;
+    height: 140px;
     padding: 8px;
     outline: ${image === mainImg ? "1px solid gray" : ""};
   `
