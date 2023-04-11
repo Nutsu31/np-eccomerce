@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 interface singInType {
   status?: string;
   user?: string;
+  error?: string;
 }
 const LogIn = () => {
   const [singIn, setSingIn] = useState<singInType>();
@@ -54,6 +55,9 @@ const LogIn = () => {
             label="მომხმარებლის პაროლი"
             {...register("password")}
           />
+          {singIn?.status === "bad" ? (
+            <p style={{ color: "red", fontSize: 14 }}>{singIn.error}</p>
+          ) : null}
           <Button variant="contained" type="submit">
             ავტორიზაცია
           </Button>

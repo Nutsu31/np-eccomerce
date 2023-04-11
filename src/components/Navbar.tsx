@@ -120,7 +120,7 @@ const Navbar = ({ setSearch, setLogin, login, setDark, dark }: NavBarTypes) => {
             </p>
           </Link>
 
-          <Link to={"/admin-panel"} style={styles.container}>
+          <Link to={"/login"} style={styles.container}>
             <p
               onClick={() => setLogin(!login)}
               style={{
@@ -132,8 +132,7 @@ const Navbar = ({ setSearch, setLogin, login, setDark, dark }: NavBarTypes) => {
               }}
             >
               <PersonOutlineRounded />
-
-              {login ? "გასვლა" : "შესვლა"}
+              ავტორიზაცია
             </p>
           </Link>
           <Button
