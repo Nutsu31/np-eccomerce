@@ -8,9 +8,11 @@ import "react-toastify/dist/ReactToastify.css";
 import {
   Button,
   Checkbox,
+  FormControl,
   FormControlLabel,
   FormGroup,
   Input,
+  InputLabel,
   MenuItem,
   Select,
   TextField,
@@ -113,55 +115,73 @@ const UploadModel = () => {
           fullWidth
           type="text"
           {...register("name", { required: true })}
-          placeholder="სახელი"
+          label="სახელი"
         />
         <TextField
           fullWidth
           type="number"
           {...register("price", { required: true })}
-          placeholder="ფასი"
+          label="ფასი"
         />
         <TextField
           fullWidth
           type="text"
           {...register("color", { required: true })}
-          placeholder="ფერი"
+          label="ფერი"
         />
         <TextField
           fullWidth
           type="number"
           {...register("storage", { required: true })}
-          placeholder="მარაგი"
+          label="მარაგი"
         />
-        <Select fullWidth {...register("size", { required: true })}>
-          <MenuItem>აირჩიე ზომა</MenuItem>
+        <Select
+          fullWidth
+          {...register("size", { required: true })}
+          defaultValue={"initial value" || ""}
+        >
           <MenuItem value="S">S</MenuItem>
           <MenuItem value="M">M</MenuItem>
           <MenuItem value="L">L</MenuItem>
           <MenuItem value="XL">XL</MenuItem>
         </Select>
-        <Select fullWidth {...register("collections", { required: true })}>
-          <MenuItem>კოლექცია</MenuItem>
+        <Select
+          fullWidth
+          {...register("collections", { required: true })}
+          label="კოლექცია"
+          defaultValue={"collections" || ""}
+        >
           <MenuItem value="new">ახალი კოლექცია</MenuItem>
         </Select>
-        <Select fullWidth {...register("category", { required: true })}>
-          <MenuItem>კატეგორია</MenuItem>
+        <Select
+          fullWidth
+          {...register("category", { required: true })}
+          defaultValue={"category" || ""}
+          label="კატეგორია"
+        >
           <MenuItem value="Suits">პიჯაკი</MenuItem>
           <MenuItem value="T-Shirts">მაისური</MenuItem>
         </Select>
-        <Select fullWidth {...register("style", { required: true })}>
-          <MenuItem>სტილი</MenuItem>
+        <Select
+          fullWidth
+          {...register("style", { required: true })}
+          defaultValue={"style" || ""}
+        >
           <MenuItem value="Classic">კლასიკური</MenuItem>
           <MenuItem value="Urban">ყოველდღიური</MenuItem>
         </Select>
-        <Select fullWidth {...register("gender", { required: true })}>
-          <MenuItem>აირჩიე სქესი</MenuItem>
+        <Select
+          fullWidth
+          {...register("gender", { required: true })}
+          defaultValue={"gender" || ""}
+          label="airCie"
+        >
           <MenuItem value="women">ქალი</MenuItem>
           <MenuItem value="men">კაცი</MenuItem>
           <MenuItem value="unisex">Unisex</MenuItem>
         </Select>
         <TextField
-          placeholder="აღწერა პროდუქტის"
+          label="აღწერა პროდუქტის"
           {...register("desc", { required: true })}
         />
         <div>
@@ -182,7 +202,7 @@ const UploadModel = () => {
               fullWidth
               type="text"
               {...register("sale")}
-              placeholder="ფასდაკლების პროცენტი"
+              label="ფასდაკლების პროცენტი"
             />
           ) : null}
         </div>

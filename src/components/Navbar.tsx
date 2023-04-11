@@ -7,7 +7,6 @@ import { NavBarTypes } from "./functions";
 import NavbarMobile from "./NavbarMobile";
 import {
   PersonOutlineRounded,
-  ShoppingBagOutlined,
   LightMode,
   DarkMode,
   Search,

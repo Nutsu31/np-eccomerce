@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styled, { css } from "styled-components";
 import AdminDashboard from "../components/AdminDashboard";
 import Checkouts from "../components/Checkouts";
@@ -12,33 +12,39 @@ import Lists from "../components/Lists";
 import SoldItems from "../components/SoldItems";
 import Storages from "../components/Storages";
 import UploadModel from "../components/UploadModel";
+import LogIn from "./LogIn";
 
 const AdminPanel = () => {
-  const [login, setLogin] = useState(true);
+  const [login, setLogin] = useState(false);
   const { menu } = useParams();
 
   const [data, setData] = useState<Array<DataTypes>>([]);
   const [checkout, setCheckout] = useState<Array<CheckoutsType>>();
-
+  const navigate = useNavigate();
   useEffect(() => {
     getClothingModels({ setData });
   }, []);
+
+  useEffect(() => {
+    if (!login) {
+      navigate("/admin-panel");
+    } else if (login) {
+      navigate("/admin-panel");
+    }
+  }, [login]);
+
   return (
     <Container>
-      {login ? (
-        <>
-          <AdminDashboard />
-          {menu === "selling" ? <Lists /> : null}
-          {menu === "add-new-model" ? <UploadModel /> : null}
-          {menu === "checkout" ? (
-            <Checkouts checkout={checkout} setCheckout={setCheckout} />
-          ) : null}
-          {menu === "sold" ? <SoldItems checkout={checkout} /> : null}
-          {menu === "storage" ? <Storages data={data} /> : null}
-        </>
-      ) : (
-        <h1>გაიარეთ ავტორიზაცია</h1>
-      )}
+      <>
+        <AdminDashboard />
+        {menu === "selling" ? <Lists /> : null}
+        {menu === "add-new-model" ? <UploadModel /> : null}
+        {menu === "checkout" ? (
+          <Checkouts checkout={checkout} setCheckout={setCheckout} />
+        ) : null}
+        {menu === "sold" ? <SoldItems checkout={checkout} /> : null}
+        {menu === "storage" ? <Storages data={data} /> : null}
+      </>
     </Container>
   );
 };

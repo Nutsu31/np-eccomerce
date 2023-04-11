@@ -27,8 +27,8 @@ const ProductDetailPage = () => {
 
   const EachModel = data.find((item) => item._id === object);
   let EachModelStorage = [];
-  for (let i = 1; i < EachModel!?.storage; i++) {
-    EachModelStorage.push(i);
+  for (let i = 0; i < EachModel!?.storage; i++) {
+    EachModelStorage.push(i + 1);
   }
 
   useEffect(() => {
@@ -107,10 +107,10 @@ const ProductDetailPage = () => {
               <InputLabel>ზომა</InputLabel>
               <Select
                 label="ზომა"
-                value={EachModel?.size}
                 MenuProps={{
                   PaperProps: { sx: { maxHeight: 200 } },
                 }}
+                defaultValue={EachModel?.size || ""}
                 {...register("size")}
               >
                 <MenuItem value={EachModel?.size}>{EachModel?.size}</MenuItem>
@@ -120,20 +120,24 @@ const ProductDetailPage = () => {
               <InputLabel>ფერი</InputLabel>
               <Select
                 label="ფერი"
-                value={EachModel?.color}
+                defaultValue={EachModel?.color || ""}
                 MenuProps={{
                   PaperProps: { sx: { maxHeight: 200 } },
                 }}
                 {...register("color")}
               >
-                <MenuItem value={EachModel?.color}>
+                <MenuItem value={EachModel?.color || ""}>
                   {getName(EachModel?.color)}
                 </MenuItem>
               </Select>
             </FormControl>
             <FormControl>
               <InputLabel>რაოდენობა</InputLabel>
-              <Select label="რაოდენობა" {...register("quantity")}>
+              <Select
+                label="რაოდენობა"
+                {...register("quantity")}
+                defaultValue={"Initial Value" || ""}
+              >
                 {EachModelStorage.map((count) => (
                   <MenuItem value={count}>{count}</MenuItem>
                 ))}

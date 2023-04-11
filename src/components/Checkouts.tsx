@@ -86,7 +86,7 @@ const Checkouts = ({
                         status: "inProgress",
                         models: item.model,
                       });
-                      setShouldUpdate(true);
+                      setShouldUpdate(!shouldUpdate);
                     }}
                   >
                     In Progress
@@ -94,7 +94,7 @@ const Checkouts = ({
                   <button
                     onClick={() => {
                       setOrderStatus({ id: item._id, status: "shipped" });
-                      setShouldUpdate(true);
+                      setShouldUpdate(!shouldUpdate);
                     }}
                   >
                     Shipped
@@ -102,7 +102,7 @@ const Checkouts = ({
                   <button
                     onClick={() => {
                       setOrderStatus({ id: item._id, status: "delivered" });
-                      setShouldUpdate(true);
+                      setShouldUpdate(!shouldUpdate);
                     }}
                   >
                     Delivered

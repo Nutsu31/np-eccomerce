@@ -123,6 +123,7 @@ export function getTotalPrice ({cartItem, setTotalPrice}:getTotalPriceType){
   setTotalPrice(sum);
 }
 
+
 interface GetTotalSaleType {
   cartItem:Array<CartType>,
   totalPrice:number,

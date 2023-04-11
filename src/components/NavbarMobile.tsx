@@ -60,9 +60,9 @@ const NavbarMobile = ({
         </p>
       </Link>
 
-      <Link to={"/admin-panel"} style={styles.container}>
+      <Link to={"/login"} style={styles.container}>
         <p
-          onClick={() => setLogin(!login)}
+          onClick={() => (login ? setLogin(false) : null)}
           style={{
             display: "flex",
             alignItems: "center",

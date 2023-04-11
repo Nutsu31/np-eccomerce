@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { CartType } from "./functions";
 import styled, { css } from "styled-components";
 import { Button } from "./TotalPayment";
+import { FormControl, TextField } from "@mui/material";
 
 const FillAddressInfo = ({
   totalPrice,
@@ -54,28 +55,30 @@ const FillAddressInfo = ({
   return (
     <FormWrapper>
       <h1>ადრესატის ინფორმაცია:</h1>
-      <Form onSubmit={onSubmit}>
-        <Input type="text" {...register("firstname")} placeholder="სახელი" />
-        <Input type="text" {...register("lastname")} placeholder="გვარი" />
-        <Input type="text" {...register("city")} placeholder="ქალაქი" />
-        <Input type="text" {...register("street")} placeholder="ქუჩა" />
-        <Input
-          type="number"
-          {...register("phone")}
-          placeholder="საკონტაქტო ნომერი"
-        />
-        <Input
-          type="number"
-          {...register("alt_phone")}
-          placeholder="სხვა საკონტაქტო პირის ნომერი"
-        />
-        <Input
-          type="text"
-          {...register("postalCode")}
-          placeholder="საფოსტო კოდი მაგ:(თბილისი: 0162)"
-        />
-        <Button>გაგრძელება</Button>
-      </Form>
+      <FormControl>
+        <Form onSubmit={onSubmit}>
+          <TextField type="text" {...register("firstname")} label="სახელი" />
+          <TextField type="text" {...register("lastname")} label="გვარი" />
+          <TextField type="text" {...register("city")} label="ქალაქი" />
+          <TextField type="text" {...register("street")} label="ქუჩა" />
+          <TextField
+            type="number"
+            {...register("phone")}
+            label="საკონტაქტო ნომერი"
+          />
+          <TextField
+            type="number"
+            {...register("alt_phone")}
+            label="სხვა საკონტაქტო პირის ნომერი"
+          />
+          <TextField
+            type="text"
+            {...register("postalCode")}
+            label="საფოსტო კოდი მაგ:(თბილისი: 0162)"
+          />
+          <Button>გაგრძელება</Button>
+        </Form>
+      </FormControl>
     </FormWrapper>
   );
 };
@@ -98,15 +101,5 @@ const Form = styled.form(
     display: flex;
     gap: 4px;
     flex-direction: column;
-  `
-);
-const Input = styled.input(
-  () => css`
-    width: 100%;
-    height: 50px;
-    padding: 0 16px;
-    outline: none;
-    border-radius: 10px;
-    border: 3px solid lightgray;
   `
 );
