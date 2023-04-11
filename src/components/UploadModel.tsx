@@ -102,7 +102,11 @@ const UploadModel = () => {
           pauseOnHover
           theme="dark"
         />
-        <Button fullWidth sx={{ height: 40 }} variant="contained">
+        <Button
+          fullWidth
+          variant="contained"
+          sx={{ width: { sm: 250, md: 350, lg: 450 } }}
+        >
           <Upload />
           <input
             type="file"
@@ -112,75 +116,98 @@ const UploadModel = () => {
           />
         </Button>
         <TextField
-          fullWidth
+          sx={{ width: { sm: 250, md: 350, lg: 450 } }}
           type="text"
           {...register("name", { required: true })}
           label="სახელი"
         />
         <TextField
-          fullWidth
+          sx={{ width: { sm: 250, md: 350, lg: 450 } }}
           type="number"
           {...register("price", { required: true })}
           label="ფასი"
         />
         <TextField
-          fullWidth
+          sx={{ width: { sm: 250, md: 350, lg: 450 } }}
           type="text"
           {...register("color", { required: true })}
           label="ფერი"
         />
         <TextField
-          fullWidth
+          sx={{ width: { sm: 250, md: 350, lg: 450 } }}
           type="number"
           {...register("storage", { required: true })}
           label="მარაგი"
         />
-        <Select
-          fullWidth
-          {...register("size", { required: true })}
-          defaultValue={"initial value" || ""}
-        >
-          <MenuItem value="S">S</MenuItem>
-          <MenuItem value="M">M</MenuItem>
-          <MenuItem value="L">L</MenuItem>
-          <MenuItem value="XL">XL</MenuItem>
-        </Select>
-        <Select
-          fullWidth
-          {...register("collections", { required: true })}
-          label="კოლექცია"
-          defaultValue={"collections" || ""}
-        >
-          <MenuItem value="new">ახალი კოლექცია</MenuItem>
-        </Select>
-        <Select
-          fullWidth
-          {...register("category", { required: true })}
-          defaultValue={"category" || ""}
-          label="კატეგორია"
-        >
-          <MenuItem value="Suits">პიჯაკი</MenuItem>
-          <MenuItem value="T-Shirts">მაისური</MenuItem>
-        </Select>
-        <Select
-          fullWidth
-          {...register("style", { required: true })}
-          defaultValue={"style" || ""}
-        >
-          <MenuItem value="Classic">კლასიკური</MenuItem>
-          <MenuItem value="Urban">ყოველდღიური</MenuItem>
-        </Select>
-        <Select
-          fullWidth
-          {...register("gender", { required: true })}
-          defaultValue={"gender" || ""}
-          label="airCie"
-        >
-          <MenuItem value="women">ქალი</MenuItem>
-          <MenuItem value="men">კაცი</MenuItem>
-          <MenuItem value="unisex">Unisex</MenuItem>
-        </Select>
+        <FormControl>
+          <InputLabel id="size">ზომა</InputLabel>
+          <Select
+            sx={{ width: { sm: 250, md: 350, lg: 450 } }}
+            {...register("size", { required: true })}
+            defaultValue={"initial value" || ""}
+            id="size"
+            label="ზომა"
+          >
+            <MenuItem value="S">S</MenuItem>
+            <MenuItem value="M">M</MenuItem>
+            <MenuItem value="L">L</MenuItem>
+            <MenuItem value="XL">XL</MenuItem>
+          </Select>
+        </FormControl>
+        <FormControl>
+          <InputLabel id="collection">კოლექცია</InputLabel>
+          <Select
+            sx={{ width: { sm: 250, md: 350, lg: 450 } }}
+            {...register("collections", { required: true })}
+            label="კოლექცია"
+            defaultValue={"collections" || ""}
+            id="collection"
+          >
+            <MenuItem value="new">ახალი კოლექცია</MenuItem>
+          </Select>
+        </FormControl>
+        <FormControl>
+          <InputLabel id="category">კატეგორია</InputLabel>
+          <Select
+            sx={{ width: { sm: 250, md: 350, lg: 450 } }}
+            {...register("category", { required: true })}
+            defaultValue={"category" || ""}
+            label="კატეგორია"
+            id="category"
+          >
+            <MenuItem value="Suits">პიჯაკი</MenuItem>
+            <MenuItem value="T-Shirts">მაისური</MenuItem>
+          </Select>
+        </FormControl>
+        <FormControl>
+          <InputLabel id="style">სტილი</InputLabel>
+          <Select
+            sx={{ width: { sm: 250, md: 350, lg: 450 } }}
+            {...register("style", { required: true })}
+            defaultValue={"style" || ""}
+            id="style"
+            label="სტილი"
+          >
+            <MenuItem value="Classic">კლასიკური</MenuItem>
+            <MenuItem value="Urban">ყოველდღიური</MenuItem>
+          </Select>
+        </FormControl>
+        <FormControl>
+          <InputLabel id="gender">სქესი</InputLabel>
+          <Select
+            sx={{ width: { sm: 250, md: 350, lg: 450 } }}
+            {...register("gender", { required: true })}
+            defaultValue={"gender" || ""}
+            label="სქესი"
+            id="gender"
+          >
+            <MenuItem value="women">ქალი</MenuItem>
+            <MenuItem value="men">კაცი</MenuItem>
+            <MenuItem value="unisex">Unisex</MenuItem>
+          </Select>
+        </FormControl>
         <TextField
+          sx={{ width: { sm: 250, md: 350, lg: 450 } }}
           label="აღწერა პროდუქტის"
           {...register("desc", { required: true })}
         />
@@ -199,14 +226,19 @@ const UploadModel = () => {
           </FormGroup>
           {sale ? (
             <TextField
-              fullWidth
+              sx={{ width: { sm: 250, md: 350, lg: 450 } }}
               type="text"
               {...register("sale")}
               label="ფასდაკლების პროცენტი"
             />
           ) : null}
         </div>
-        <Button variant="contained" fullWidth type="submit">
+        <Button
+          variant="contained"
+          fullWidth
+          type="submit"
+          sx={{ width: { sm: 250, md: 350, lg: 450 } }}
+        >
           Submit
           <Send />
         </Button>

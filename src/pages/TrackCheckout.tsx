@@ -59,25 +59,17 @@ const TrackCheckout = () => {
   return (
     <Container>
       <div style={{ width: "100%" }}>
-        <form
-          onSubmit={onSubmit}
-          style={{
-            height: 60,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
+        <Form onSubmit={onSubmit}>
           <TextField
             type="text"
             {...register("phone")}
-            style={{ width: 380, height: 40 }}
+            sx={{ width: { sm: 250, md: 350, lg: 450, xl: 600 } }}
             placeholder="შეკვეთის ძებნა (ტელ)"
           />
           <Button type="submit">
             <Search />
           </Button>
-        </form>
+        </Form>
         <ToastContainer
           position="top-center"
           autoClose={3000}
@@ -160,11 +152,37 @@ const Container = styled.div(
   () => css`
     width: 100%;
     min-height: 400px;
+    padding: 0 200px;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 48px;
     margin: 24px 0;
+    @media (max-width: 1550px) {
+      padding: 0 150px;
+    }
+    @media (max-width: 1360px) {
+      padding: 0 100px;
+    }
+    @media (max-width: 1200px) {
+      padding: 0 50px;
+    }
+    @media (max-width: 1060px) {
+      padding: 0;
+    }
+  `
+);
+const Form = styled.form(
+  () => css`
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    @media (max-width: 700px) {
+      height: 200px;
+      flex-direction: column;
+    }
   `
 );
 const DetailsWrapper = styled.div(

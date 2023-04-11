@@ -10,14 +10,16 @@ import {
   Menu,
 } from "@mui/icons-material";
 import AdminDashboardMobile from "./AdminDashboardMobile";
-import { Button } from "@mui/material";
+import { Button, useMediaQuery } from "@mui/material";
 const AdminDashboard = () => {
   const [showDashboard, setShowDashboard] = useState(false);
   const location = useLocation();
+  const media = useMediaQuery("(max-width:700px)");
   useEffect(() => {
     setShowDashboard(false);
   }, [location]);
 
+  console.log(media);
   return (
     <>
       <AdminBar>
@@ -56,9 +58,11 @@ const AdminDashboard = () => {
         showDashboard={showDashboard}
         setShowDashboard={setShowDashboard}
       />
-      <Button onClick={() => setShowDashboard(!showDashboard)}>
-        <Menu />
-      </Button>
+      {media ? (
+        <Button onClick={() => setShowDashboard(!showDashboard)}>
+          <Menu />
+        </Button>
+      ) : null}
     </>
   );
 };

@@ -91,7 +91,7 @@ export default NavbarMobile;
 const Container = styled.div(
   ({ dark, showMenu }: { dark: boolean; showMenu?: boolean }) => css`
     width: 300px;
-    height: 100vh;
+    height: ${showMenu ? "100vh" : 0};
     padding: 48px 24px;
     display: none;
     gap: 16px;
@@ -99,7 +99,7 @@ const Container = styled.div(
     top: 0;
     z-index: 3;
     right: ${showMenu ? "-200px" : "-700px"};
-    background: ${dark ? "lightgray" : "gray"};
+    background: ${dark ? "gray" : "lightgray"};
     flex-direction: column;
     align-items: flex-start;
     transition: 0.4s ease;
