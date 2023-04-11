@@ -42,7 +42,10 @@ const AdminPanel = () => {
         {menu === "checkout" ? (
           <Checkouts checkout={checkout} setCheckout={setCheckout} />
         ) : null}
-        {menu === "sold" ? <SoldItems checkout={checkout} /> : null}
+
+        {menu === "sold" && checkout?.length! > 0 ? (
+          <SoldItems checkout={checkout} />
+        ) : null}
         {menu === "storage" ? <Storages data={data} /> : null}
       </>
     </Container>

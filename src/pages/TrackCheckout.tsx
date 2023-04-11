@@ -121,7 +121,7 @@ const TrackCheckout = () => {
             >
               {findOrder?.model.map((item) => (
                 <CheckoutDetailsWrapper key={item.id}>
-                  <img src={item.img[0]} width={120} alt="" />
+                  <img src={item.img[0]} width={150} alt="" />
                   <Box
                     sx={{
                       height: 200,
@@ -137,11 +137,12 @@ const TrackCheckout = () => {
                   <Box sx={{ textAlign: "left" }}>
                     <Typography variant="h5">გაიგზავნა მისამართზე:</Typography>
                     <p>
-                      {findOrder.firstname} {findOrder.lastname}
+                      მიმღების სახელი: {findOrder.firstname}{" "}
+                      {findOrder.lastname}
                     </p>
-                    <p>{findOrder.city}</p>
-                    <p>{findOrder.street}</p>
-                    <p>{findOrder.phone}</p>
+                    <p>ქალაქი: {findOrder.city}</p>
+                    <p>ქუჩა: {findOrder.street}</p>
+                    <p>ტელეფონი: {findOrder.phone}</p>
                   </Box>
                 </CheckoutDetailsWrapper>
               ))}
@@ -186,7 +187,7 @@ const CheckoutDetailsWrapper = styled.div(
     width: 100%;
     padding: 16px;
     display: flex;
-    justify-content: space-between;
+    gap: 48px;
     @media (max-width: 744px) {
       flex-direction: column;
       text-aling: left;

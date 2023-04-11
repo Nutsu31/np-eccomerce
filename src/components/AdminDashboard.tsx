@@ -1,5 +1,5 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import styled, { css } from "styled-components";
 import {
   AddAPhoto,
@@ -7,41 +7,59 @@ import {
   ShoppingCartCheckout,
   ShopOutlined,
   Storage,
+  Menu,
 } from "@mui/icons-material";
+import AdminDashboardMobile from "./AdminDashboardMobile";
+import { Button } from "@mui/material";
 const AdminDashboard = () => {
+  const [showDashboard, setShowDashboard] = useState(false);
+  const location = useLocation();
+  useEffect(() => {
+    setShowDashboard(false);
+  }, [location]);
+
   return (
-    <AdminBar>
-      <AddNew>
-        <AddAPhoto style={{ fontSize: 40, color: "lightgray" }} />
-        <Link style={Styles.text} to="add-new-model">
-          მოდელის დამატება
-        </Link>
-      </AddNew>
-      <AddNew>
-        <ShopOutlined style={{ fontSize: 40, color: "lightgray" }} />
-        <Link style={Styles.text} to="selling">
-          გაყიდვაშია
-        </Link>
-      </AddNew>
-      <AddNew>
-        <ShoppingCartCheckout style={{ fontSize: 40, color: "lightgray" }} />
-        <Link style={Styles.text} to="checkout">
-          შეკვეთა
-        </Link>
-      </AddNew>
-      <AddNew>
-        <Sell style={{ fontSize: 40, color: "lightgray" }} />
-        <Link style={Styles.text} to="sold">
-          გაიყიდა
-        </Link>
-      </AddNew>
-      <AddNew>
-        <Storage style={{ fontSize: 40, color: "lightgray" }} />
-        <Link style={Styles.text} to="storage">
-          მარაგი
-        </Link>
-      </AddNew>
-    </AdminBar>
+    <>
+      <AdminBar>
+        <AddNew>
+          <AddAPhoto style={{ fontSize: 40, color: "lightgray" }} />
+          <Link style={Styles.text} to="add-new-model">
+            მოდელის დამატება
+          </Link>
+        </AddNew>
+        <AddNew>
+          <ShopOutlined style={{ fontSize: 40, color: "lightgray" }} />
+          <Link style={Styles.text} to="selling">
+            გაყიდვაშია
+          </Link>
+        </AddNew>
+        <AddNew>
+          <ShoppingCartCheckout style={{ fontSize: 40, color: "lightgray" }} />
+          <Link style={Styles.text} to="checkout">
+            შეკვეთა
+          </Link>
+        </AddNew>
+        <AddNew>
+          <Sell style={{ fontSize: 40, color: "lightgray" }} />
+          <Link style={Styles.text} to="sold">
+            გაიყიდა
+          </Link>
+        </AddNew>
+        <AddNew>
+          <Storage style={{ fontSize: 40, color: "lightgray" }} />
+          <Link style={Styles.text} to="storage">
+            მარაგი
+          </Link>
+        </AddNew>
+      </AdminBar>
+      <AdminDashboardMobile
+        showDashboard={showDashboard}
+        setShowDashboard={setShowDashboard}
+      />
+      <Button onClick={() => setShowDashboard(!showDashboard)}>
+        <Menu />
+      </Button>
+    </>
   );
 };
 
@@ -49,6 +67,7 @@ export default AdminDashboard;
 
 const Styles = {
   text: {
+    fontSize: 14,
     fontWeight: 600,
     textDecoration: "none",
     color: "black",
@@ -67,6 +86,9 @@ const AdminBar = styled.div(
     justify-content: center;
     gap: 64px;
     text-align: center;
+    @media (max-width: 700px) {
+      display: none;
+    }
   `
 );
 
@@ -81,5 +103,9 @@ const AddNew = styled.div(
     justify-content: center;
     flex-direction: column;
     box-shadow: 2px 2px 5px 1px black;
+    @media (max-width: 780px) {
+      width: 80px;
+      height: 80px;
+    }
   `
 );

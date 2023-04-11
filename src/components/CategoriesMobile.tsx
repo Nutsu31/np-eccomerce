@@ -9,6 +9,7 @@ import {
 } from "./functions";
 import styled, { css } from "styled-components";
 import { Button, useMediaQuery } from "@mui/material";
+import { useLocation } from "react-router-dom";
 
 const CategoriesMobile = ({
   setFilterByCategory,
@@ -20,10 +21,11 @@ const CategoriesMobile = ({
   setFilterByCategory: React.Dispatch<React.SetStateAction<string>>;
 }) => {
   const ShowButton = useMediaQuery("(max-width:1400px)");
+  const { pathname } = useLocation();
 
   return (
     <div style={{ position: "relative", overflow: "hidden" }}>
-      {ShowButton ? (
+      {ShowButton && pathname !== "/admin-panel/selling" ? (
         <Button
           variant="text"
           onClick={() => setShowCategories(!showCategories)}
