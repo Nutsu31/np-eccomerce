@@ -72,6 +72,15 @@ const Navbar = ({ setSearch, setLogin, login, setDark, dark }: NavBarTypes) => {
             style={window.screenX === 600 ? { display: "none" } : undefined}
           />
         </form>
+        <NavbarMobile
+          setSearch={setSearch}
+          login={login}
+          setLogin={setLogin}
+          dark={dark}
+          setDark={setDark}
+          showMenu={showMenu}
+          cartSize={cartSize}
+        />
         <HeaderRight>
           <Link to="/tracker" style={styles.container}>
             <p
@@ -152,15 +161,6 @@ const Navbar = ({ setSearch, setLogin, login, setDark, dark }: NavBarTypes) => {
           </Button>
         ) : null}
       </Header>
-      <NavbarMobile
-        setSearch={setSearch}
-        login={login}
-        setLogin={setLogin}
-        dark={dark}
-        setDark={setDark}
-        showMenu={showMenu}
-        cartSize={cartSize}
-      />
       <Menu dark={dark} />
     </>
   );
@@ -176,7 +176,6 @@ const Header = styled.header(
     align-items: center;
     justify-content: space-between;
     position: relative;
-    overflow: hidden;
     @media (max-width: 1400px) {
       padding: 20px 0;
       height: 200px;

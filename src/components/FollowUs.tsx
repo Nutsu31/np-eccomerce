@@ -6,7 +6,7 @@ const FollowUs = () => {
   const Dark = useContext(DarkModeContext);
   return (
     <Container>
-      <h3 style={{ color: "gray" }}>გამოგვყევით</h3>
+      <HeaderText>Follow Us</HeaderText>
       <SocialWrapper>
         <Social
           Dark={Dark}
@@ -36,6 +36,12 @@ const Container = styled.div(
   `
 );
 
+const HeaderText = styled.h3(
+  () => css`
+    color: gray;
+    font-size: 24px;
+  `
+);
 const Social = styled.a(
   ({ Dark }: { Dark: boolean }) => css`
     color: ${Dark ? "rgba(255, 255, 255, 0.5) " : "black"};
@@ -44,6 +50,9 @@ const Social = styled.a(
     text-decoration: none;
     opacity: 0.6;
     margin-left: 36px;
+    @media (max-width: 560px) {
+      margin-left: 0;
+    }
   `
 );
 

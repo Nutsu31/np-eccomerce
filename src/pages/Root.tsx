@@ -5,6 +5,7 @@ import Navbar from "../components/Navbar";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { CartType, getItemsFromLocalStorage } from "../components/functions";
+import styled, { css } from "styled-components";
 
 const darkTheme = createTheme({
   palette: {
@@ -30,7 +31,7 @@ const Root = () => {
   }, []);
 
   return (
-    <>
+    <Container>
       <ThemeProvider theme={dark ? darkTheme : lightTheme}>
         <SearchContext.Provider value={search}>
           <DarkModeContext.Provider value={dark}>
@@ -47,8 +48,27 @@ const Root = () => {
           </DarkModeContext.Provider>
         </SearchContext.Provider>
       </ThemeProvider>
-    </>
+    </Container>
   );
 };
 
 export default Root;
+
+const Container = styled.div(
+  () => css`
+    width: 100vw;
+    min-height: 100vh;
+    padding: 0 100px;
+    overflow-x: hidden;
+    position: relative;
+    @media (max-width: 900px) {
+      padding: 0 80px;
+    }
+    @media (max-width: 600px) {
+      padding: 0 60px;
+    }
+    @media (max-width: 400px) {
+      padding: 0 40px;
+    }
+  `
+);
