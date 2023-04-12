@@ -86,7 +86,8 @@ export const EachModel = styled.div(
 
 export const Details = styled.span(
   () => css`
-    font-weight: 500;
+    font-weight: 600;
+    color: gray;
   `
 );
 export const SaledPrice = styled.span(

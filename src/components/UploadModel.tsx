@@ -105,7 +105,7 @@ const UploadModel = () => {
         <Button
           fullWidth
           variant="contained"
-          sx={{ width: { sm: 250, md: 350, lg: 450 } }}
+          sx={{ width: { xs: 180, sm: 250, md: 350, lg: 450 } }}
         >
           <Upload />
           <input
@@ -116,25 +116,25 @@ const UploadModel = () => {
           />
         </Button>
         <TextField
-          sx={{ width: { sm: 250, md: 350, lg: 450 } }}
+          sx={{ width: { xs: 180, sm: 250, md: 350, lg: 450 } }}
           type="text"
           {...register("name", { required: true })}
           label="სახელი"
         />
         <TextField
-          sx={{ width: { sm: 250, md: 350, lg: 450 } }}
+          sx={{ width: { xs: 180, sm: 250, md: 350, lg: 450 } }}
           type="number"
           {...register("price", { required: true })}
           label="ფასი"
         />
         <TextField
-          sx={{ width: { sm: 250, md: 350, lg: 450 } }}
+          sx={{ width: { xs: 180, sm: 250, md: 350, lg: 450 } }}
           type="text"
           {...register("color", { required: true })}
           label="ფერი"
         />
         <TextField
-          sx={{ width: { sm: 250, md: 350, lg: 450 } }}
+          sx={{ width: { xs: 180, sm: 250, md: 350, lg: 450 } }}
           type="number"
           {...register("storage", { required: true })}
           label="მარაგი"
@@ -142,7 +142,7 @@ const UploadModel = () => {
         <FormControl>
           <InputLabel id="size">ზომა</InputLabel>
           <Select
-            sx={{ width: { sm: 250, md: 350, lg: 450 } }}
+            sx={{ width: { xs: 180, sm: 250, md: 350, lg: 450 } }}
             {...register("size", { required: true })}
             defaultValue={"initial value" || ""}
             id="size"
@@ -157,7 +157,7 @@ const UploadModel = () => {
         <FormControl>
           <InputLabel id="collection">კოლექცია</InputLabel>
           <Select
-            sx={{ width: { sm: 250, md: 350, lg: 450 } }}
+            sx={{ width: { xs: 180, sm: 250, md: 350, lg: 450 } }}
             {...register("collections", { required: true })}
             label="კოლექცია"
             defaultValue={"collections" || ""}
@@ -169,7 +169,7 @@ const UploadModel = () => {
         <FormControl>
           <InputLabel id="category">კატეგორია</InputLabel>
           <Select
-            sx={{ width: { sm: 250, md: 350, lg: 450 } }}
+            sx={{ width: { xs: 180, sm: 250, md: 350, lg: 450 } }}
             {...register("category", { required: true })}
             defaultValue={"category" || ""}
             label="კატეგორია"
@@ -182,7 +182,7 @@ const UploadModel = () => {
         <FormControl>
           <InputLabel id="style">სტილი</InputLabel>
           <Select
-            sx={{ width: { sm: 250, md: 350, lg: 450 } }}
+            sx={{ width: { xs: 180, sm: 250, md: 350, lg: 450 } }}
             {...register("style", { required: true })}
             defaultValue={"style" || ""}
             id="style"
@@ -195,7 +195,7 @@ const UploadModel = () => {
         <FormControl>
           <InputLabel id="gender">სქესი</InputLabel>
           <Select
-            sx={{ width: { sm: 250, md: 350, lg: 450 } }}
+            sx={{ width: { xs: 180, sm: 250, md: 350, lg: 450 } }}
             {...register("gender", { required: true })}
             defaultValue={"gender" || ""}
             label="სქესი"
@@ -207,7 +207,7 @@ const UploadModel = () => {
           </Select>
         </FormControl>
         <TextField
-          sx={{ width: { sm: 250, md: 350, lg: 450 } }}
+          sx={{ width: { xs: 180, sm: 250, md: 350, lg: 450 } }}
           label="აღწერა პროდუქტის"
           {...register("desc", { required: true })}
         />
@@ -226,7 +226,7 @@ const UploadModel = () => {
           </FormGroup>
           {sale ? (
             <TextField
-              sx={{ width: { sm: 250, md: 350, lg: 450 } }}
+              sx={{ width: { xs: 180, sm: 250, md: 350, lg: 450 } }}
               type="text"
               {...register("sale")}
               label="ფასდაკლების პროცენტი"
@@ -237,7 +237,7 @@ const UploadModel = () => {
           variant="contained"
           fullWidth
           type="submit"
-          sx={{ width: { sm: 250, md: 350, lg: 450 } }}
+          sx={{ width: { xs: 180, sm: 250, md: 350, lg: 450 } }}
         >
           Submit
           <Send />

@@ -34,84 +34,81 @@ const Checkouts = ({
 
   return (
     <Container>
-      <div>
-        <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
-          {checkout?.map((item) => (
-            <div key={Math.random() * Math.random() * Math.random()}>
-              {item.status !== "delivered" ? (
-                <div
-                  style={{ border: "1px solid black", padding: 16 }}
-                  key={item.phone + Math.random()}
-                >
-                  <p>შეკვეთა: </p>
-                  <p>შეკვეთის N: {item._id} </p>
-                  <p>
-                    სახელი: {item.firstname} {item.lastname}
-                  </p>
-                  <p>ნომერი: {item.phone}</p>
-                  <p>ქალაქი: {item.city}</p>
-                  <p>ქუჩა: {item.street}</p>
-                  <p>ალტ ნომერი: {item?.alt_phone}</p>
-                  <p>ფოსტა: {item?.postalCode}</p>
-                  <p>ფასი: {item?.totalPrice}₾</p>
-                  <div style={{ display: "flex", gap: 24, flexWrap: "wrap" }}>
-                    {item.model.map((model) => (
-                      <div key={item._id + Math.random()}>
-                        <img src={model.img[0]} alt="each model" width={100} />
-                        <div>
-                          <p>{model.name}</p>
-                          <p>x{model.quantity}</p>
-                          <p>ზომა: {model.size}</p>
-                        </div>
+      <div style={{ display: "flex", gap: 24 }}>
+        {checkout?.map((item) => (
+          <div key={Math.random() * Math.random() * Math.random()}>
+            {item.status !== "delivered" ? (
+              <div
+                style={{ border: "1px solid black", padding: 16 }}
+                key={item.phone + Math.random()}
+              >
+                <Paragraph>შეკვეთის N: {item._id} </Paragraph>
+                <Paragraph>
+                  სახელი: {item.firstname} {item.lastname}
+                </Paragraph>
+                <Paragraph>ნომერი: {item.phone}</Paragraph>
+                <Paragraph>ქალაქი: {item.city}</Paragraph>
+                <Paragraph>ქუჩა: {item.street}</Paragraph>
+                <Paragraph>ალტ ნომერი: {item?.alt_phone}</Paragraph>
+                <Paragraph>ფოსტა: {item?.postalCode}</Paragraph>
+                <Paragraph>ფასი: {item?.totalPrice}₾</Paragraph>
+                <div style={{ display: "flex", gap: 24, flexWrap: "wrap" }}>
+                  {item.model.map((model) => (
+                    <div key={item._id + Math.random()}>
+                      <img src={model.img[0]} alt="each model" width={100} />
+                      <div>
+                        <Paragraph>სახელი: {model.name}</Paragraph>
+                        <Paragraph>რაოდენობა: x{model.quantity}</Paragraph>
+                        <Paragraph>ზომა: {model.size}</Paragraph>
                       </div>
-                    ))}
-                  </div>
+                    </div>
+                  ))}
                 </div>
-              ) : null}
-              {item.status !== "delivered" ? (
-                <p
-                  style={{
-                    background: getStatusColor(item.status),
+              </div>
+            ) : null}
+            {item.status !== "delivered" ? (
+              <Paragraph
+                style={{
+                  background: getStatusColor(item.status),
+                }}
+              >
+                სტატუსი: {item.status}{" "}
+              </Paragraph>
+            ) : null}
+            {item.status !== "delivered" ? (
+              <div>
+                <button
+                  onClick={() => {
+                    setOrderStatus({
+                      id: item._id,
+                      status: "inProgress",
+                      models: item.model,
+                    });
+                    setShouldUpdate(!shouldUpdate);
                   }}
                 >
-                  სტატუსი: {item.status}{" "}
-                </p>
-              ) : null}
-              {item.status !== "delivered" ? (
-                <div>
-                  <button
-                    onClick={() => {
-                      setOrderStatus({
-                        id: item._id,
-                        status: "inProgress",
-                        models: item.model,
-                      });
-                      setShouldUpdate(!shouldUpdate);
-                    }}
-                  >
-                    In Progress
-                  </button>
-                  <button
-                    onClick={() => {
-                      setOrderStatus({ id: item._id, status: "shipped" });
-                      setShouldUpdate(!shouldUpdate);
-                    }}
-                  >
-                    Shipped
-                  </button>
-                  <button
-                    onClick={() => {
-                      setOrderStatus({ id: item._id, status: "delivered" });
-                      setShouldUpdate(!shouldUpdate);
-                    }}
-                  >
-                    Delivered
-                  </button>
-                </div>
-              ) : null}
-            </div>
-          ))}
-        </div>
+                  In Progress
+                </button>
+                <button
+                  onClick={() => {
+                    setOrderStatus({ id: item._id, status: "shipped" });
+                    setShouldUpdate(!shouldUpdate);
+                  }}
+                >
+                  Shipped
+                </button>
+                <button
+                  onClick={() => {
+                    setOrderStatus({ id: item._id, status: "delivered" });
+                    setShouldUpdate(!shouldUpdate);
+                  }}
+                >
+                  Delivered
+                </button>
+              </div>
+            ) : null}
+          </div>
+        ))}
       </div>
     </Container>
   );
@@ -122,14 +119,12 @@ export default Checkouts;
 const Container = styled.div(
   () => css`
     width: 100%;
+    display: flex;
   `
 );
 
-// const EachCheckout = styled.div(
-//   () => css`
-//     width: 100%;
-//     // height: 100px;
-//     display: flex;
-//     justify-content: space-between;
-//   `
-// );
+const Paragraph = styled.p(
+  () => css`
+    font-weight: 600;
+  `
+);

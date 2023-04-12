@@ -32,11 +32,16 @@ const TotalPayment = ({
         <Container>
           <PriceWrapper>
             <Details>ძველი ფასი: {`(რაოდენობა: ${cartSize} )`}</Details>
-            <Details>₾{Math.round(totalPrice + totalSale)}</Details>
+            <Details style={{ fontWeight: 600, color: "tomato" }}>
+              ₾{Math.round(totalPrice + totalSale)}
+            </Details>
           </PriceWrapper>
           <PriceWrapper>
             <Details>ფასდაკლება:</Details>
-            <Details> -₾{Math.round(totalSale)}</Details>
+            <Details style={{ fontWeight: 600, color: "green" }}>
+              {" "}
+              -₾{Math.round(totalSale)}
+            </Details>
           </PriceWrapper>
 
           <div
@@ -45,8 +50,8 @@ const TotalPayment = ({
           <PriceWrapper>
             <Details>მიწოდება:</Details>
             <div style={{ display: "flex", flexDirection: "column" }}>
-              <Details>თბილისი: 4₾</Details>
-              <Details>საქართველო: 7₾</Details>
+              <Details>თბილისი: 5₾</Details>
+              <Details>საქართველო: 8₾</Details>
             </div>
           </PriceWrapper>
           <div
@@ -54,7 +59,9 @@ const TotalPayment = ({
           ></div>
           <PriceWrapper>
             <Details>ჯამი: </Details>
-            <Details>₾{Math.round(totalPrice)} </Details>
+            <Details style={{ fontWeight: 600, color: "green" }}>
+              ₾{Math.round(totalPrice)}{" "}
+            </Details>
           </PriceWrapper>
           <Button
             onClick={() => {

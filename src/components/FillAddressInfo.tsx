@@ -3,8 +3,9 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { CartType } from "./functions";
 import styled, { css } from "styled-components";
-import { Button } from "./TotalPayment";
-import { FormControl, TextField } from "@mui/material";
+// import { Button } from "./TotalPayment";
+import { FormControl, TextField, Button } from "@mui/material";
+import { HeaderText } from "../pages/Cart";
 
 const FillAddressInfo = ({
   totalPrice,
@@ -54,29 +55,58 @@ const FillAddressInfo = ({
   });
   return (
     <FormWrapper>
-      <h1>ადრესატის ინფორმაცია:</h1>
+      <HeaderText>ადრესატის ინფორმაცია:</HeaderText>
       <FormControl>
         <Form onSubmit={onSubmit}>
-          <TextField type="text" {...register("firstname")} label="სახელი" />
-          <TextField type="text" {...register("lastname")} label="გვარი" />
-          <TextField type="text" {...register("city")} label="ქალაქი" />
-          <TextField type="text" {...register("street")} label="ქუჩა" />
           <TextField
+            sx={{ width: { sm: 250, md: 350, lg: 450 } }}
+            type="text"
+            {...register("firstname")}
+            label="სახელი"
+          />
+          <TextField
+            sx={{ width: { sm: 250, md: 350, lg: 450 } }}
+            type="text"
+            {...register("lastname")}
+            label="გვარი"
+          />
+          <TextField
+            sx={{ width: { sm: 250, md: 350, lg: 450 } }}
+            type="text"
+            {...register("city")}
+            label="ქალაქი"
+          />
+          <TextField
+            sx={{ width: { sm: 250, md: 350, lg: 450 } }}
+            type="text"
+            {...register("street")}
+            label="ქუჩა"
+          />
+          <TextField
+            sx={{ width: { sm: 250, md: 350, lg: 450 } }}
             type="number"
             {...register("phone")}
             label="საკონტაქტო ნომერი"
           />
           <TextField
+            sx={{ width: { sm: 250, md: 350, lg: 450 } }}
             type="number"
             {...register("alt_phone")}
             label="სხვა საკონტაქტო პირის ნომერი"
           />
           <TextField
+            sx={{ width: { sm: 250, md: 350, lg: 450 } }}
             type="text"
             {...register("postalCode")}
             label="საფოსტო კოდი მაგ:(თბილისი: 0162)"
           />
-          <Button>გაგრძელება</Button>
+          <Button
+            type="submit"
+            sx={{ width: { sm: 250, md: 350, lg: 450 } }}
+            variant="contained"
+          >
+            გაგრძელება
+          </Button>
         </Form>
       </FormControl>
     </FormWrapper>
@@ -99,6 +129,8 @@ const Form = styled.form(
   () => css`
     width: 500px;
     display: flex;
+    align-items: center;
+    justify-content: center;
     gap: 4px;
     flex-direction: column;
   `
