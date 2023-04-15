@@ -6,6 +6,8 @@ import styled, { css } from "styled-components";
 // import { Button } from "./TotalPayment";
 import { FormControl, TextField, Button } from "@mui/material";
 import { HeaderText } from "../pages/Cart";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const FillAddressInfo = ({
   totalPrice,
@@ -15,6 +17,10 @@ const FillAddressInfo = ({
   cartItem: Array<CartType>;
 }) => {
   const { register, handleSubmit, reset } = useForm();
+
+  const notifySucc = () =>
+    toast.success("შეკვეთა მიღებულია, ადევნეთ თვალი შეკვეთის სტატუს");
+  const notifyErr = () => toast.error("შეკვეთა ვერ მოხერხდა, სცადეთ თავიდან");
 
   const onSubmit = handleSubmit((data) => {
     data.totalPrice = totalPrice;
@@ -39,8 +45,8 @@ const FillAddressInfo = ({
         street: data.street,
       },
     })
-      .then((res) => console.log(res.data.finalModel))
-      .catch((err) => console.log(err));
+      .then(() => notifySucc())
+      .catch(() => notifyErr());
     reset({
       firstname: "",
       lastname: "",
@@ -54,6 +60,18 @@ const FillAddressInfo = ({
   });
   return (
     <FormWrapper>
+      <ToastContainer
+        position="top-center"
+        autoClose={4000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
       <HeaderText>ადრესატის ინფორმაცია:</HeaderText>
       <FormControl>
         <Form onSubmit={onSubmit}>
