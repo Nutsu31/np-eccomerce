@@ -18,7 +18,6 @@ import {
   Select,
 } from "@mui/material";
 import ProductDesc from "../components/ProductDesc";
-import { lightBlue } from "@mui/material/colors";
 
 const ProductDetailPage = () => {
   const [data, setData] = useState<Array<DataTypes>>([]);
@@ -65,13 +64,15 @@ const ProductDetailPage = () => {
         <AllImgWrapper>
           <SmallImgWrapper>
             {EachModel?.path.map((img) => (
-              <SmallImg
-                mainImg={mainImg}
-                image={img}
-                src={img}
-                alt="model"
-                onClick={() => setMainImg(img)}
-              />
+              <div key={Math.random() * Math.random()}>
+                <SmallImg
+                  mainImg={mainImg}
+                  image={img}
+                  src={img}
+                  alt="model"
+                  onClick={() => setMainImg(img)}
+                />
+              </div>
             ))}
           </SmallImgWrapper>
           <MainImg
@@ -110,7 +111,7 @@ const ProductDetailPage = () => {
                 MenuProps={{
                   PaperProps: { sx: { maxHeight: 200 } },
                 }}
-                defaultValue={EachModel?.size || ""}
+                defaultValue={undefined || ""}
                 {...register("size")}
               >
                 <MenuItem value={EachModel?.size}>{EachModel?.size}</MenuItem>
@@ -120,7 +121,7 @@ const ProductDetailPage = () => {
               <InputLabel>ფერი</InputLabel>
               <Select
                 label="ფერი"
-                defaultValue={EachModel?.color || ""}
+                defaultValue={undefined || ""}
                 MenuProps={{
                   PaperProps: { sx: { maxHeight: 200 } },
                 }}
@@ -136,10 +137,12 @@ const ProductDetailPage = () => {
               <Select
                 label="რაოდენობა"
                 {...register("quantity")}
-                defaultValue={"Initial Value" || ""}
+                defaultValue={undefined || ""}
               >
                 {EachModelStorage.map((count) => (
-                  <MenuItem value={count}>{count}</MenuItem>
+                  <MenuItem key={Math.random() * Math.random()} value={count}>
+                    {count}
+                  </MenuItem>
                 ))}
               </Select>
             </FormControl>

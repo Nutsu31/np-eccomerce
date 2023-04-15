@@ -7,6 +7,7 @@ import {
   OrderStatusType,
   updateCheckoutStatus,
 } from "./functions";
+import { Button } from "@mui/material";
 // import { Details } from "./NewAdded";
 
 const Checkouts = ({
@@ -22,7 +23,6 @@ const Checkouts = ({
   const [orderStatus, setOrderStatus] = useState<OrderStatusType | undefined>(
     undefined
   );
-  console.log(orderStatus);
 
   useEffect(() => {
     getCheckouts({ setCheckout });
@@ -34,12 +34,22 @@ const Checkouts = ({
 
   return (
     <Container>
-      <div style={{ display: "flex", gap: 24 }}>
+      <div
+        style={{
+          display: "flex",
+          gap: 24,
+          flexWrap: "wrap",
+        }}
+      >
         {checkout?.map((item) => (
           <div key={Math.random() * Math.random() * Math.random()}>
             {item.status !== "delivered" ? (
               <div
-                style={{ border: "1px solid black", padding: 16 }}
+                style={{
+                  border: "1px solid black",
+                  padding: 16,
+                  background: getStatusColor(item.status),
+                }}
                 key={item.phone + Math.random()}
               >
                 <Paragraph>შეკვეთის N: {item._id} </Paragraph>
@@ -67,45 +77,40 @@ const Checkouts = ({
               </div>
             ) : null}
             {item.status !== "delivered" ? (
-              <Paragraph
-                style={{
-                  background: getStatusColor(item.status),
-                }}
-              >
-                სტატუსი: {item.status}{" "}
-              </Paragraph>
+              <Paragraph>სტატუსი: {item.status} </Paragraph>
             ) : null}
             {item.status !== "delivered" ? (
-              <div>
-                <button
+              <form>
+                <Button
+                  variant="outlined"
+                  type="submit"
                   onClick={() => {
                     setOrderStatus({
                       id: item._id,
                       status: "inProgress",
                       models: item.model,
                     });
-                    setShouldUpdate(!shouldUpdate);
                   }}
                 >
                   In Progress
-                </button>
-                <button
+                </Button>
+                <Button
+                  variant="outlined"
                   onClick={() => {
                     setOrderStatus({ id: item._id, status: "shipped" });
-                    setShouldUpdate(!shouldUpdate);
                   }}
                 >
                   Shipped
-                </button>
-                <button
+                </Button>
+                <Button
+                  variant="outlined"
                   onClick={() => {
                     setOrderStatus({ id: item._id, status: "delivered" });
-                    setShouldUpdate(!shouldUpdate);
                   }}
                 >
                   Delivered
-                </button>
-              </div>
+                </Button>
+              </form>
             ) : null}
           </div>
         ))}
@@ -120,6 +125,8 @@ const Container = styled.div(
   () => css`
     width: 100%;
     display: flex;
+    aling-items: flex-start;
+    flex-wrap: wrap;
   `
 );
 

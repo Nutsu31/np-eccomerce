@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import styled, { css } from "styled-components";
 import {
   CheckoutsType,
   getStatusColor,
   orderTracker,
 } from "../components/functions";
-import { FaSearch } from "react-icons/fa";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Details } from "../components/NewAdded";
 import StatusBar from "../components/StatusBar";
 import {
   Box,
@@ -41,7 +39,6 @@ const TrackCheckout = () => {
   const { pathname } = useLocation();
   const notify = () => toast.info("შეკვეთა იძებნება გთხოვთ მოიცადოთ!");
   const showStatusBar = useMediaQuery("(max-width:820px)");
-  const checkoutDetailsDirection = useMediaQuery("(max-width:670px)");
   useEffect(() => {
     orderTracker({ setOrder, pathname });
   }, []);
@@ -88,8 +85,12 @@ const TrackCheckout = () => {
               <HeaderText> შეკვეთის დეტალები:</HeaderText>
               <Box sx={{ width: "100%", backgroundColor: "text.disabled" }}>
                 <OrderNomDiv>
-                  <Details>შეკვეთის ნომერი: #{findOrder._id}</Details>
-                  <Details>ჯამი: {findOrder.totalPrice}₾</Details>
+                  <Typography component={"span"}>
+                    შეკვეთის ნომერი: #{findOrder._id}
+                  </Typography>
+                  <Typography component={"span"}>
+                    ჯამი: {findOrder.totalPrice}₾
+                  </Typography>
                 </OrderNomDiv>
               </Box>
               {/* status bar */}
@@ -97,18 +98,25 @@ const TrackCheckout = () => {
               {/* status bar */}
               <Box sx={{ width: "100%", backgroundColor: "text.disabled" }}>
                 <IsStatusOk>
-                  <Details>
-                    სტატუსი:{" "}
-                    <Typography color={getStatusColor(findOrder.status)}>
+                  <Typography component={"span"} variant="body1">
+                    სტატუსი:
+                    <Typography
+                      component={"span"}
+                      color={getStatusColor(findOrder.status)}
+                    >
                       {getStatus(findOrder)}
                     </Typography>
-                  </Details>
+                  </Typography>
                 </IsStatusOk>
               </Box>
             </DetailsWrapper>
             <Box
               sx={{
                 width: "100%",
+                display: "flex",
+                alignItems: "center",
+                flexWrap: "wrap",
+                border: "1px solid ",
               }}
             >
               {findOrder?.model.map((item) => (
@@ -126,18 +134,41 @@ const TrackCheckout = () => {
                     <p>ზომა: {item.size}</p>
                     <p>რაოდენობა: x{item.quantity}</p>
                   </Box>
-                  <Box sx={{ textAlign: "left" }}>
-                    <Typography variant="h5">გაიგზავნა მისამართზე:</Typography>
-                    <p>
-                      მიმღების სახელი: {findOrder.firstname}{" "}
-                      {findOrder.lastname}
-                    </p>
-                    <p>ქალაქი: {findOrder.city}</p>
-                    <p>ქუჩა: {findOrder.street}</p>
-                    <p>ტელეფონი: {findOrder.phone}</p>
-                  </Box>
                 </CheckoutDetailsWrapper>
               ))}
+              <Box sx={{ textAlign: "left" }}>
+                <Typography variant="h5" component={"h2"}>
+                  გაიგზავნა მისამართზე:
+                </Typography>
+                <Typography
+                  component={"p"}
+                  variant="h6"
+                  sx={{ fontSize: { xs: 14, sm: 14, md: 16, lg: 18 } }}
+                >
+                  მიმღების სახელი: {findOrder.firstname} {findOrder.lastname}
+                </Typography>
+                <Typography
+                  component={"p"}
+                  variant="h6"
+                  sx={{ fontSize: { xs: 14, sm: 14, md: 16, lg: 18 } }}
+                >
+                  ქალაქი: {findOrder.city}
+                </Typography>
+                <Typography
+                  component={"p"}
+                  variant="h6"
+                  sx={{ fontSize: { xs: 14, sm: 14, md: 16, lg: 18 } }}
+                >
+                  ქუჩა: {findOrder.street}
+                </Typography>
+                <Typography
+                  component={"p"}
+                  variant="h6"
+                  sx={{ fontSize: { xs: 14, sm: 14, md: 16, lg: 18 } }}
+                >
+                  ტელეფონი: {findOrder.phone}
+                </Typography>
+              </Box>
             </Box>
           </>
         ) : null}

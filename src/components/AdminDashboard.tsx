@@ -19,7 +19,6 @@ const AdminDashboard = () => {
     setShowDashboard(false);
   }, [location]);
 
-  console.log(media);
   return (
     <>
       <AdminBar>

@@ -28,9 +28,10 @@ export interface DataTypes {
   }
 
 export const getClothingModels = async ({setData}: {setData:React.Dispatch<React.SetStateAction<DataTypes[]>>}) => {
-    const res = await axios.get("http://localhost:5001/clothing", {
+    const res = await axios.get("http://192.168.0.104:5001/clothing", {
       headers: {
         "Content-Type": "application/json",
+        "Content-Security-Policy": "upgrade-insecure-requests"
       },
     });
     if (res.data.status === 400) {
@@ -42,7 +43,7 @@ export const getClothingModels = async ({setData}: {setData:React.Dispatch<React
 
 
 export const getNewAddedClothes = async ({setNewAdded}: {setNewAdded: React.Dispatch<React.SetStateAction<DataTypes[]>>}) => {
-    const res = await axios.get("http://localhost:5001/clothing", {
+    const res = await axios.get("http://192.168.0.104:5001/clothing", {
       headers: {
         "Content-Type": "application/json",
       },
@@ -186,7 +187,7 @@ export interface CheckoutsType {
   totalPrice: number;
 }
 export async function getCheckouts ({setCheckout}:{setCheckout:React.Dispatch<React.SetStateAction<CheckoutsType[] | undefined>>}) {
-  const res = await axios.get("http://localhost:5001/checkout", {
+  const res = await axios.get("http://192.168.0.104:5001/checkout", {
       headers: {
         "Content-Type": "application/json",
       },
@@ -198,7 +199,7 @@ export async function getCheckouts ({setCheckout}:{setCheckout:React.Dispatch<Re
     }
 }
 export async function orderTracker ({setOrder,pathname}:{pathname:string,setOrder:React.Dispatch<React.SetStateAction<CheckoutsType[] | undefined>>}) {
-  const res = await axios.get(`http://localhost:5001/tracker`, {
+  const res = await axios.get(`http://192.168.0.104:5001/tracker`, {
       headers: {
         "Content-Type": "application/json",
       },
@@ -212,13 +213,13 @@ export async function orderTracker ({setOrder,pathname}:{pathname:string,setOrde
 
 export function getStatusColor(status: string) {
   if (status === "inProgress") {
-    return "yellow";
+    return "rgb(240, 222, 168)";
   } else if (status === "shipped") {
-    return "lightgreen";
+    return "rgb(180, 240, 168)";
   } else if (status === "delivered") {
-    return "green";
+    return "rgb(55, 148, 61)";
   } else {
-    return "red";
+    return "rgb(247, 126, 132)";
   }
 }
 
@@ -251,7 +252,7 @@ export async function updateCheckoutStatus({
   }else{
     axios({
       method: "PUT",
-      url: "http://localhost:5001/checkout",
+      url: "http://192.168.0.104:5001/checkout",
       headers: { "Content-Type": "application/json" },
       data: {
         id: orderStatus?.id,

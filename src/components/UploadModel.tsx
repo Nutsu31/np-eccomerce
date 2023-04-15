@@ -44,7 +44,7 @@ const UploadModel = () => {
     formData.append("desc", data.desc);
 
     const res = axios
-      .post("http://localhost:5001/add-new-model", formData, {
+      .post("http://192.168.0.104:5001/add-new-model", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -144,7 +144,7 @@ const UploadModel = () => {
           <Select
             sx={{ width: { xs: 180, sm: 250, md: 350, lg: 450 } }}
             {...register("size", { required: true })}
-            defaultValue={"initial value" || ""}
+            defaultValue={undefined || ""}
             id="size"
             label="ზომა"
           >
@@ -160,7 +160,7 @@ const UploadModel = () => {
             sx={{ width: { xs: 180, sm: 250, md: 350, lg: 450 } }}
             {...register("collections", { required: true })}
             label="კოლექცია"
-            defaultValue={"collections" || ""}
+            defaultValue={undefined || ""}
             id="collection"
           >
             <MenuItem value="new">ახალი კოლექცია</MenuItem>
@@ -171,7 +171,7 @@ const UploadModel = () => {
           <Select
             sx={{ width: { xs: 180, sm: 250, md: 350, lg: 450 } }}
             {...register("category", { required: true })}
-            defaultValue={"category" || ""}
+            defaultValue={undefined || ""}
             label="კატეგორია"
             id="category"
           >
@@ -184,7 +184,7 @@ const UploadModel = () => {
           <Select
             sx={{ width: { xs: 180, sm: 250, md: 350, lg: 450 } }}
             {...register("style", { required: true })}
-            defaultValue={"style" || ""}
+            defaultValue={undefined || ""}
             id="style"
             label="სტილი"
           >
@@ -197,7 +197,7 @@ const UploadModel = () => {
           <Select
             sx={{ width: { xs: 180, sm: 250, md: 350, lg: 450 } }}
             {...register("gender", { required: true })}
-            defaultValue={"gender" || ""}
+            defaultValue={undefined || ""}
             label="სქესი"
             id="gender"
           >

@@ -33,7 +33,7 @@ const Storages = ({ data }: { data: Array<DataTypes> }) => {
     } else {
       axios({
         method: "PUT",
-        url: "http://localhost:5001/storages",
+        url: "http://192.168.0.104:5001/storages",
         headers: { "Content-Type": "application/json" },
         data: {
           id: updateStorage?.id,
@@ -46,11 +46,9 @@ const Storages = ({ data }: { data: Array<DataTypes> }) => {
   }
   const href = window.location.href;
   async function deleteItem(id: string) {
-    console.log(id);
-    console.log("გამოიძახა");
     axios({
       method: "DELETE",
-      url: "http://localhost:5001/remove-item",
+      url: "http://192.168.0.104:5001/remove-item",
       headers: { "Content-Type": "application/json" },
       data: {
         id: id,
@@ -95,7 +93,7 @@ const Storages = ({ data }: { data: Array<DataTypes> }) => {
                 src={item.path[0]}
                 alt="item"
                 style={
-                  item.storage === 0 ? { border: "10px solid red" } : undefined
+                  item.storage === 0 ? { border: "8px solid red" } : undefined
                 }
                 width={86}
               />
@@ -159,25 +157,19 @@ export default Storages;
 const TableGenerator = styled.table(
   () => css`
     width: 100%;
-    background-color: #ffffff;
     border-collapse: collapse;
     border-width: 2px;
-    border-color: #e8e4d4;
     border-style: solid;
-    color: #000000;
   `
 );
 
-const Thead = styled.thead(
-  () => css`
-    background: #e8e4d4;
-  `
-);
+const Thead = styled.thead(() => css``);
 const Td = styled.td(
   ({ item }: { item: number }) => css`
     font-weight: 600;
     text-align: center;
-    color: ${item === 0 ? "red" : "black"};
+    padding: 16px;
+    color: ${item === 0 ? "red" : ""};
     border: 1px solid black;
   `
 );

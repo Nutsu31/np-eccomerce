@@ -21,10 +21,9 @@ const FillAddressInfo = ({
     data.model = cartItem;
     data._id = Date.now().toString();
     data.status = "Order Placed";
-    console.log(data);
     axios({
       method: "POST",
-      url: "http://localhost:5001/checkout",
+      url: "http://192.168.0.104:5001/checkout",
       headers: { "Content-Type": "application/json" },
       data: {
         firstname: data.firstname,

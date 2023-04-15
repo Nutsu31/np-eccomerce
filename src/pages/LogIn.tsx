@@ -33,7 +33,7 @@ const LogIn = () => {
   const onSubmit = handleSubmit((data) => {
     axios({
       method: "POST",
-      url: "http://localhost:5001/admin",
+      url: "http://192.168.0.104:5001/admin",
       headers: {
         "Content-Type": "application/json",
       },

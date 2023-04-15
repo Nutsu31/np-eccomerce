@@ -1,5 +1,5 @@
 import React from "react";
-import { CheckoutsType } from "./functions";
+import { CheckoutsType, getStatusColor } from "./functions";
 
 const SoldItems = ({ checkout }: { checkout: CheckoutsType[] | undefined }) => {
   const totalSoldPrice = checkout?.map((item) => item.totalPrice);
@@ -36,7 +36,14 @@ const SoldItems = ({ checkout }: { checkout: CheckoutsType[] | undefined }) => {
           style={{ border: "1px solid lightgray" }}
         >
           {item.status === "delivered" ? (
-            <div>
+            <div
+              style={{
+                background:
+                  item.status === "delivered"
+                    ? getStatusColor(item.status)
+                    : undefined,
+              }}
+            >
               <p>
                 {item.firstname} {item.lastname}
               </p>
@@ -48,13 +55,7 @@ const SoldItems = ({ checkout }: { checkout: CheckoutsType[] | undefined }) => {
               </p>
               <p>{item.street}</p>
               <p>{item.totalPrice}₾</p>
-              <p
-                style={{
-                  background: item.status === "delivered" ? "green" : undefined,
-                }}
-              >
-                {item.status}
-              </p>
+              <p>{item.status}</p>
               <div>
                 {item.model.map((model) => (
                   <div key={Math.random() * Math.random() * Math.random()}>
