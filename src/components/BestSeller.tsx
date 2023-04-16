@@ -4,6 +4,7 @@ import Links from "./Links";
 import { useContext } from "react";
 import { DarkModeContext } from "../pages/Root";
 import { Container, GridWrapper } from "./NewAdded";
+import { useMediaQuery } from "@mui/material";
 
 const BestSeller = ({ data }: { data: Array<DataTypes> }) => {
   const Dark = useContext(DarkModeContext);

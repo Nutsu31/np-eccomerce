@@ -12,6 +12,7 @@ import {
 import NewAdded from "../components/NewAdded";
 import FollowUs from "../components/FollowUs";
 import styled, { css } from "styled-components";
+import { useMediaQuery } from "@mui/material";
 
 const menColor =
   "radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(205,183,162,1) 100%);";
@@ -21,10 +22,15 @@ const womenColor =
 const MainPage = () => {
   const [data, setData] = useState<Array<DataTypes>>([]);
   const [newAdded, setNewAdded] = useState<Array<DataTypes>>([]);
-
+  const tabletOrMobile = useMediaQuery("(max-width:1550px)");
   // short array for get 5 items to main page
-  newAdded.length = 4;
-  data.length = 4;
+  if (tabletOrMobile) {
+    newAdded.length = 4;
+    data.length = 4;
+  } else {
+    data.length = 5;
+    newAdded.length = 5;
+  }
 
   useEffect(() => {
     getClothingModels({ setData });

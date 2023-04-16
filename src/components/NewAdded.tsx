@@ -54,11 +54,17 @@ export const GridWrapper = styled.div(
     height: 540px;
     padding: 48px 0;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     grid-column-gap: 10px;
     grid-row-gap: 10px;
     justify-items: center;
 
+    @media (max-width: 1550px) {
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-row: repeat(2, 1fr);
+      grid-column-gap: 10px;
+      grid-row-gap: 10px;
+    }
     @media (max-width: 1325px) {
       grid-template-columns: repeat(2, 1fr);
       grid-template-row: repeat(2, 1fr);

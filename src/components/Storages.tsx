@@ -191,13 +191,8 @@ const Td = styled.td(
     height: 48px;
     text-align: center;
     color: ${item === 0 ? "red" : ""};
-    background: ${item === 0 && dark
-      ? "#8D9096"
-      : "" || item === 0
-      ? "#D6D7D8"
-      : "" || dark
-      ? "#141b29"
-      : "#FFF"};
+    background: ${dark ? "#141b29" : "#FFF"};
+    opacity: ${item === 0 ? "0.6" : "1"};
   `
 );
 const StatusTd = styled.td(
@@ -207,13 +202,8 @@ const StatusTd = styled.td(
     height: 48px;
     text-align: center;
     color: ${item === 0 ? "red" : ""};
-    background: ${item === 0 && dark
-      ? "#8D9096"
-      : "" || item === 0
-      ? "#D6D7D8"
-      : "" || dark
-      ? "#141b29"
-      : "#FFF"};
+    background: ${dark ? "#141b29" : "#FFF"};
+    opacity: ${item === 0 ? "0.5" : "1"};
   `
 );
 
