@@ -253,11 +253,12 @@ const SmallImgWrapper = styled.div(
       flex-direction: row;
     }
     @media (max-width: 550px) {
-      width: 350px;
+      gap: 8px;
+      width: 360px;
     }
     @media (max-width: 350px) {
       width: 350px;
-      padding: 0 16px;
+      padding: 0 32px;
       justify-content: center;
     }
   `

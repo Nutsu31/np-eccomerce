@@ -61,7 +61,7 @@ const MenAndWomenSection = styled.div(
       padding: 0 32px;
     }
     @media (max-width: 650px) {
-      padding: 0 100px;
+      padding: 0 168px;
     }
   `
 );

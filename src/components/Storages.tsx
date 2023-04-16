@@ -1,14 +1,15 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styled, { css } from "styled-components";
 import { DataTypes } from "./functions";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Button } from "@mui/material";
 import { Delete } from "@mui/icons-material";
-import { useLocation } from "react-router-dom";
+import { DarkModeContext } from "../pages/Root";
 
 const Storages = ({ data }: { data: Array<DataTypes> }) => {
+  const dark = useContext(DarkModeContext);
   const nofitySucces = () => toast.success("წარმატებით განახლდა დაარეფრეშე!");
   const nofityErr = () => toast.error("განახლება უარყოფილია!");
   const nofitySuccesDeleted = () =>
@@ -62,7 +63,7 @@ const Storages = ({ data }: { data: Array<DataTypes> }) => {
     storageUpdate({ updateStorage });
   }, [updateStorage, storageUpdate]);
   return (
-    <TableGenerator>
+    <>
       <ToastContainer
         position="top-center"
         autoClose={3000}
@@ -75,80 +76,95 @@ const Storages = ({ data }: { data: Array<DataTypes> }) => {
         pauseOnHover
         theme="dark"
       />
-      <Thead>
-        <tr>
-          <th>სურათი</th>
-          <th>სახელი</th>
-          <th>ფერი</th>
-          <th>ზომა</th>
-          <th>დარჩენილი რაოდენობა</th>
-          <th>წაშლა</th>
-        </tr>
-      </Thead>
-      <tbody>
-        {data.map((item) => (
-          <tr key={Math.random() * Math.random() * Math.random()}>
-            <Td item={item.storage}>
-              <img
-                src={item.path[0]}
-                alt="item"
-                style={
-                  item.storage === 0 ? { border: "8px solid red" } : undefined
-                }
-                width={86}
-              />
-            </Td>
-            <Td item={item.storage}>{item.name}</Td>
-            <Td item={item.storage}>{item.color}</Td>
-            <Td item={item.storage}>{item.size}</Td>
-            <Td item={item.storage}>
-              <Button
-                variant="contained"
-                onClick={() => setUpdateStorage({ id: item._id, storage: -1 })}
-              >
-                -1
-              </Button>
-              <Button
-                variant="contained"
-                onClick={() => setUpdateStorage({ id: item._id, storage: -3 })}
-              >
-                -3
-              </Button>
-              <Button
-                variant="contained"
-                onClick={() => setUpdateStorage({ id: item._id, storage: -5 })}
-              >
-                -5
-              </Button>
-              დარჩენილია: {item.storage}{" "}
-              <Button
-                variant="contained"
-                onClick={() => setUpdateStorage({ id: item._id, storage: 1 })}
-              >
-                +1
-              </Button>
-              <Button
-                variant="contained"
-                onClick={() => setUpdateStorage({ id: item._id, storage: 3 })}
-              >
-                +3
-              </Button>
-              <Button
-                variant="contained"
-                onClick={() => setUpdateStorage({ id: item._id, storage: 5 })}
-              >
-                +5
-              </Button>
-            </Td>
-            <Td item={item.storage}>
-              <Button color="error" onClick={() => deleteItem(item._id)}>
-                <Delete />
-              </Button>
-            </Td>
+      <TableGenerator>
+        <Thead dark={dark}>
+          <tr>
+            <th>სურათი</th>
+            <th>სახელი</th>
+            <th>ფერი</th>
+            <th>სტატუსი</th>
+            <th>ზომა</th>
+            <th>დარჩენილი რაოდენობა</th>
+            <th>წაშლა</th>
           </tr>
-        ))}
-      </tbody>
-    </TableGenerator>
+        </Thead>
+        <tbody>
+          {data.map((item) => (
+            <tr key={Math.random() * Math.random() * Math.random()}>
+              <Td item={item.storage} dark={dark}>
+                <StyledImg
+                  src={item.path[0]}
+                  alt="item"
+                  storage={item.storage}
+                />
+              </Td>
+              <Td dark={dark} item={item.storage}>
+                {item.name}
+              </Td>
+              <Td dark={dark} item={item.storage}>
+                {item.color}
+              </Td>
+              <StatusTd dark={dark} item={item.storage}>
+                {item.storage === 0 ? "არააქტიური" : "აქტიური"}
+              </StatusTd>
+              <Td dark={dark} item={item.storage}>
+                {item.size}
+              </Td>
+              <Td dark={dark} item={item.storage}>
+                <Button
+                  variant="contained"
+                  onClick={() =>
+                    setUpdateStorage({ id: item._id, storage: -1 })
+                  }
+                >
+                  -1
+                </Button>
+                <Button
+                  variant="contained"
+                  onClick={() =>
+                    setUpdateStorage({ id: item._id, storage: -3 })
+                  }
+                >
+                  -3
+                </Button>
+                <Button
+                  variant="contained"
+                  onClick={() =>
+                    setUpdateStorage({ id: item._id, storage: -5 })
+                  }
+                >
+                  -5
+                </Button>
+                დარჩენილია: {item.storage}{" "}
+                <Button
+                  variant="contained"
+                  onClick={() => setUpdateStorage({ id: item._id, storage: 1 })}
+                >
+                  +1
+                </Button>
+                <Button
+                  variant="contained"
+                  onClick={() => setUpdateStorage({ id: item._id, storage: 3 })}
+                >
+                  +3
+                </Button>
+                <Button
+                  variant="contained"
+                  onClick={() => setUpdateStorage({ id: item._id, storage: 5 })}
+                >
+                  +5
+                </Button>
+              </Td>
+              <Td dark={dark} item={item.storage}>
+                <Button color="error" onClick={() => deleteItem(item._id)}>
+                  <Delete />
+                </Button>
+              </Td>
+            </tr>
+          ))}
+        </tbody>
+      </TableGenerator>
+    </>
   );
 };
 
@@ -157,44 +173,55 @@ export default Storages;
 const TableGenerator = styled.table(
   () => css`
     width: 100%;
-    border-collapse: collapse;
-    border-width: 2px;
-    border-style: solid;
+    border: 3px dashed #7b61ff;
+    border-radius: 10 px;
   `
 );
 
-const Thead = styled.thead(() => css``);
+const Thead = styled.thead(
+  ({ dark }: { dark: boolean }) => css`
+    width: 100%;
+    height: 48px;
+    background: ${dark ? "#484D58" : "#F0F0F1"};
+  `
+);
 const Td = styled.td(
-  ({ item }: { item: number }) => css`
+  ({ item, dark }: { item: number; dark: boolean }) => css`
     font-weight: 600;
+    height: 48px;
     text-align: center;
-    padding: 16px;
     color: ${item === 0 ? "red" : ""};
-    border: 1px solid black;
+    background: ${item === 0 && dark
+      ? "#8D9096"
+      : "" || item === 0
+      ? "#D6D7D8"
+      : "" || dark
+      ? "#141b29"
+      : "#FFF"};
+  `
+);
+const StatusTd = styled.td(
+  ({ item, dark }: { item: number; dark: boolean }) => css`
+    color: ${item === 0 ? "red" : "#00BDB0"};
+    font-weight: 600;
+    height: 48px;
+    text-align: center;
+    color: ${item === 0 ? "red" : ""};
+    background: ${item === 0 && dark
+      ? "#8D9096"
+      : "" || item === 0
+      ? "#D6D7D8"
+      : "" || dark
+      ? "#141b29"
+      : "#FFF"};
   `
 );
 
-{
-  /* <style>
-table.GeneratedTable {
-width: 100%;
-background-color: #ffffff;
-border-collapse: collapse;
-border-width: 2px;
-border-color: #e8e4d4;
-border-style: solid;
-color: #000000;
-}
-
-table.GeneratedTable td, table.GeneratedTable th {
-border-width: 2px;
-border-color: #e8e4d4;
-border-style: solid;
-padding: 3px;
-}
-
-table.GeneratedTable thead {
-background-color: #e5e3dc;
-}
-</style> */
-}
+const StyledImg = styled.img(
+  ({ storage }: { storage: number }) => css`
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: ${storage === 0 ? "2px solid red" : ""};
+  `
+);
