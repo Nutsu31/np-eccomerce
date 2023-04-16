@@ -8,7 +8,7 @@ const Links = ({ item }: { item: DataTypes }) => {
   return (
     <div style={{ maxWidth: 250, height: 500 }}>
       <Link
-        to={`/${item._id}`}
+        to={`/shop/${item._id}`}
         key={item._id}
         style={{
           textDecoration: "none",
