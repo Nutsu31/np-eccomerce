@@ -43,7 +43,7 @@ const Checkouts = ({
       >
         {checkout?.map((item) => (
           <div key={Math.random() * Math.random() * Math.random()}>
-            {item.status !== "delivered" ? (
+            {item.status !== "delivered" && item.status !== "canceled" ? (
               <div
                 style={{
                   border: "1px solid black",
@@ -76,11 +76,25 @@ const Checkouts = ({
                 </div>
               </div>
             ) : null}
-            {item.status !== "delivered" ? (
+            {item.status !== "delivered" && item.status !== "canceled" ? (
               <Paragraph>სტატუსი: {item.status} </Paragraph>
             ) : null}
-            {item.status !== "delivered" ? (
+            {item.status !== "delivered" && item.status !== "canceled" ? (
               <form>
+                <Button
+                  variant="outlined"
+                  type="submit"
+                  color="error"
+                  onClick={() => {
+                    setOrderStatus({
+                      id: item._id,
+                      status: "canceled",
+                      models: item.model,
+                    });
+                  }}
+                >
+                  გაუქმებულია
+                </Button>
                 <Button
                   variant="outlined"
                   type="submit"
@@ -92,7 +106,7 @@ const Checkouts = ({
                     });
                   }}
                 >
-                  In Progress
+                  პროცესშია
                 </Button>
                 <Button
                   variant="outlined"
@@ -100,15 +114,16 @@ const Checkouts = ({
                     setOrderStatus({ id: item._id, status: "shipped" });
                   }}
                 >
-                  Shipped
+                  გზაშია
                 </Button>
                 <Button
                   variant="outlined"
+                  color="success"
                   onClick={() => {
                     setOrderStatus({ id: item._id, status: "delivered" });
                   }}
                 >
-                  Delivered
+                  ჩაბარებულია
                 </Button>
               </form>
             ) : null}

@@ -21,6 +21,8 @@ import { Search } from "@mui/icons-material";
 
 function getStatus({ status }: { status: string }) {
   switch (status) {
+    case "canceled":
+      return "შეკვეთა გაუქმბულია  !";
     case "Order Placed":
       return "ველოდებით დადასტურებას!";
     case "inProgress":
