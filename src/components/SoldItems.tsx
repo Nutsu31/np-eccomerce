@@ -24,7 +24,6 @@ const SoldItems = ({ checkout }: { checkout: CheckoutsType[] | undefined }) => {
   const checkoutCanceled = checkout?.filter((i) => i.status === "canceled");
   const canceledCheckoutSum = checkoutCanceled?.map((i) => i.totalPrice);
   const totalCanceledSum = canceledCheckoutSum?.reduce((x, y) => x + y);
-  console.log(canceledCheckoutSum);
 
   const dark = useContext(DarkModeContext);
 
@@ -105,7 +104,7 @@ const SoldItems = ({ checkout }: { checkout: CheckoutsType[] | undefined }) => {
                   }}
                 />
               </Box>
-              ₾{countSoldPrice}
+              ₾{countSoldPrice! - totalCanceledSum!}
             </span>
           </p>
         </OrderBox>
@@ -140,7 +139,7 @@ const SoldItems = ({ checkout }: { checkout: CheckoutsType[] | undefined }) => {
                   }}
                 />
               </Box>
-              {totalSold}ც
+              {totalSold! - checkoutCanceled?.length!}ც
             </span>
           </p>
         </OrderBox>

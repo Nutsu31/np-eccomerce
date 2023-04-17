@@ -1,14 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styled, { css } from "styled-components";
+import { CheckoutsType, getCheckouts, getStatusColor } from "./functions";
 import {
-  CheckoutsType,
-  getCheckouts,
-  getStatusColor,
-  OrderStatusType,
-  updateCheckoutStatus,
-} from "./functions";
-import { Button } from "@mui/material";
-// import { Details } from "./NewAdded";
+  Box,
+  Button,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+  Typography,
+} from "@mui/material";
+import { DarkModeContext, darkTheme, lightTheme } from "../pages/Root";
+import { Home, Person, ShoppingBag } from "@mui/icons-material";
+import axios from "axios";
 
 const Checkouts = ({
   setCheckout,
@@ -19,116 +24,263 @@ const Checkouts = ({
     React.SetStateAction<CheckoutsType[] | undefined>
   >;
 }) => {
-  const [shouldUpdate, setShouldUpdate] = useState(false);
-  const [orderStatus, setOrderStatus] = useState<OrderStatusType | undefined>(
-    undefined
-  );
+  const [orderStatus, setOrderStatus] = useState("");
 
   useEffect(() => {
     getCheckouts({ setCheckout });
-  }, [orderStatus, shouldUpdate]);
+  }, [orderStatus]);
 
-  useEffect(() => {
-    updateCheckoutStatus({ orderStatus, setShouldUpdate });
-  }, [orderStatus, checkout]);
+  const dark = useContext(DarkModeContext);
+  const handleSubmit = (item: CheckoutsType) => {
+    axios({
+      method: "PUT",
+      url: "http://192.168.0.104:5001/checkout",
+      headers: { "Content-Type": "application/json" },
+      data: {
+        id: item?._id,
+        status: orderStatus,
+        models: item?.model,
+      },
+    })
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const handleChange = (e: SelectChangeEvent) => {
+    e.preventDefault();
+    setOrderStatus(e.target.value as string);
+  };
+  console.log(orderStatus);
 
   return (
     <Container>
       <div
         style={{
+          width: "100%",
           display: "flex",
+          alignItems: "flex-start",
+          justifyContent: "flex-start",
+          flexDirection: "column",
           gap: 24,
           flexWrap: "wrap",
         }}
       >
-        {checkout?.map((item) => (
-          <div key={Math.random() * Math.random() * Math.random()}>
-            {item.status !== "delivered" && item.status !== "canceled" ? (
-              <div
-                style={{
-                  border: "1px solid black",
-                  padding: 16,
-                  background: getStatusColor(item.status),
+        <Typography
+          component={"span"}
+          sx={{ fontSize: { xs: 14, sm: 16, md: 18, lg: 22 }, fontWeight: 600 }}
+        >
+          Order Details
+        </Typography>
+        {checkout?.map((item) =>
+          item.status !== "delivered" && item.status !== "canceled" ? (
+            <Box
+              key={Math.random() * Math.random()}
+              sx={{
+                width: "100%",
+                padding: "16px",
+                display: "flex",
+                flexDirection: "column",
+                borderRadius: "10px",
+                backgroundColor: dark ? "#484D58" : "#F0F0F1",
+              }}
+            >
+              <Box
+                key={Math.random() * Math.random()}
+                sx={{
+                  width: "100%",
+                  height: 76,
+                  display: "flex",
+                  justifyContent: "space-between",
                 }}
-                key={item.phone + Math.random()}
               >
-                <Paragraph>შეკვეთის N: {item._id} </Paragraph>
-                <Paragraph>
-                  სახელი: {item.firstname} {item.lastname}
-                </Paragraph>
-                <Paragraph>ნომერი: {item.phone}</Paragraph>
-                <Paragraph>ქალაქი: {item.city}</Paragraph>
-                <Paragraph>ქუჩა: {item.street}</Paragraph>
-                <Paragraph>ალტ ნომერი: {item?.alt_phone}</Paragraph>
-                <Paragraph>ფოსტა: {item?.postalCode}</Paragraph>
-                <Paragraph>ფასი: {item?.totalPrice}₾</Paragraph>
-                <div style={{ display: "flex", gap: 24, flexWrap: "wrap" }}>
-                  {item.model.map((model) => (
-                    <div key={item._id + Math.random()}>
-                      <img src={model.img[0]} alt="each model" width={100} />
-                      <div>
-                        <Paragraph>სახელი: {model.name}</Paragraph>
-                        <Paragraph>რაოდენობა: x{model.quantity}</Paragraph>
-                        <Paragraph>ზომა: {model.size}</Paragraph>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ) : null}
-            {item.status !== "delivered" && item.status !== "canceled" ? (
-              <Paragraph>სტატუსი: {item.status} </Paragraph>
-            ) : null}
-            {item.status !== "delivered" && item.status !== "canceled" ? (
-              <form>
-                <Button
-                  variant="outlined"
-                  type="submit"
-                  color="error"
-                  onClick={() => {
-                    setOrderStatus({
-                      id: item._id,
-                      status: "canceled",
-                      models: item.model,
-                    });
+                <Box sx={{ display: "flex", gap: "16px" }}>
+                  <Paragraph>OrderN: #{item.phone}</Paragraph>
+                  <Typography
+                    component={"p"}
+                    sx={{
+                      width: 100,
+                      height: 30,
+                      fontSize: 14,
+                      backgroundColor: getStatusColor(item.status),
+                      borderRadius: 2,
+                      textAlign: "center",
+                    }}
+                  >
+                    {item.status}
+                  </Typography>
+                </Box>
+                <FormControl>
+                  <form onSubmit={() => handleSubmit(item)}>
+                    <InputLabel>სტატუსის შეცვლა</InputLabel>
+                    <Select
+                      sx={{
+                        width: { xs: 100, sm: 140, md: 160, lg: 200 },
+                        marginRight: 2,
+                      }}
+                      label="სტატუსის შეცვლა"
+                      value={orderStatus}
+                      id="status"
+                      onChange={(e: SelectChangeEvent) => handleChange(e)}
+                    >
+                      <MenuItem value="canceled">გაუქმება</MenuItem>
+                      <MenuItem value="inProgress">პროცესშია</MenuItem>
+                      <MenuItem value="shipped">გაიგზავნა</MenuItem>
+                      <MenuItem value="delivered">ჩაბარებულია</MenuItem>
+                    </Select>
+                    <Button variant="contained" type="submit">
+                      შენახვა
+                    </Button>
+                  </form>
+                </FormControl>
+              </Box>
+              <Box
+                sx={{
+                  display: "flex",
+                  width: "100%",
+                  justifyContent: "space-between",
+                }}
+              >
+                <Box
+                  sx={{
+                    width: { sm: 348, md: 400, lg: 460, xl: 540 },
+                    border: "1px solid lightgray",
+                    borderRadius: "10px",
+                    height: 192,
+                    padding: "16px",
+                    display: "flex",
+                    gap: "8px",
                   }}
                 >
-                  გაუქმებულია
-                </Button>
-                <Button
-                  variant="outlined"
-                  type="submit"
-                  onClick={() => {
-                    setOrderStatus({
-                      id: item._id,
-                      status: "inProgress",
-                      models: item.model,
-                    });
+                  <Box>
+                    <IconDiv>
+                      <Person />
+                    </IconDiv>
+                  </Box>
+                  <Box>
+                    <Typography sx={{ fontWeight: 600, fontSize: 18 }}>
+                      მომხმარებელი
+                    </Typography>
+                    <Typography component="p">
+                      სახელი:
+                      {item.firstname} {item.lastname}
+                    </Typography>
+                    <Typography component="p">
+                      ტელ: {item.phone} ალტ. ტელ: {item.alt_phone}
+                    </Typography>
+                    <Typography component="p"></Typography>
+                  </Box>
+                </Box>
+                <Box
+                  sx={{
+                    width: { sm: 348, md: 400, lg: 460, xl: 540 },
+                    border: "1px solid lightgray",
+                    borderRadius: "10px",
+                    height: 192,
+                    padding: "16px",
+                    display: "flex",
+                    gap: "8px",
                   }}
                 >
-                  პროცესშია
-                </Button>
-                <Button
-                  variant="outlined"
-                  onClick={() => {
-                    setOrderStatus({ id: item._id, status: "shipped" });
+                  <Box>
+                    <IconDiv>
+                      <ShoppingBag />
+                    </IconDiv>
+                  </Box>
+                  <Box>
+                    <Typography sx={{ fontWeight: 600, fontSize: 18 }}>
+                      შეკვეთა:
+                    </Typography>
+                    <Typography component="p">
+                      გზავნილის ტიპი: Georgian Post
+                    </Typography>
+                    <Typography component="p">
+                      გადახდის ტიპი: TBC ? CASH
+                    </Typography>
+                    <Typography component="p">
+                      სტატუსი: {item.status}
+                    </Typography>
+                  </Box>
+                </Box>
+                <Box
+                  sx={{
+                    width: { sm: 348, md: 400, lg: 460, xl: 540 },
+                    border: "1px solid lightgray",
+                    borderRadius: "10px",
+                    height: 192,
+                    padding: "16px",
+                    display: "flex",
+                    gap: "8px",
                   }}
                 >
-                  გზაშია
-                </Button>
-                <Button
-                  variant="outlined"
-                  color="success"
-                  onClick={() => {
-                    setOrderStatus({ id: item._id, status: "delivered" });
-                  }}
-                >
-                  ჩაბარებულია
-                </Button>
-              </form>
-            ) : null}
-          </div>
-        ))}
+                  <Box>
+                    <IconDiv>
+                      <Home />
+                    </IconDiv>
+                  </Box>
+                  <Box>
+                    <Typography sx={{ fontWeight: 600, fontSize: 18 }}>
+                      მისამართი:
+                    </Typography>
+                    <Typography component="p">
+                      მისამართი:
+                      {item.street}
+                    </Typography>
+                    <Typography component="p">
+                      ქალაქი:
+                      {item.city}
+                    </Typography>
+                    <Typography component="p">
+                      საფოსტო ი:
+                      {item.postalCode}
+                    </Typography>
+                    <Typography component="p">
+                      ტელ: {item.phone} ან {item.alt_phone}
+                    </Typography>
+                    <Typography component="p"></Typography>
+                  </Box>
+                </Box>
+              </Box>
+              <Typography>Product</Typography>
+              {item.model.map((i) => (
+                <>
+                  <Box
+                    key={Math.random() * Date.now()}
+                    sx={{
+                      width: "100%",
+                      height: 60,
+                      borderRadius: "10px",
+                      padding: "0 8px",
+                      margin: "4px",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      backgroundColor: dark
+                        ? darkTheme.palette.background.default
+                        : lightTheme.palette.background.default,
+                    }}
+                  >
+                    <img
+                      src={i.img[0]}
+                      alt="model"
+                      style={{
+                        width: 40,
+                        height: 40,
+                        borderRadius: "4px",
+                      }}
+                    />
+                    <Typography>დასახელება: {i.name}</Typography>
+                    <Typography>ზომა: {i.size}</Typography>
+                    <Typography>რაოდენობა: x{i.quantity}</Typography>
+                    <Typography>ფასი: ₾{i.price}</Typography>
+                    <Typography>ფასდაკლება: {i.sale}%</Typography>
+                  </Box>
+                </>
+              ))}
+            </Box>
+          ) : null
+        )}
       </div>
     </Container>
   );
@@ -148,5 +300,18 @@ const Container = styled.div(
 const Paragraph = styled.p(
   () => css`
     font-weight: 600;
+  `
+);
+
+const IconDiv = styled.div(
+  () => css`
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #23f;
+    color: white;
   `
 );

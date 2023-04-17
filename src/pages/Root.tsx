@@ -7,12 +7,12 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { CartType, getItemsFromLocalStorage } from "../components/functions";
 import styled, { css } from "styled-components";
 
-const darkTheme = createTheme({
+export const darkTheme = createTheme({
   palette: {
     mode: "dark",
   },
 });
-const lightTheme = createTheme({
+export const lightTheme = createTheme({
   palette: {
     mode: "light",
   },
